@@ -1,0 +1,416 @@
+
+package Metatron.Core.Primitive;
+
+import static Metatron.Core.M_Utils.*;
+
+import java.util.Iterator;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import Metatron.Core.Math.N_Operator;
+import Metatron.Core.Math.aGeom;
+import Metatron.Core.Math.aMaths;
+import Metatron.Core.Math.Primitive.aVector;
+import Metatron.Core.Primitive.A_I.iCollection;
+import Metatron.Core.Primitive.A_I.iMap;
+import Metatron.Core.Primitive.Struct.aMap;
+import Metatron.Core.Primitive.Struct.aMultiMap;
+import Metatron.Core.Utils.StringUtils;
+
+
+
+public class aValue<T> extends aMultiMap.Entry<String, T> {
+
+	public static aValue EMPTY;
+	// aLabeldValue lol, a meme
+	// get() updates and returns last known value
+	static {
+		EMPTY = new aValue("EMPTY",aNode.NULL);
+	}
+	protected boolean exists = true;
+
+	public Supplier<String> Name = () -> this.getKey();
+
+	protected boolean mutable = true;
+
+	public aValue(String name) {
+		super();
+		this.label = name;
+		this.key = this.label;
+		this.value = null;
+		this.type = (T) Void.class;
+		this.init();
+	}
+
+	public aValue(String name, T val) {
+		super(name, val);
+		this.init();
+
+	}
+
+	public aValue(aValue<T> cpy) {
+		super(cpy.label(), cpy.get());
+
+		this.init();
+	}
+
+	public aValue init() {
+		this.buildIn();
+		this.buildOut();
+
+		return this;
+	}
+
+	protected void buildOut() {
+		this.Get = () -> {
+			return this.get();
+		};
+
+	}
+
+	protected void buildIn() {
+		this.Set = (T t) -> {
+			this.set(t);
+		};
+		this.Put = (String s, Object o) -> {
+			this.set(s, o);
+		};
+
+	}
+
+	public T get(int i) {
+		if (this.get() instanceof iCollection<?>)
+			return ((iCollection<T>) this.get()).get(i);
+		else if (this.get() instanceof iMap)
+			return (T) ((iMap) this.get()).getValues().get(i);
+
+		else
+			return null;
+	}
+
+	public aValue evaluate() {
+		// Override me lol
+		return this;
+	}
+
+	@Override
+	public String label() {
+		return this.getKey();
+	}
+
+
+
+	
+
+
+	@Override
+	public boolean equals(Object other) {
+
+		if (super.equals(other))
+			return true;
+		else {
+			if (other instanceof String) {
+				String o = "" + other;
+				return StringUtils.isFormOf(this.label(), o);
+			}
+		}
+
+		return false;
+	}
+	
+	@Override
+	public String toToken() {
+		String tag = "";
+
+		if (instanceOf(iCollection.class).test(this.value)) {
+			iCollection C = ((iCollection) this.get());
+			String T = this.get().getClass().getSimpleName();
+			return "(" + C.getClass().getSimpleName() + "[" + C.size() + "]" + C + ")";
+		}
+
+		tag = this.get().getClass().getSimpleName();
+		return "<" + tag + ">";
+	}
+	
+	@Override
+	public String toTag()
+	{
+		return this.getKey() + " = " + this.getValue();
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString();		
+	}
+
+	@Override
+	public String toLog() {
+
+		String s = "";
+		String value = "";
+		String t = "";
+		if (this.get() != this)
+			value = "" + this.get();
+
+		s = "[" + this.label() + "@" + this.hashCode() + " = " + this.toNodeTag();
+		if (this.shared != null)
+			s += "\n" + this.shared;
+		return s;
+	}
+
+	// new Reference, extends aFunction<aNode>
+	public static class Reference extends aValue<aNode> {
+		// value acting as a label for another value
+		// aMap<<String>[](.csv(a,b,c,d,!,@,#,$)),<aValue>(v1,v2,v3,v4)>
+		public Reference(String name, aNode val) {
+			super(name, val);
+			this.link(null, name, val);
+		}
+
+		public Reference(String name, Object val) {
+			this(name, new aNode(val));
+		}
+
+		public Reference(String name, aNode val, Object context) {
+			super(name, val);
+			this.link(context, name, val);
+		}
+
+		public Reference(String name, Object val, Object context) {
+			this(name, new aNode(val), context);
+		}
+
+		// returns the value of the linked node
+		public Object pull() {
+			return this.get().get();
+		}
+
+		public void push(Object thing) {
+			if (thing instanceof aNode)
+				this.push(((aNode) thing).get());
+			else
+				this.get().set(thing);
+		}
+
+		public Reference update(Object value) {
+			this.push(value);
+			return this;
+		}
+
+		public Object rtn(Object value) {
+			return this.update(value).pull();
+		}
+
+		public aMultiMap.Entry<Reference, aNode> enter() {
+			return new aMultiMap.Entry<Reference, aNode>(this, this.get());
+		}
+
+		public aMultiMap.Entry<String, Object> toEntry() {
+			return new aMultiMap.Entry(this.label(), this.get().get());
+		}
+
+		@Override
+		public String toString() {
+			String value = "";
+			String t = "";
+			if (this.get() != this)
+				value = "" + this.get();
+
+			return "[" + this.label() + this.get().toTag() + "] = [" + this.pull() + "]";
+		}
+	}
+
+	
+	public static class Is extends aValue<Boolean>{
+
+		public Is(String name) {
+			super(name,true);
+		}
+		
+	}
+	
+	public static class Range extends aValue<Number> {
+
+		// int range?
+		public Number min = 0f;
+		public Number max = 1f;
+
+		private Number pin = 1f;
+
+		public boolean mod = false;
+		public boolean ref = false;
+		private int dir = 1;
+
+		public Range(String name, aVector val) {
+			super(name, val.resize(2));
+			if (val.get(0) != null)
+				this.min = val.get(0);
+			if (val.get(1) != null)
+				this.min = val.get(1);
+
+		}
+
+		public Range(aVector val) {
+			this("aRange", val);
+		}
+
+		public Range(String name, Number min, Number max) {
+			super(name, new aVector(min, max));
+			this.min = min;
+			this.max = max;
+			this.pin(this.max);
+			this.set(min.floatValue());
+		}
+
+		public Range(Number min, Number max) {
+			this("aRange", min, max);
+		}
+
+		@Override
+		public void set(Number val) {
+
+			if (this.mod) {
+				this.value = N_Operator.resolveTo(N_Operator.mod(val, this.max), val);
+			} else
+				this.value = N_Operator.resolveTo((N_Operator.clamp(val, this.min.floatValue(), this.max.floatValue())),
+						val);
+
+		}
+
+		public Range pin(Number format) {
+			this.pin = format;
+			return this;
+		}
+
+		public Range repin(Number format) {
+			this.pin = format;
+			this.value = N_Operator.pin(this.get(), format);
+
+			return this;
+		}
+
+		// mode-set
+
+		// modulator
+		public Range mod() {
+			this.mod = !this.mod;
+			this.ref = false;
+			return this;
+		}
+
+		// reflector, inop
+		public Range ref() {
+			this.mod = false;
+			this.ref = !this.ref;
+			this.dir *= -1;
+			return this;
+		}
+
+		// util
+		public boolean contains(Number n) {
+			boolean gMin = n.floatValue() >= this.min.floatValue();
+			boolean gMax = n.floatValue() <= this.max.floatValue();
+			return (gMin && gMax);
+		}
+
+		public float distance() {
+			return this.max.floatValue() - this.min.floatValue();
+		}
+
+		public float dst() {
+			return this.distance();
+		}
+
+		public Number getMidpoit() {
+			return this.reterp(0.5f);
+		}
+
+		public Range step(Number by) {
+			//
+			Number expectRes = N_Operator.add(N_Operator.mul(by, this.dir), this.get());
+			// Log(" ___" + expectRes);
+			Number overrun = 0;
+			if (this.ref && (aMaths.compare(expectRes, this.max) == 1) || aMaths.compare(expectRes, this.min) == -1) {
+				overrun = N_Operator.resolveTo(N_Operator.mod(by, this.max), by);
+
+				// Log(" ***" + overrun);
+				this.dir *= -1;
+			}
+
+			this.set(N_Operator.add(this.get(), N_Operator.mul(N_Operator.sub(by, overrun), this.dir)));
+			return this;
+		}
+
+		// return value% of this range
+		public Number interp(Number value) {
+			Number N = N_Operator.lerp(this.min.floatValue(), this.max.floatValue(), value.floatValue());
+			return N_Operator.resolveTo(N, value);
+		}
+
+		public Number percentOf(Number value) {
+			return this.interp(value);
+		}
+
+		// value is what % of this range
+		public Number reterp(Number value) {
+			Number N = N_Operator.ilerp(this.min.floatValue(), this.max.floatValue(), value.floatValue());
+			return N_Operator.resolveTo(N, value);
+		}
+
+		public Number percentIs(Number value) {
+			return this.reterp(value);
+		}
+
+		@Override
+		public String toString() {
+			/*
+			 * String s = ""; s += this.getClass().getSimpleName(); s += "{" + this.min +
+			 * "->" + this.max + "}:[" + this.get + "]|[" +
+			 * this.reterp(this.get.floatValue()) + "]";
+			 * 
+			 * if(this.mod) s+="%";
+			 */
+			String s = "";
+			String md = "%";
+
+			if (this.mod)
+				md = "%";
+			if (this.ref)
+				md = "$";
+
+			String dr = "->";
+			if (this.dir < 0)
+				dr = "<-";
+
+			Number Pin = N_Operator.pin(this.get(), this.pin);
+			Number Per = N_Operator.pin(this.reterp(this.get().floatValue()), this.pin);
+
+			s += "{" + this.min + dr + this.max + "}" + md + "[" + Pin + "|" + Per + "]";
+
+			return s;
+		}
+	}
+
+	// should be aMap<Int,aVal<T>>
+	public static class Axial<T> extends aValue<aMultiMap<Integer, T>> {
+
+		// -2 > tiny
+		// -1 > small
+		// 1 > normal
+		// 2 > big
+		//
+
+		// aNode.Context
+		protected aMap<Integer, Object> terms = new aMap<Integer, Object>();
+
+		public Axial(String name, T[] items) {
+			super(name, new aMultiMap<Integer, T>());
+			int s = items.length / 2;
+
+			aVector[] addresses = aGeom.interpolate(new aVector(0), new aVector(s));
+		}
+
+	}
+
+}
