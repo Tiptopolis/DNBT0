@@ -266,7 +266,7 @@ public class _Array<T> implements iCollection<T> {
 	}
 
 	public String toLog() {
-		String log = this.getClass().getSimpleName() + "{" + this.size() + "}\n";
+		String log = "<"+this.getClass().getSimpleName() + ">{" + this.size() + "}\n";
 		if (this.data != null)
 			for (int i = 0; i < this.data.length; i++) {
 				log += "[" + i + "]" + this.data[i] + "\n";

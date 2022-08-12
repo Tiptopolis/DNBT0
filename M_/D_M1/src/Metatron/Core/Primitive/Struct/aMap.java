@@ -64,7 +64,7 @@ public class aMap<K, V> extends _Map<K, V> {
 	@Override
 	public String toLog()
 	{
-		String log = this.getClass().getSimpleName()+"\n";
+		String log = "<"+this.getClass().getSimpleName()+">\n";
 		for(Entry<K,V> E : this)
 		{
 			K key = E.getKey();

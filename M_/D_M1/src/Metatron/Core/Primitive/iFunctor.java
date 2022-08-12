@@ -54,6 +54,13 @@ public interface iFunctor<T> {
 		@Override
 		void accept(Object t);
 	}
+	
+	@FunctionalInterface
+	public static interface Predicate<T> extends java.util.function.Predicate<T>
+	{
+		@Override
+		 boolean test(T t);
+	}
 
 	@FunctionalInterface
 	public static interface Effect<T> extends iFunctor<T>, java.util.function.Function<T, T> {

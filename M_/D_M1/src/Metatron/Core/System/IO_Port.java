@@ -19,8 +19,8 @@ public class IO_Port<I,O> implements iComponent, iFunctor<iEvent> {
 
 	protected aNode shell;
 	
-	protected I lastIn;
-	protected O lastOut;
+	protected I lastIn; //E -> shell
+	protected O lastOut; //shell -> E
 
 	public IO_Port(aNode shell) {
 		this.shell = shell;

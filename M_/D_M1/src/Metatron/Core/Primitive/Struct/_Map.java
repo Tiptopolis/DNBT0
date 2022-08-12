@@ -286,7 +286,7 @@ public abstract class _Map<K, V> implements iMap<K, V> {
 	}
 
 	public String toLog() {
-		String log = this.getClass().getSimpleName() + "{" + this.keys.size() + "}\n";
+		String log = "<"+this.getClass().getSimpleName() + ">{" + this.keys.size() + "}\n";
 		log += this.keys.toSet().size() + "x" + this.values.size() + "\n";
 		/*
 		 * for (int i = 0; i < this.keys.size(); i++) { log += "[" + i + "]" +

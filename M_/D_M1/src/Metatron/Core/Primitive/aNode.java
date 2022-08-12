@@ -2,7 +2,6 @@ package Metatron.Core.Primitive;
 
 import static Metatron.Core.M_Utils.*;
 
-
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -11,12 +10,16 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import Metatron.Core.Primitive.A_I.iCollection;
+import Metatron.Core.Primitive.A_I.iCycle;
+import Metatron.Core.Primitive.A_I.iDisposable;
 import Metatron.Core.Primitive.A_I.iGroup;
 import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.A_I.iToken;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct._Map.Entry;
+import Metatron.Core.System.Event.iEvent;
+import Metatron.Core.System.Event.iEventHandler;
 import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aMultiMap;
@@ -24,9 +27,7 @@ import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Utils.StringUtils;
 
-
-
-public class aNode<T> extends aToken<T> implements iNode<T> {
+public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 	public static aNode NULL;
 	static {
@@ -139,13 +140,23 @@ public class aNode<T> extends aToken<T> implements iNode<T> {
 		this.Get = null;
 		this.Set = null;
 		this.Put = null;
+		
+		if(this.value instanceof iCycle)
+			((iCycle) this.value).terminate();
+		if (this.value instanceof iDisposable)
+			((iDisposable) this.value).dispose();		
 		this.value = null;
-		for (Entry<Entry<Object, java.lang.String>, aLink> L : this.links)
-			L.getValue().dispose();
-		this.links.clear();
-		this.data.clear();
-		this.meta.clear();
-		this.shared.clear();
+		if (this.links != null) {
+			for (Entry<Entry<Object, java.lang.String>, aLink> L : this.links)
+				L.getValue().dispose();
+			this.links.clear();
+		}
+		if (this.data != null)
+			this.data.clear();
+		if (this.meta != null)
+			this.meta.clear();
+		if (this.shared != null)
+			this.shared.clear();
 	}
 
 	public boolean is(String what) {
@@ -295,6 +306,11 @@ public class aNode<T> extends aToken<T> implements iNode<T> {
 			return false;
 
 		return this.links.containsValue(target);
+	}
+
+	@Override
+	public boolean handle(iEvent o) {
+		return false;
 	}
 
 	private static void _LINKS_() {
@@ -531,7 +547,9 @@ public class aNode<T> extends aToken<T> implements iNode<T> {
 		if (instanceOf(iCollection.class).test(this.value)) {
 			iCollection C = ((iCollection) this.get());
 			String T = this.get().getClass().getSimpleName();
-			return "(" + C.getClass().getSimpleName() + "[" + C.size() + "]" + C + ")";
+			if (this.label != null)
+				tag = "[<{" + this.label + ">}]\n";
+			return tag + "(" + C.getClass().getSimpleName() + "[" + C.size() + "]" + C + ")";
 		}
 
 		if (this.get() instanceof Class)
@@ -558,25 +576,23 @@ public class aNode<T> extends aToken<T> implements iNode<T> {
 		String v = "{(" + value + "):(" + this.toTag() + c + ")}]";
 		return v;
 	}
-	
-	public String toPropTag()
-	{
-		String a = ""+this.label;
-		String b = "[("+this.value + "):<"+this.value.getClass().getSimpleName()+">]";
-		if(!a.equals("") && !a.equals("null") && !a.equals(" "))
-			return a+" = "+b;
+
+	public String toPropTag() {
+		String a = "" + this.label;
+		String b = "[(" + this.value + "):<" + this.value.getClass().getSimpleName() + ">]";
+		if (!a.equals("") && !a.equals("null") && !a.equals(" "))
+			return a + " = " + b;
 		else
 			return b;
 	}
-	
-	public String toPropIndexTag()
-	{
-		String a = ""+this.label;
-		String b = "[("+this.value + "):<"+this.value.getClass().getSimpleName()+">]";
-		if(!a.equals("") && !a.equals("null") && !a.equals(" "))
-			return a+" = "+b;
+
+	public String toPropIndexTag() {
+		String a = "" + this.label;
+		String b = "[(" + this.value + "):<" + this.value.getClass().getSimpleName() + ">]";
+		if (!a.equals("") && !a.equals("null") && !a.equals(" "))
+			return a + " = " + b;
 		else
-			return " = "+b;
+			return " = " + b;
 	}
 
 	@Override

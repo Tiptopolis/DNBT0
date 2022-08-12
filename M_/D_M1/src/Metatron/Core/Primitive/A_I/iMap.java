@@ -15,9 +15,6 @@ import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Utils.StringUtils;
 
-
-
-
 public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 
 	public void put(K key, Object val);
@@ -95,6 +92,34 @@ public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 		this.getValues().remove(at);
 	}
 
+	public default Object take(K index) {
+
+		Object out = null;
+		aSet<Integer> ind = new aSet<Integer>();
+		aSet<_Map.Entry> found = new aSet<_Map.Entry>();
+		iCollection<_Map.Entry> c = this.getEntries();
+
+		// scan
+		for (int i = 0; i < this.size(); i++) {
+			_Map.Entry E = c.get(i);
+			if (E.getKey() == index || E.getKey().equals(index)) {
+				ind.append(i);
+				found.append(E);
+			}
+		}
+
+		for (Entry E : found)
+			this.remove(E);
+
+		if (found.size() == 1)
+			out = found.get(0);
+		else
+			out = found;
+
+		return out;
+
+	}
+
 	@Override
 	public default Integer indexOf(Object k) {
 		return this.getKeys().indexOf(k);
@@ -130,7 +155,7 @@ public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 
 	}
 
-	public default <X, Y,E extends _Map.Entry<X,Y>> E newEntry(X key, Y val) {
+	public default <X, Y, E extends _Map.Entry<X, Y>> E newEntry(X key, Y val) {
 		return (E) new _Map.Entry<X, Y>(key, val);
 	}
 
@@ -138,16 +163,16 @@ public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 		this.getEntries().forEach(action);
 	}
 
-	/*public default void forEach(BiConsumer<K, V> action) {
-		Objects.requireNonNull(action);
-		final int expectedModCount = this.getValues().modCount();
-		final _Map.Entry<K, V>[] es = this.getEntries().getComponentData();
-		final int size = this.size();
-		for (int i = 0; this.getValues().modCount() == expectedModCount && i < size; i++)
-			action.accept(es[i].getKey(), es[i].getValue());
-		if (this.getValues().modCount() != expectedModCount)
-			throw new ConcurrentModificationException();
-	}*/
+	/*
+	 * public default void forEach(BiConsumer<K, V> action) {
+	 * Objects.requireNonNull(action); final int expectedModCount =
+	 * this.getValues().modCount(); final _Map.Entry<K, V>[] es =
+	 * this.getEntries().getComponentData(); final int size = this.size(); for (int
+	 * i = 0; this.getValues().modCount() == expectedModCount && i < size; i++)
+	 * action.accept(es[i].getKey(), es[i].getValue()); if
+	 * (this.getValues().modCount() != expectedModCount) throw new
+	 * ConcurrentModificationException(); }
+	 */
 
 	public static Comparator<_Map.Entry> keyComparator() {
 		return new Comparator<_Map.Entry>() {

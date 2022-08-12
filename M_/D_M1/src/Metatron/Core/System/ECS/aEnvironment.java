@@ -31,11 +31,17 @@ public class aEnvironment extends aToken<aSet<iEventHandler>> implements iEventH
 		this.type = aEnvironment.class;
 		this.updateThresholds = new aMultiMap<String, iEventHandler>();
 	}
+	
+	public aEnvironment(String name)
+	{
+		this();
+		
+	}
 
 
 	@Override
-	public void handle(iEvent o) {
-		// TODO Auto-generated method stub
+	public boolean handle(iEvent o) {
+		return false;
 		
 	}
 	

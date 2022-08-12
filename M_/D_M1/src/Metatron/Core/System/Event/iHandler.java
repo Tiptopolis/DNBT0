@@ -1,31 +1,34 @@
 package Metatron.Core.System.Event;
 
+import Metatron.Core.Primitive.iFunctor;
+
 public interface iHandler<T> {
 
-	public void handle(T o);
+	public boolean handle(T o);
+	
 	
 
-	public default void handle(String o)
+	public default boolean handle(String o)
 	{
 		
-	}
-	
-	public default boolean handled(T o)
-	{
-		this.handle(o);
 		return false;
 	}
 	
-	public default boolean handled(String o)
-	{
-		this.handle(o);
-		return false;
-	}
+
 	
 	public default boolean isActive()
 	{
 		return true;
 	}
 	
+
+	
+	public default void invoke(T o, iFunctor f)
+	{
+		f.accept(o);
+		
+	}
+	
+
 
 }

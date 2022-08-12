@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import Metatron.Core.Math.Primitive.aTransform;
 import Metatron.Core.Math.Primitive.aVector;
+import Metatron.Core.Math.Util._Vectors;
 import Metatron.Core.Math.Util.aVectorUtils;
 import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aSet;
@@ -225,7 +226,7 @@ public abstract class aGeom {
 	// where as dir is the 'direction' of the line, this is the 'up'
 	public static aVector getLineNormalPositive(aVector from, aVector to) {
 		int dim = Math.min(from.size(), to.size());
-		aVector D = aVector.Axis(dim); // axis-default up
+		aVector D = _Vectors.Axis(dim); // axis-default up
 
 		aVector mid = midpoint(from, to);
 		// aVector mid = getCentroid(from,to);
@@ -239,7 +240,7 @@ public abstract class aGeom {
 	public static aVector getNormalPositive(aVector... poly) {
 		int dim = aVectorUtils.shortestSize(poly);
 
-		aVector D = aVector.Axis(dim);
+		aVector D = _Vectors.Axis(dim);
 
 		aVector mid = centroid(poly);
 		aVector dir = mid.cpy().sub(D).nor();
