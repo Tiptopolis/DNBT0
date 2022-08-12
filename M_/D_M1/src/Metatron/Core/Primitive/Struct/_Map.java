@@ -57,6 +57,15 @@ public abstract class _Map<K, V> implements iMap<K, V> {
 			this.put(E.getKey(), E.getValue());
 		}
 	}
+	
+	public _Map(java.util.Map<K, V> M) {
+		this.keys = new aList<K>();
+		this.values = new aList<V>();
+		for (Object o : M.entrySet()) {
+			Map.Entry<K, V> E = (Map.Entry<K, V>) o;
+			this.put(E.getKey(), E.getValue());
+		}
+	}
 
 	@Override
 	public Integer firstIndex() {
@@ -156,17 +165,7 @@ public abstract class _Map<K, V> implements iMap<K, V> {
 
 	}
 
-	public void removeKey(K k) {
-		/*
-		 * aList<V> V = (aList<V>) this.getAll(k); aSet<Integer> indices = new
-		 * aSet<Integer>(); for (V v : V)
-		 * indices.append(this.values.indexOf(v).intValue()); indices.sort().reverse();
-		 * 
-		 * for(int i = indices.size()-1; i >0; i--)
-		 * this.values.remove(indices.get(i).intValue());
-		 * 
-		 * this.keys.remove(k); this.keys.remove(this.keys.size() - 1);
-		 */
+	public void removeKey(K k) {		
 
 		_Map M = this.cpy();
 		this.clear();
@@ -188,12 +187,6 @@ public abstract class _Map<K, V> implements iMap<K, V> {
 		to.put(found);
 
 	}
-	/*public void delete(int at) {
-		this.remove(at);
-	}
-	public void delete(K k) {
-		this.removeKey(k);
-	}*/
 
 	public boolean contains(K key, Object val) {
 		boolean k = false;
@@ -298,16 +291,12 @@ public abstract class _Map<K, V> implements iMap<K, V> {
 	public String toLog() {
 		String log = "<"+this.getClass().getSimpleName() + ">{" + this.keys.size() + "}\n";
 		log += this.keys.toSet().size() + "x" + this.values.size() + "\n";
-		/*
-		 * for (int i = 0; i < this.keys.size(); i++) { log += "[" + i + "]" +
-		 * this.keys.get(i) + "|" + this.values.get(i) + "\n"; }
-		 */
+	
 		aSet<String> L = new aSet<String>();
 		aSet<K> thisKeys = this.keys.toSet();
 		for (K k : thisKeys) {
 			int i = keys.indexOf(k);
-			// for(int i =0; i < this.keys.size(); i++) {
-			// K k = keys.get(i);
+			
 			L.append("->[" + i + "] " + k + " |" + this.getAll(k));
 		}
 		for (int i = 0; i < L.size(); i++)

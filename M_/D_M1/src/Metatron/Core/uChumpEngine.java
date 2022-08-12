@@ -4,6 +4,7 @@ import static Metatron.Core.M_Utils.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Map;
 
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
@@ -18,6 +19,7 @@ import Metatron.Core.System.A_I.iApplet;
 import Metatron.Core.System.COM.Console.aConsole;
 import Metatron.Core.System.ECS.FSM.aState;
 import Metatron.Core.Utils.iCypher;
+import Metatron.W_CMD.WindowsConsoleAdapter;
 
 public class uChumpEngine extends uApp {
 
@@ -29,6 +31,7 @@ public class uChumpEngine extends uApp {
 	public boolean running = false;
 
 	public static aConsole M_Console;
+	public static WindowsConsoleAdapter CMD;
 
 	public static jVM_SysData HostSystemData;
 	public static M_Gfx GFX;
@@ -52,6 +55,7 @@ public class uChumpEngine extends uApp {
 
 	@Override
 	public void create() {
+		CMD = WindowsConsoleAdapter.WIN;
 
 		S1 = new aShell("S1", this.get());
 		S2 = new aShell("S2", this.get());
@@ -65,6 +69,14 @@ public class uChumpEngine extends uApp {
 		M_Console = new aConsole(this);
 
 		// initialize REPL
+		//Log(CMD.Main.directory());
+		//Map<String, String> environment = CMD.Main.environment();
+		//environment.forEach((key, value) -> Log(key + value));
+		
+		
+		//Log(CMD.toLog());
+		
+		
 
 		while (this.isActive()) {
 
@@ -74,8 +86,7 @@ public class uChumpEngine extends uApp {
 			try {
 				this.next();
 			} catch (RuntimeException r) {
-				Log(r.getStackTrace());
-				// Log(Thread.currentThread().getStackTrace());
+				Log(r.getStackTrace());				
 				this.running = false;
 			}
 
@@ -99,8 +110,7 @@ public class uChumpEngine extends uApp {
 			Object P = H.get("-o-");
 			int p = (int) P;
 			H.set("-o-", (int) H.get("-o-") + 1);
-			Log("# "+P.hashCode());
-			// Log(S1.get("png"));
+
 			// simple io port?
 			if (p >= 5) {
 				H.set("-o-", 0);
@@ -112,9 +122,12 @@ public class uChumpEngine extends uApp {
 				O = h;
 			}
 			ellapsed = 0f;
-			Log(S1.toLog());
-			Log(S2.toLog());
+			// Log(S1.toLog());
+			// Log(S2.toLog());
+			//Log("!" + CMD);
+			//M_Console.input(":LOG");
 		}
+
 	}
 
 	@Override

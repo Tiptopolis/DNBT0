@@ -205,16 +205,6 @@ public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 		this.getEntries().forEach(action);
 	}
 
-	/*
-	 * public default void forEach(BiConsumer<K, V> action) {
-	 * Objects.requireNonNull(action); final int expectedModCount =
-	 * this.getValues().modCount(); final _Map.Entry<K, V>[] es =
-	 * this.getEntries().getComponentData(); final int size = this.size(); for (int
-	 * i = 0; this.getValues().modCount() == expectedModCount && i < size; i++)
-	 * action.accept(es[i].getKey(), es[i].getValue()); if
-	 * (this.getValues().modCount() != expectedModCount) throw new
-	 * ConcurrentModificationException(); }
-	 */
 
 	public static Comparator<_Map.Entry> keyComparator() {
 		return new Comparator<_Map.Entry>() {

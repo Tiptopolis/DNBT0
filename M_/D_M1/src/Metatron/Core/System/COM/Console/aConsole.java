@@ -26,6 +26,8 @@ public class aConsole implements iEventHandler {
 	public boolean echo = false;
 
 	public aList<iEventHandler> Subscribers = new aList<iEventHandler>();
+	
+	
 
 	public aConsole(aShell target) {
 		this.Target = target;

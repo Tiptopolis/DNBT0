@@ -192,9 +192,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 					return true;
 			}
 
-		for (Entry<String, Object> E : this.shared) {
-			// if(E.getValue() == aNode.NULL || E.getValue() == aValue.EMPTY)
-			// return false;
+		for (Entry<String, Object> E : this.shared) {			
 			if (StringUtils.isFormOf(E.getKey(), what))
 				return true;
 		}
@@ -210,9 +208,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 		if (this.links != null && !this.links.isEmpty())
 			for (Object E : this.links) {
 
-				// if (E.equals(what) || E.equals(what.toLowerCase()) ||
-				// E.equals(what.toUpperCase()))
-				// return true;
+				
 				if (StringUtils.isFormOf("" + E, what))
 					return true;
 
@@ -344,7 +340,6 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 		} else {
 			E = new Entry<Object, String>(context, as);
-			// L = (aLink) this.links.get(E);
 			L = (aLink) ((Object) this.links.get(E));
 			L.append(phase, target);
 		}
@@ -480,11 +475,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 	}
 
 	public aLink getLink(Object context, String label) {
-		/*
-		 * if (this.links == null) this.links = new bDictionary<aLink>();
-		 * 
-		 * return (aLink) this.links.get(context, label);
-		 */
+		
 
 		if (this.links == null)
 			this.links = new aDictionary<aLink>();

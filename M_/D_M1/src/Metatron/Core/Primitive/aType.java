@@ -19,6 +19,10 @@ public class aType<T> extends aNode<aSet<aToken<T>>>/* implements iToken<aType> 
 	// instances
 	// derivative forms
 	// properties, aspects, etc
+	
+	//Primary Form -> WORD
+	//Path/Variant form WORD:OF
+	//form adhoc paths from types using : as seperator
 
 	public aSet<aTypeToken> Enum = new aSet<aTypeToken>();
 	public aSet<T> instances = new aSet<T>();

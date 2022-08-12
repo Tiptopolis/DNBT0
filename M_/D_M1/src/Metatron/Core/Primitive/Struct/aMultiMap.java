@@ -1,8 +1,10 @@
 
 package Metatron.Core.Primitive.Struct;
 
+import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -32,6 +34,14 @@ public class aMultiMap<K, V> extends _Map<K,V> {
 	public aMultiMap(Class<iCollection> k, Class<iCollection> v) {
 		this.keys = iCollection.newEmpty(k);
 		this.values = iCollection.newEmpty(v);
+	}
+	
+	public aMultiMap(AbstractMap<K, V> M) {
+		super(M);
+	}
+	
+	public aMultiMap(java.util.Map<K, V> M) {
+		super(M);
 	}
 	
 
