@@ -8,9 +8,14 @@ import java.util.Map;
 
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
+import Metatron.Core.Math.Primitive.fromGdx.Gfx.Color;
 import Metatron.Core.Primitive.aNode;
+import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.A_I.iNode;
+import Metatron.Core.Primitive.Data.aModel;
+import Metatron.Core.Primitive.Data.aTable;
 import Metatron.Core.Primitive.Struct._Map.Entry;
+import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.System.aShell;
@@ -53,6 +58,12 @@ public class uChumpEngine extends uApp {
 		GFX = new M_Gfx();
 	}
 
+	
+	aDictionary<String> D;
+	
+	aModel door;
+	aTable doors;
+	
 	@Override
 	public void create() {
 		CMD = WindowsConsoleAdapter.WIN;
@@ -67,16 +78,25 @@ public class uChumpEngine extends uApp {
 		this.running = true;
 
 		M_Console = new aConsole(this);
+		door = new aModel("Door", new aValue("DIMENSIONS",new aVector(0f).resize(4)), new aValue("COLOR", new Color(1,1,1,1)));
+		Log(door.toLog());
+		
+		Log("---");
+		Log(door.get("color"));
+		//Log(1/0);
+		
+				
 
 		// initialize REPL
-		//Log(CMD.Main.directory());
-		//Map<String, String> environment = CMD.Main.environment();
-		//environment.forEach((key, value) -> Log(key + value));
-		
-		
-		//Log(CMD.toLog());
-		
-		
+		// Log(CMD.Main.directory());
+		// Map<String, String> environment = CMD.Main.environment();
+		// environment.forEach((key, value) -> Log(key + value));
+
+		Log(CMD.toLog());
+		D = new aDictionary<String>();
+		D.put("DBTN", ""+0, "RF-FRM");
+		D.put("DBTN",""+1,"HMF");
+		Log(D.toLog());
 
 		while (this.isActive()) {
 
@@ -86,7 +106,7 @@ public class uChumpEngine extends uApp {
 			try {
 				this.next();
 			} catch (RuntimeException r) {
-				Log(r.getStackTrace());				
+				Log(r.getStackTrace());
 				this.running = false;
 			}
 
@@ -122,10 +142,10 @@ public class uChumpEngine extends uApp {
 				O = h;
 			}
 			ellapsed = 0f;
-			// Log(S1.toLog());
-			// Log(S2.toLog());
-			//Log("!" + CMD);
-			//M_Console.input(":LOG");
+			Log(S1.toLog());
+			Log(S2.toLog());
+			// Log("!" + CMD);
+			// M_Console.input(":LOG");
 		}
 
 	}
@@ -138,7 +158,6 @@ public class uChumpEngine extends uApp {
 	@Override
 	public void dispose() {
 		super.dispose();
-
 		Log("X_X");
 		System.exit(0);
 	}

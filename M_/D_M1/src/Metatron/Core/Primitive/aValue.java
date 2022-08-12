@@ -14,19 +14,18 @@ import Metatron.Core.Math.aMaths;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iMap;
+import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Utils.StringUtils;
 
-
-
-public class aValue<T> extends aMultiMap.Entry<String, T> {
+public class aValue<T> extends _Map.Entry<String, T> {
 
 	public static aValue EMPTY;
 	// aLabeldValue lol, a meme
 	// get() updates and returns last known value
 	static {
-		EMPTY = new aValue("EMPTY",aNode.NULL);
+		EMPTY = new aValue("EMPTY", aNode.NULL);
 	}
 	protected boolean exists = true;
 
@@ -35,24 +34,32 @@ public class aValue<T> extends aMultiMap.Entry<String, T> {
 	protected boolean mutable = true;
 
 	public aValue(String name) {
-		super();
+		//super();
+		
 		this.label = name;
-		this.key = this.label;
+		this.key = name;
 		this.value = null;
 		this.type = (T) Void.class;
+		
 		this.init();
 	}
 
 	public aValue(String name, T val) {
-		super(name, val);
+		//super();
+		Log("!!!!  >>>>>>>>>>>>>>>>   "+name);
+		this.label = name;
+		this.key = name;
+		this.value = val;
+		this.type = val.getClass();
+		
 		this.init();
+		Log("!!!!                >>>>>>>>>>>>>>>>   "+this.label);
 
 	}
 
 	public aValue(aValue<T> cpy) {
-		super(cpy.label(), cpy.get());
+		this(cpy.label(), cpy.get());
 
-		this.init();
 	}
 
 	public aValue init() {
@@ -94,15 +101,17 @@ public class aValue<T> extends aMultiMap.Entry<String, T> {
 		return this;
 	}
 
+	
+	@Override
+	public String getKey()
+	{
+		return this.key;
+	}
+	
 	@Override
 	public String label() {
-		return this.getKey();
+		return this.label ;
 	}
-
-
-
-	
-
 
 	@Override
 	public boolean equals(Object other) {
@@ -118,7 +127,7 @@ public class aValue<T> extends aMultiMap.Entry<String, T> {
 
 		return false;
 	}
-	
+
 	@Override
 	public String toToken() {
 		String tag = "";
@@ -132,16 +141,15 @@ public class aValue<T> extends aMultiMap.Entry<String, T> {
 		tag = this.get().getClass().getSimpleName();
 		return "<" + tag + ">";
 	}
-	
+
 	@Override
-	public String toTag()
-	{
+	public String toTag() {
 		return this.getKey() + " = " + this.getValue();
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString();		
+		return super.toString();
 	}
 
 	@Override
@@ -221,15 +229,14 @@ public class aValue<T> extends aMultiMap.Entry<String, T> {
 		}
 	}
 
-	
-	public static class Is extends aValue<Boolean>{
+	public static class Is extends aValue<Boolean> {
 
 		public Is(String name) {
-			super(name,true);
+			super(name, true);
 		}
-		
+
 	}
-	
+
 	public static class Range extends aValue<Number> {
 
 		// int range?

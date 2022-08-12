@@ -30,15 +30,14 @@ public class StringUtils {
 	// [(N) <OP> (N)] -> {(N),<OP>,(N)}
 	// node patterns
 
-	public static String indent(int len)
-	{
+	public static String indent(int len) {
 		String s = "";
-		for(int i =0; i < len; i++)
-			s+=" ";
+		for (int i = 0; i < len; i++)
+			s += " ";
 		return s;
-			
+
 	}
-	
+
 	public static String substring(String source, int beginIndex, int endIndex) {
 		if (source == null || source.isEmpty())
 			return "";
@@ -62,12 +61,11 @@ public class StringUtils {
 	public static boolean isFormOf(String A, String B) {
 		if (A == B)
 			return true;
-		
+
 		if (A.toLowerCase().equals(B.toLowerCase()))
 			return true;
 
-
-			return false;
+		return false;
 	}
 
 	public static int count(final String source, final String search) {
@@ -320,6 +318,28 @@ public class StringUtils {
 			}
 		}
 		return f;
+	}
+
+	public static boolean startsWith(String check, boolean kase, String... sub) {
+		for (String s : sub) {
+			if (!kase)
+				if (check.startsWith(s))
+					return true;
+				else {
+					if (check.toUpperCase().startsWith(s.toUpperCase()))
+						return true;
+				}
+		}
+
+		return false;
+	}
+
+	public static boolean equals(String a, String... check) {
+		for (String s : check)
+			if (a.equals(s))
+				return true;
+
+		return false;
 	}
 
 	public static String commaLen(int length) {
@@ -699,16 +719,16 @@ public class StringUtils {
 		return result;
 	}
 
-	/*public static <T> Array<T> resolveCsvToArray(String input, Class<T> type) {
-		aList<T> toList = resolveCsvToList(input);
-		T[] t = (T[]) ArrayReflection.newInstance(type, 0);
-
-		Array<T> result = new Array(t);
-		for (int i = 0; i < toList.size(); i++)
-			result.add(toList.get(i));
-		return result;
-
-	}*/
+	/*
+	 * public static <T> Array<T> resolveCsvToArray(String input, Class<T> type) {
+	 * aList<T> toList = resolveCsvToList(input); T[] t = (T[])
+	 * ArrayReflection.newInstance(type, 0);
+	 * 
+	 * Array<T> result = new Array(t); for (int i = 0; i < toList.size(); i++)
+	 * result.add(toList.get(i)); return result;
+	 * 
+	 * }
+	 */
 
 	public static Number[] resolveCsvToNumbers(String input) {
 		int s = input.length() + 1;

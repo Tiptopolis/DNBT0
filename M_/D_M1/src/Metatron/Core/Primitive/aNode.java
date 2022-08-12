@@ -192,7 +192,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 					return true;
 			}
 
-		for (Entry<String, Object> E : this.shared) {			
+		for (Entry<String, Object> E : this.shared) {
 			if (StringUtils.isFormOf(E.getKey(), what))
 				return true;
 		}
@@ -208,7 +208,6 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 		if (this.links != null && !this.links.isEmpty())
 			for (Object E : this.links) {
 
-				
 				if (StringUtils.isFormOf("" + E, what))
 					return true;
 
@@ -306,6 +305,16 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 	@Override
 	public boolean handle(iEvent o) {
+		return false;
+	}
+
+	@Override
+	public boolean handle(String o) {
+		if (this.label != null)
+			Log(this.getClass().getSimpleName() + "@" + this.label + ">>=" + o);
+		else
+			Log(this.getClass().getSimpleName() + "@" + this.hashCode() + ">>=" + o);
+
 		return false;
 	}
 
@@ -475,7 +484,6 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 	}
 
 	public aLink getLink(Object context, String label) {
-		
 
 		if (this.links == null)
 			this.links = new aDictionary<aLink>();

@@ -2,7 +2,6 @@ package Metatron.W_CMD;
 
 import static Metatron.Core.M_Utils.*;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Executors;
@@ -11,8 +10,10 @@ import Metatron.Core.M_Utils;
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.System.COM.StreamConsumer;
+import Metatron.Core.System.Event.iEvent;
+import Metatron.Core.System.Event.iEventHandler;
 
-public class WindowsConsoleAdapter {
+public class WindowsConsoleAdapter implements iEventHandler {
 
 	public static final WindowsConsoleAdapter WIN;
 	static {
@@ -28,15 +29,13 @@ public class WindowsConsoleAdapter {
 		ProcessBuilder builder = new ProcessBuilder();
 		this.Main = builder;
 		this.Windows = new SystemData(Main);
-		
-		
+
 		if (isWindows) {
 			builder.command("cmd.exe", "/c", "dir");
 		} else {
 			builder.command("sh", "-c", "ls");
 		}
-		
-		
+
 		builder.directory(new File(System.getProperty("user.home")));
 		try {
 			Log(builder.command());
@@ -71,6 +70,12 @@ public class WindowsConsoleAdapter {
 		log += "* " + this.Windows.Environment.toLog();
 
 		return log;
+	}
+
+	@Override
+	public boolean handle(iEvent o) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

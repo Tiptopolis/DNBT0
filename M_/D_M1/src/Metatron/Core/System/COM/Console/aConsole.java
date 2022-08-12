@@ -81,6 +81,7 @@ public class aConsole implements iEventHandler {
 		if (Logger != null && Logger.active) {
 			aConsoleLogger.toLog(input);
 			aConsoleLogger.logOut();
+			
 		}
 	}
 
@@ -92,7 +93,7 @@ public class aConsole implements iEventHandler {
 	// take & handle console input, passes to subscribed listeners
 	public boolean input(String msg) {
 
-		if (msg.equals("SHELL:TERMINATE")) {
+		if (equalsAny(msg,"SHELL:TERMINATE",":TERMINATE")) {
 			Log(this.toLog());
 			post("SHELL:TERMINATE");
 			Target.dispose();

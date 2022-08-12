@@ -400,6 +400,12 @@ public class M_Utils {
 			return init;
 	}
 
+	
+	public static boolean equalsAny(String a, String...c)
+	{
+		return StringUtils.equals(a, c);
+	}
+	
 	public static BiFunction equals() {
 		return (a, b) -> {
 			return a.equals(b);

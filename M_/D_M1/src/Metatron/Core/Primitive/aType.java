@@ -6,15 +6,18 @@ import java.util.regex.Pattern;
 
 import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iContain;
+import Metatron.Core.Primitive.A_I.iGroup;
+import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.A_I.iToken;
+import Metatron.Core.Primitive.A_I.iType;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aDictionary.D_Key;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Primitive.Struct.aSet;
 
-public class aType<T> extends aNode<aSet<aToken<T>>>/* implements iToken<aType> */ {
+public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* implements iToken<aType> */ {
 
 	// instances
 	// derivative forms
@@ -26,6 +29,10 @@ public class aType<T> extends aNode<aSet<aToken<T>>>/* implements iToken<aType> 
 
 	public aSet<aTypeToken> Enum = new aSet<aTypeToken>();
 	public aSet<T> instances = new aSet<T>();
+	
+	public aSet<aType> inherits;
+	public aSet<aType> extensions;
+	
 
 	public aDictionary<Pattern> patterns;
 
@@ -66,6 +73,75 @@ public class aType<T> extends aNode<aSet<aToken<T>>>/* implements iToken<aType> 
 
 		
 		return tag;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	@Override
+	public void append(T entry) {
+		this.instances.append(entry);
+		
+	}
+
+	@Override
+	public void appendAll(T... entries) {
+		for(T t : entries)
+			this.append(t);
+		
+	}
+
+	@Override
+	public T get(Integer index) {
+		return this.instances.get(index);
+	}
+
+	@Override
+	public Integer indexOf(Object member) {
+		return this.instances.indexOf(member);
+	}
+
+	@Override
+	public void remove(Integer at) {
+		this.instances.remove(at);
+		
+	}
+
+	@Override
+	public boolean contains(T entry) {
+		return this.instances.contains(entry);
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return this.instances.isEmpty();
+	}
+
+	@Override
+	public int size() {
+		
+		return this.instances.size();
+	}
+
+	@Override
+	public void clear() {
+		this.instances.clear();
+		
+	}
+
+	@Override
+	public <N, X> iMap<N, X> toMap() {
+
+
+		return null;
 	}
 
 }
