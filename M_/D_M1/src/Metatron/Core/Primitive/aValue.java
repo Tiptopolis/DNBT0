@@ -34,26 +34,24 @@ public class aValue<T> extends _Map.Entry<String, T> {
 	protected boolean mutable = true;
 
 	public aValue(String name) {
-		//super();
-		
+		// super();
+
 		this.label = name;
 		this.key = name;
 		this.value = null;
 		this.type = (T) Void.class;
-		
+
 		this.init();
 	}
 
 	public aValue(String name, T val) {
-		//super();
-		Log("!!!!  >>>>>>>>>>>>>>>>   "+name);
+		// super();
 		this.label = name;
 		this.key = name;
 		this.value = val;
 		this.type = val.getClass();
-		
+
 		this.init();
-		Log("!!!!                >>>>>>>>>>>>>>>>   "+this.label);
 
 	}
 
@@ -101,16 +99,14 @@ public class aValue<T> extends _Map.Entry<String, T> {
 		return this;
 	}
 
-	
 	@Override
-	public String getKey()
-	{
+	public String getKey() {
 		return this.key;
 	}
-	
+
 	@Override
 	public String label() {
-		return this.label ;
+		return this.label;
 	}
 
 	@Override

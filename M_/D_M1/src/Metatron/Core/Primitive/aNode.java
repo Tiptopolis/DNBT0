@@ -623,9 +623,10 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 				log += l.toLog() + "\n";
 			}
 		if (this.shared != null) {
-			log += "[SHARED]\n";
-			log += this.shared.toLog();
+			log += "  [SHARED]{\n";
+			log += "     "+this.shared.toLog();
 		}
+		log+="  }\n";
 		return log;
 	}
 

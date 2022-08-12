@@ -58,12 +58,11 @@ public class uChumpEngine extends uApp {
 		GFX = new M_Gfx();
 	}
 
-	
 	aDictionary<String> D;
-	
+
 	aModel door;
 	aTable doors;
-	
+
 	@Override
 	public void create() {
 		CMD = WindowsConsoleAdapter.WIN;
@@ -78,14 +77,13 @@ public class uChumpEngine extends uApp {
 		this.running = true;
 
 		M_Console = new aConsole(this);
-		door = new aModel("Door", new aValue("DIMENSIONS",new aVector(0f).resize(4)), new aValue("COLOR", new Color(1,1,1,1)));
+		door = new aModel("Door", new aValue("DIMENSIONS", new aVector(0f).resize(4)),
+				new aValue("COLOR", new Color(1, 1, 1, 1)));
 		Log(door.toLog());
-		
+
 		Log("---");
 		Log(door.get("color"));
-		//Log(1/0);
-		
-				
+		// Log(1/0);
 
 		// initialize REPL
 		// Log(CMD.Main.directory());
@@ -94,8 +92,8 @@ public class uChumpEngine extends uApp {
 
 		Log(CMD.toLog());
 		D = new aDictionary<String>();
-		D.put("DBTN", ""+0, "RF-FRM");
-		D.put("DBTN",""+1,"HMF");
+		D.put("DBTN", "" + 0, "RF-FRM");
+		D.put("DBTN", "" + 1, "HMF");
 		Log(D.toLog());
 
 		while (this.isActive()) {
