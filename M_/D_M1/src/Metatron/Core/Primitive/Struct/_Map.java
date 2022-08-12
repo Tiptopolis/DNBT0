@@ -22,6 +22,7 @@ import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iGroup;
 import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.A_I.iNode;
+import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Utils.StringUtils;
 
 
@@ -177,7 +178,16 @@ public abstract class _Map<K, V> implements iMap<K, V> {
 			}
 
 	}
+	
 
+	public  void transfer(_Map<K, V> to, K k, V v) {
+		if (!this.contains(k, v))
+			return;
+
+		_Map.Entry found = this.take(k, v);
+		to.put(found);
+
+	}
 	/*public void delete(int at) {
 		this.remove(at);
 	}

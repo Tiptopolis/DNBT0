@@ -6,5 +6,5 @@ public interface iComponent {
 
 	
 	public aNode getOwner();
-	
+	public void setOwner(aNode owner);
 }

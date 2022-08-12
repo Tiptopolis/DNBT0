@@ -53,4 +53,10 @@ public class IO_Port<I,O> implements iComponent, iFunctor<iEvent> {
 		return this.shell;
 	}
 
+	@Override
+	public void setOwner(aNode owner) {
+		this.shell = owner;
+		
+	}
+
 }

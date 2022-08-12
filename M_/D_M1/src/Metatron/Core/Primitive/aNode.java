@@ -140,11 +140,11 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 		this.Get = null;
 		this.Set = null;
 		this.Put = null;
-		
-		if(this.value instanceof iCycle)
+
+		if (this.value instanceof iCycle)
 			((iCycle) this.value).terminate();
 		if (this.value instanceof iDisposable)
-			((iDisposable) this.value).dispose();		
+			((iDisposable) this.value).dispose();
 		this.value = null;
 		if (this.links != null) {
 			for (Entry<Entry<Object, java.lang.String>, aLink> L : this.links)
@@ -504,6 +504,13 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 	public aMultiMap<String, Object> search(String... terms) {
 		return iMap.search(this.shared, terms);
+	}
+
+	public void takeFrom(aNode from, String at) {
+		// original form lol
+		// this.shared.put((Entry<String, Object>) otherNode.shared.take("-o-"));
+		this.shared.put((Entry<String, Object>) from.shared.take(at));
+
 	}
 
 	@Override

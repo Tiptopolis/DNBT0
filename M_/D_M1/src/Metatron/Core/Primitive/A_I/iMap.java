@@ -92,6 +92,15 @@ public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 		this.getValues().remove(at);
 	}
 
+	public default void remove(K k, V v) {
+		for (Entry E : this) {
+			int i = this.indexOf(E);
+			if (E.getKey() == k || E.getKey().equals(k))
+				if (E.getValue() == v || E.getValue().equals(v))
+					this.remove(i);
+		}
+	}
+
 	public default Object take(K index) {
 
 		Object out = null;
@@ -117,6 +126,39 @@ public interface iMap<K, V> extends iIndex<Entry<K, V>> {
 			out = found;
 
 		return out;
+
+	}
+
+	public default _Map.Entry<K, V> take(K k, V v) {
+		_Map.Entry<K, V> out = null;
+		aSet<Integer> ind = new aSet<Integer>();
+		aSet<_Map.Entry> found = new aSet<_Map.Entry>();
+		iCollection<_Map.Entry> c = this.getEntries();
+
+		// scan
+		for (int i = 0; i < this.size(); i++) {
+			_Map.Entry E = c.get(i);
+			if (E.getKey() == k || E.getKey().equals(k))
+				if (E.getValue() == v || E.getValue().equals(v))
+					found.append(E);
+
+		}
+
+		for (Entry e : found)
+			this.remove(e);
+
+		if (found.size() == 1)
+			out = found.get(0);
+
+		return out;
+	}
+
+	public default void transfer(iMap<K, V> to, K k, V v) {
+		if (!this.contains(k, v))
+			return;
+
+		_Map.Entry found = this.take(k, v);
+		to.put(k, v);
 
 	}
 

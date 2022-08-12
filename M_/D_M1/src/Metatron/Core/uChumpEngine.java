@@ -75,7 +75,7 @@ public class uChumpEngine extends uApp {
 				this.next();
 			} catch (RuntimeException r) {
 				Log(r.getStackTrace());
-				//Log(Thread.currentThread().getStackTrace());
+				// Log(Thread.currentThread().getStackTrace());
 				this.running = false;
 			}
 
@@ -96,14 +96,15 @@ public class uChumpEngine extends uApp {
 		// Log("!");
 
 		if (ellapsed >= .5f) {
-			int p = (int) H.get("-o-");
+			Object P = H.get("-o-");
+			int p = (int) P;
 			H.set("-o-", (int) H.get("-o-") + 1);
-
+			Log("# "+P.hashCode());
 			// Log(S1.get("png"));
-
+			// simple io port?
 			if (p >= 5) {
 				H.set("-o-", 0);
-				O.shared.put((Entry<String, Object>) H.shared.take("-o-"));
+				O.takeFrom(H, "-o-");
 
 				aShell o = O;
 				aShell h = H;
