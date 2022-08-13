@@ -11,7 +11,8 @@ public class _Chord implements CharSequence {
 
 	// has all from "alphabet"
 	Number maxLength = Float.POSITIVE_INFINITY;
-
+	Number minLength = Float.NEGATIVE_INFINITY;
+	String nullDef = "";
 	public _Chord() {
 		this.inner = new _Array<String>(" ");
 		this.delimiter = "";

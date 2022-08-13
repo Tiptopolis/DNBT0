@@ -167,7 +167,6 @@ public class StringUtils {
 	}
 
 	public static String[] split(String source, int every) {
-		Log("  --==--== " + source.length());
 		String[] out;
 		_Array<String> S = new _Array<String>();
 		String s = "";
@@ -181,7 +180,6 @@ public class StringUtils {
 		}
 
 		out = new String[S.size()];
-		Log("  --==--== " + out.length);
 		for (int i = 0; i < S.size(); i++)
 			out[i] = S.get(i);
 
@@ -412,6 +410,22 @@ public class StringUtils {
 		out += "" + alphabet.charAt(fB.intValue());
 
 		return out;
+	}
+	
+	public static String[] backFill(int mod, String with,String...s)
+	{
+		
+		for(String S : s)
+		{
+			int m = S.length()%mod;
+			if(m!=0)			
+				for(int i = 0; i < S.length(); i++)				
+					S+=with;
+				
+			
+		}
+		
+		return s;
 	}
 
 	private static void METATRON_TYPE_STUFF_______() {

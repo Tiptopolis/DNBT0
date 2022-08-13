@@ -480,10 +480,10 @@ public abstract class iCypher {
 	}
 
 	public static boolean containsOnlyThese(String line, String alphabet) {
-		Log(" -- -- --" + line + "     " + alphabet);
+		//Log(" -- -- --" + line + "     " + alphabet);
 		for (int i = 0; i < line.length(); i++)
 			if (!alphabet.contains("" + line.charAt(i))) {
-				Log("        ===" + alphabet.charAt(i));
+				//Log("        ===" + alphabet.charAt(i));
 				return false;
 			}
 
