@@ -51,6 +51,13 @@ public class StringUtils {
 		return source.substring(beginIndex, endIndex);
 	}
 
+	public String compile(String... material) {
+		String out = "";
+		for (String s : material)
+			out += s;
+		return out;
+	}
+
 	public static boolean substringEquals(String a, String b, int start) {
 		int end = Math.min(a.length(), b.length());
 		if (end > start)
@@ -157,6 +164,28 @@ public class StringUtils {
 			splat[amount] = substring(source, idx + dl, idx2);
 		}
 		return splat;
+	}
+
+	public static String[] split(String source, int every) {
+		Log("  --==--== " + source.length());
+		String[] out;
+		_Array<String> S = new _Array<String>();
+		String s = "";
+		for (int i = 0; i < source.length(); i++) {
+
+			s += source.charAt(i);
+			if (i != 0 && ((i+1) % every) == 0) {
+				S.append(s);
+				s = "";
+			}
+		}
+
+		out = new String[S.size()];
+		Log("  --==--== " + out.length);
+		for (int i = 0; i < S.size(); i++)
+			out[i] = S.get(i);
+
+		return out;
 	}
 
 	public static Predicate<String> sameWord(String a) {
@@ -818,7 +847,7 @@ public class StringUtils {
 
 		return L.toArray();
 	}
-	
+
 	public static _Array<String> parseCSV_C(String input, String delimiter) {
 		_Array<String> L = new _Array<String>();
 

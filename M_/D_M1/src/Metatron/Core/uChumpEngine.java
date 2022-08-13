@@ -27,6 +27,7 @@ import Metatron.Core.System.uApp;
 import Metatron.Core.System.A_I.iApplet;
 import Metatron.Core.System.COM.Console.aConsole;
 import Metatron.Core.System.ECS.FSM.aState;
+import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
 
@@ -122,7 +123,17 @@ public class uChumpEngine extends uApp {
 		N1.link("-!", "NEXT", N4);
 		Log(N1.toLog());
 		Log(N1.links.toLog());*/
+		
+		Log(iCypher.hasCharsOf("THICC ASS HOES", "CHAOS"));
+		
+		Log("\n\n\n\n\n\n\n\n\n");
+		
+		Log(iCypher.permutation("GUAC"));
+		Log(StringUtils.split("123456789123456789123456789666", 3));
+		
 		Log(1/0);
+		
+		
 		
 		
 		Log(CMD.toLog());

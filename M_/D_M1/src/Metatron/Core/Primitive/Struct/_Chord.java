@@ -9,6 +9,9 @@ public class _Chord implements CharSequence {
 	private boolean del = true;
 	private String delimiter = " ";
 
+	// has all from "alphabet"
+	Number maxLength = Float.POSITIVE_INFINITY;
+
 	public _Chord() {
 		this.inner = new _Array<String>(" ");
 		this.delimiter = "";
@@ -67,22 +70,19 @@ public class _Chord implements CharSequence {
 		return out;
 	}
 
-	public String[] parseAgainst(String...in)
-	{
+	public String[] parseAgainst(String... in) {
 		_Array<String> s = new _Array<String>();
-		
-		
-		
-		for(String a : in)	{	
+
+		for (String a : in) {
 			Object[] O = StringUtils.split(a, this.delimiter);
-			for(Object o : O)
-				s.append(""+o);	
+			for (Object o : O)
+				s.append("" + o);
 		}
-		
+
 		String[] out = new String[s.size()];
-		for(int i =0; i < s.size(); i++)
-			out[i]=s.get(i);
-		
+		for (int i = 0; i < s.size(); i++)
+			out[i] = s.get(i);
+
 		return out;
 	}
 

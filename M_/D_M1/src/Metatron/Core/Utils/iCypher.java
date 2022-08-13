@@ -470,4 +470,24 @@ public abstract class iCypher {
 		return res;
 	}
 
+	public static boolean hasCharsOf(String line, String alphabet) {
+
+		for (int i = 0; i < alphabet.length(); i++)
+			if (!line.contains("" + alphabet.charAt(i)))
+				return false;
+
+		return true;
+	}
+
+	public static boolean containsOnlyThese(String line, String alphabet) {
+		Log(" -- -- --" + line + "     " + alphabet);
+		for (int i = 0; i < line.length(); i++)
+			if (!alphabet.contains("" + line.charAt(i))) {
+				Log("        ===" + alphabet.charAt(i));
+				return false;
+			}
+
+		return true;
+	}
+
 }
