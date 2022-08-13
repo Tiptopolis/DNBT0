@@ -10,12 +10,16 @@ import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Math.Primitive.fromGdx.Gfx.Color;
 import Metatron.Core.Primitive.aNode;
+import Metatron.Core.Primitive.aType;
 import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.Data.aModel;
 import Metatron.Core.Primitive.Data.aTable;
+import Metatron.Core.Primitive.Struct._Chord;
 import Metatron.Core.Primitive.Struct._Map.Entry;
+import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;
+import Metatron.Core.Primitive.Struct.aLinkedList;
 import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.System.aShell;
@@ -89,7 +93,38 @@ public class uChumpEngine extends uApp {
 		// Log(CMD.Main.directory());
 		// Map<String, String> environment = CMD.Main.environment();
 		// environment.forEach((key, value) -> Log(key + value));
-
+		_Chord X = new _Chord("A","B","A&B");		
+		Log(X);
+		Log(X.parse());
+		Log(X.parseAgainst("A B A&B"));
+		
+		
+		aType an = new aType("Archetype");
+		
+		Log(an.toLog());
+		
+		Log(_Types.ALL.toLog());
+		//Log(_Types.ALL.size());
+		//Log(_Types.ALL.keys.size());
+		
+		/*aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
+		Log(LL.toLog());
+		
+		aNode N1 = new aNode("N1",1);
+		aNode N2 = new aNode("N2",2);
+		aNode N3 = new aNode("N3",3);
+		aNode N4 = new aNode("N4",4);
+		
+		N1.link("-!", "NEXT", N2);
+		N2.link("-!", "NEXT", N3);
+		N3.link("-!", "NEXT", N4);
+		N1.link("-!", "NEXT", N3);
+		N1.link("-!", "NEXT", N4);
+		Log(N1.toLog());
+		Log(N1.links.toLog());*/
+		Log(1/0);
+		
+		
 		Log(CMD.toLog());
 		D = new aDictionary<String>();
 		D.put("DBTN", "" + 0, "RF-FRM");

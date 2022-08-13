@@ -90,6 +90,11 @@ public interface iGroup<IndexType extends Number, T> extends Iterable<T>, iConta
 	}
 
 	public boolean contains(T entry);
+	
+	public default boolean contains(IndexType i, T ent)
+	{
+		return this.contains(ent);
+	}
 
 	public boolean isEmpty();
 

@@ -16,25 +16,24 @@ import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aDictionary.D_Key;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Primitive.Struct.aSet;
+import Metatron.Core.Primitive.Util._Types;
 
 public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* implements iToken<aType> */ {
 
 	// instances
 	// derivative forms
 	// properties, aspects, etc
-	
-	//Primary Form -> WORD
-	//Path/Variant form WORD:OF
-	//form adhoc paths from types using : as seperator
 
-	public aSet<aTypeToken> Enum = new aSet<aTypeToken>();
+	// Primary Form -> WORD
+	// Path/Variant form WORD:OF
+	// form adhoc paths from types using : as seperator
+
 	public aSet<T> instances = new aSet<T>();
-	
+
 	public aSet<aType> inherits;
 	public aSet<aType> extensions;
-	
 
-	public aDictionary<Pattern> patterns;
+	// public aDictionary<Pattern> patterns;
 
 	public static final aType Any;
 	static {
@@ -44,59 +43,33 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	public aType(String typeName) {
 		super(typeName, new aSet<aToken<T>>());
 		this.label = typeName;
-		this.type = new aTypeToken(Any, typeName);
+		this.type = typeName;//pull token from _Types?
+
+		_Types.register(this);
 	}
 
-	public static class aTypeToken extends aToken<_Map.Entry<aType, String>> {
 
-		aType context;
-		String[] words;
-
-		public aTypeToken(aType context, String... strings) {
-			this(true, context, "", strings);
-		}
-
-		public aTypeToken(boolean op, aType context, String delimiter, String... strings) {
-			this.context = context;
-			this.words = new String[strings.length];
-			for (int i = 0; i < strings.length; i++)
-				this.words[i] = strings[i];
-		}
-
-	}
 
 	@Override
 	public String toToken() {
 		String tag = "";
-	
+
 		tag = "<" + this.label + ">";
 
-		
 		return tag;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	@Override
 	public void append(T entry) {
 		this.instances.append(entry);
-		
+
 	}
 
 	@Override
 	public void appendAll(T... entries) {
-		for(T t : entries)
+		for (T t : entries)
 			this.append(t);
-		
+
 	}
 
 	@Override
@@ -112,7 +85,7 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	@Override
 	public void remove(Integer at) {
 		this.instances.remove(at);
-		
+
 	}
 
 	@Override
@@ -127,19 +100,31 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 
 	@Override
 	public int size() {
-		
+
 		return this.instances.size();
 	}
 
 	@Override
 	public void clear() {
 		this.instances.clear();
-		
+
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
+		if (other instanceof aType) {
+			aType T = (aType) other;
+			if (this.label.equals(T.label))
+				return true;
+		}
+
+		return false;
 	}
 
 	@Override
 	public <N, X> iMap<N, X> toMap() {
-
 
 		return null;
 	}

@@ -15,6 +15,7 @@ import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iGroup;
+import Metatron.Core.Primitive.Struct._Array;
 import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Primitive.Struct.aSet;
@@ -816,6 +817,52 @@ public class StringUtils {
 		Log(blocksIndex.toLog());
 
 		return L.toArray();
+	}
+	
+	public static _Array<String> parseCSV_C(String input, String delimiter) {
+		_Array<String> L = new _Array<String>();
+
+		String starts = "({[<";
+		String ends = ")}]>";
+
+		boolean block = false;
+		String blockTypeI = "";
+		String blockTypeO = "";
+
+		int segments = 1;
+		aList<Integer> segmentsIndex = new aList<Integer>();
+		aMultiMap<String, aVector> blocksIndex = new aMultiMap<String, aVector>(); // <String, aValue.Range>
+
+		for (int i = 0; i < input.length(); i++) {
+			if (input.charAt(i) == ',') {
+
+				segments++;
+				segmentsIndex.append(i);
+			}
+			if (starts.contains("" + input.charAt(i))) {
+				block = true;
+				blockTypeI = "" + input.charAt(i);
+				int o = starts.indexOf(blockTypeI);
+				blockTypeO = "" + ends.charAt(o);
+			}
+			while (block) {
+				for (int j = i; j < input.length(); j++) {
+
+					if (blockTypeO.equals("" + input.charAt(j))) {
+						blocksIndex.put(blockTypeI + blockTypeO, new aVector(i, j));
+						block = false;
+						break;
+					}
+				}
+			}
+
+		}
+
+		Log("~" + segments);
+		Log(segmentsIndex);
+		Log(blocksIndex.toLog());
+
+		return L;
 	}
 
 	public static aMultiMap<String, String> parseBlocks(String s) {

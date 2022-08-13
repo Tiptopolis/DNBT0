@@ -8,12 +8,24 @@ import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Utils.StringUtils;
 
 public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
+	
+	public aDictionary()
+	{
+		this.keys = new aList<Entry<Object, String>>();
+		this.values = new aList<V>();
+	}
+	
+	
 	public void put(D_Key key, Object val) {
 		if (!this.contains(key, val)) {
 			if (this.containsKey(key))
 				key = (aDictionary.D_Key) this.keys.get(this.keys.indexOf(key));
 			this.keys.append(key);
 			this.values.append((V) val);
+		}
+		else {
+			
+			
 		}
 	}
 
@@ -29,12 +41,24 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 
 	public void put(Object context, String label, V as) {
 
-		D_Key D = newEntry(context, label);
+		
+		/*D_Key D = newEntry(context, label);
 
 		if (!this.getAll(D).contains(as)) {
 			this.keys.append(D);
 			this.values.append(as);
 		}
+		else
+		{
+			D = this.getKey(context, label);
+			this.keys.append(D);
+			this.values.append(as);
+		}*/
+		Log(context + "  :>: " + label +" :>: " + as);
+		D_Key D = this.getKey(context, label);
+		Log( " >>  " + D);
+		this.keys.append(D);
+		this.values.append(as);
 	}
 
 	public void put(Object context, String label, V... as) {
@@ -43,6 +67,18 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 			this.put(context, label, v);
 	}
 
+	public D_Key getKey(Object context, String label)
+	{
+		for(Object O : this.keys)
+		{
+			D_Key D = (D_Key)O;
+			if(D.getKey()==context||D.getKey().equals(context))
+				if(D.getValue()==label || D.getValue().equals(label))
+					return D;
+		}
+		return new D_Key(context,label);
+	}
+	
 	@Override
 	public Entry<Entry<Object, String>, V> get(Integer index) {
 		if (this.size() == 0)

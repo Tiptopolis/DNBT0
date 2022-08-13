@@ -43,7 +43,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 	public aMultiMap<_Map.Entry<String, Object>, Object> meta;
 	public aMap<_Map.Entry<String, Object>, iFunctor> fields;
 
-	protected aDictionary<aLink> links;
+	public aDictionary<aLink> links;
 
 	//////
 	public Supplier<Object> Get = () -> {

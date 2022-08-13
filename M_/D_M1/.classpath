@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-18">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/lwjgl3-awt-0.1.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-3.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-3.0.4-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-3.0.4-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-extra-3.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-extra-3.0.4-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-extra-3.0.4-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/jakarta.persistence-api-3.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/javax.websocket-api-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Master/Desktop/Library/Libs/SquidConsole/squidlib-3.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Master/Desktop/Library/Libs/SquidConsole/squidlib-extra-3.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Master/Desktop/Library/Libs/SquidConsole/squidlib-util-3.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
