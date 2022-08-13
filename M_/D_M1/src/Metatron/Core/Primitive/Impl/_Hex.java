@@ -1,5 +1,6 @@
 package Metatron.Core.Primitive.Impl;
 
+import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.A_I.iNumeric;
 import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.Struct._Chord;
@@ -9,18 +10,25 @@ import Metatron.Core.Utils.iCypher;
 public class _Hex extends Number implements iNode<Number>, CharSequence, iNumeric {
 
 	// use as basis for module?
-	
+
 	Number value = Float.NaN;
 	_Chord strVal;
+
+	public _Hex(CharSequence s) {
+		this.value = StringUtils.parseNum("" + s);
+
+		if (!isHex("" + s))
+			s = StringUtils.compile(StringUtils.backFill(16, "0", "" + s));
+		this.strVal = new _Chord("" + s);
+	}
 
 	public _Hex(Number n) {
 
 		this.value = n;
-		strVal = new _Chord("" + n);
-	}
-
-	public _Hex(CharSequence s) {
-		this.value = StringUtils.parseNum("" + s);
+		
+		String s = "" + n;
+		if (!isHex(s))
+			s = StringUtils.compile(StringUtils.backFill(16, "0", "" + s));
 		this.strVal = new _Chord("" + s);
 	}
 

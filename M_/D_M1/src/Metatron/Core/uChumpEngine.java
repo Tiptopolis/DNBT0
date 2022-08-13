@@ -6,9 +6,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 
+
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Math.Primitive.fromGdx.Gfx.Color;
+import Metatron.Core.Math.Util.aVectorUtils;
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aType;
 import Metatron.Core.Primitive.aValue;
@@ -130,6 +132,36 @@ public class uChumpEngine extends uApp {
 		
 		Log(iCypher.permutation("GUAC"));
 		Log(StringUtils.split("123456789123456789123456789666", 3));
+		
+		Log(StringUtils.backFill(8, "0", "a","a","a","a","a","a","a","a"));
+		
+		
+		Log(iCypher.rdxComp(32));
+		
+		aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
+		Log(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
+		// Log(Permutes_8Bit.toLog());
+		
+		for (aVector v : Permutes_8Bit)
+			Log(v.toJoinedString());
+		Log("\n\n\n");
+		
+		/*
+		for (aVector v : B)
+			Log(v.toJoinedString());*/
+		
+		
+		//aList<aVector> B = (aList<aVector>) aVectorUtils.sortElementsAscending(Permutes_8Bit.cpy()); //Z-patterning?		
+		//aList<aVector> B = (aList<aVector>) aVectorUtils.sortSumAscending(Permutes_8Bit.cpy());
+		
+		aList<aVector> B = (aList<aVector>) aVectorUtils.sortMagnitudeAscending(Permutes_8Bit.cpy()); //normal binary lol
+		
+		for (aVector v : B) {
+			Log(v.toJoinedString());
+			//if(Permutes_8Bit.get(B.indexOf(v))!= v)
+				//Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		}
+		
 		
 		Log(1/0);
 		

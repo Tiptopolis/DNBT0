@@ -51,7 +51,7 @@ public class StringUtils {
 		return source.substring(beginIndex, endIndex);
 	}
 
-	public String compile(String... material) {
+	public static String compile(String... material) {
 		String out = "";
 		for (String s : material)
 			out += s;
@@ -173,7 +173,7 @@ public class StringUtils {
 		for (int i = 0; i < source.length(); i++) {
 
 			s += source.charAt(i);
-			if (i != 0 && ((i+1) % every) == 0) {
+			if (i != 0 && ((i + 1) % every) == 0) {
 				S.append(s);
 				s = "";
 			}
@@ -411,20 +411,19 @@ public class StringUtils {
 
 		return out;
 	}
-	
-	public static String[] backFill(int mod, String with,String...s)
-	{
-		
-		for(String S : s)
-		{
-			int m = S.length()%mod;
-			if(m!=0)			
-				for(int i = 0; i < S.length(); i++)				
-					S+=with;
-				
-			
+
+	// fill all strings in s[] to size m
+	public static String[] backFill(int mod, String with, String... s) {
+
+		for (int j = 0; j < s.length; j++) {
+			String S = s[j];
+			int m = S.length() % mod;
+			if (m != 0)
+				for (int i = 0; i < (mod - m); i++)
+					s[j] = S += with;
+
 		}
-		
+
 		return s;
 	}
 
