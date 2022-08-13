@@ -136,10 +136,10 @@ public class uChumpEngine extends uApp {
 		Log(StringUtils.backFill(8, "0", "a","a","a","a","a","a","a","a"));
 		
 		
-		Log(iCypher.rdxComp(32));
+		Log(iCypher.rdxComp(16));
 		
 		aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
-		Log(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
+		//Log(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
 		// Log(Permutes_8Bit.toLog());
 		
 		for (aVector v : Permutes_8Bit)
@@ -162,6 +162,7 @@ public class uChumpEngine extends uApp {
 				//Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
 		
+		Log(iCypher.rdxComp(iCypher._HEX,0)+" -> "+iCypher.rdxComp(iCypher._HEX,15));
 		
 		Log(1/0);
 		

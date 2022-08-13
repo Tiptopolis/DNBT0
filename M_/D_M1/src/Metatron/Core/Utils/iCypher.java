@@ -161,7 +161,8 @@ public abstract class iCypher {
 		return rdxComp(DefaultResources.ENGLISH_LETTERS_UPPER, val);
 	}
 
-	public static String rdxComp(String alphabet, int val) {
+	public static String rdxComp(String alphabet, int v) {
+		int val = v;
 		String out = "";
 		int rdx = alphabet.length();
 
