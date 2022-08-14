@@ -25,12 +25,9 @@ public class LAUNCHER {
 		Log("!!!");
 
 		T1();
-		 SwingUtilities.invokeLater(new Runnable() {
-	            public void run() {
-	                CORE.create();
-	            }
-	        });
-		//CORE.create();
+
+		CORE.create();
+		
 		// Log(uChumpEngine.HostSystemData.logSystemProps());
 
 	}

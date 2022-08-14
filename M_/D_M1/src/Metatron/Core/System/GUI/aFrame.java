@@ -13,13 +13,14 @@ public class aFrame extends JFrame {
 	public Canvas canvas;
 	protected boolean repaint = true;
 
-	public aFrame()
+	public aFrame(String title)
 	{
+		super(title);
 		this.canvas = new aCanvas();
 	}
 	
-	public aFrame(Canvas c) {
+	/*public aFrame(Canvas c) {
 		this.canvas = c;
-	}
+	}*/
 
 }

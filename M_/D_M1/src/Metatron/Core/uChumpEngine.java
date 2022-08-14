@@ -2,12 +2,15 @@ package Metatron.Core;
 
 import static Metatron.Core.M_Utils.*;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
@@ -42,7 +45,7 @@ public class uChumpEngine extends uApp {
 	// tracks main window context
 
 	// lang-> {fn,evt,val}
-
+	public static uChumpEngine CORE;
 	public boolean running = false;
 	public static aFrame MainFrame; //transparent background with app.clickout event
 
@@ -73,11 +76,17 @@ public class uChumpEngine extends uApp {
 
 	aModel door;
 	aTable doors;
+	
+	public uChumpEngine()
+	{
+		CORE = this;
+	}
 
 	@Override
 	public void create() {
 		CMD = WindowsConsoleAdapter.WIN;
-		 createAndShowGUI();
+		 initMainRenderFrame();
+		
 
 		S1 = new aShell("S1", this.get());
 		S2 = new aShell("S2", this.get());
@@ -246,6 +255,25 @@ public class uChumpEngine extends uApp {
 		return this.running;
 	}
 
+	
+	private static void initMainRenderFrame()
+	{
+		aFrame f = new aFrame("uChumpEngine");
+		f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        f.setSize(250,250);
+        f.setVisible(true);
+        MainFrame = f;
+        
+        f.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	Log(" >>>>>> " + e);
+               uChumpEngine.CORE.dispose();
+               
+            }
+        });
+	}
 	
     private static void createAndShowGUI() {
         System.out.println("Created GUI on EDT? "+
