@@ -1,10 +1,11 @@
 package Metatron.Core.Primitive;
 
 import Metatron.Core.Primitive.A_I.iToken;
+import Metatron.Core.Primitive.Struct._Object;
 import Metatron.Core.Primitive.Struct.aDictionary;
 
 
-public class aToken<T> implements iToken<T>{
+public class aToken<T> extends _Object implements iToken<T>{
 
 	public static aDictionary<String> TYPES = new aDictionary<String>();
 	public T value;

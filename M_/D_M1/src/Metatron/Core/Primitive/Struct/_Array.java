@@ -14,7 +14,7 @@ import Metatron.Core.Primitive.A_I.iGroup;
 
 
 
-public class _Array<T> implements iCollection<T> {
+public class _Array<T> extends _Object implements iCollection<T> {
 
 	protected T[] data;
 	protected int modCount = 0;

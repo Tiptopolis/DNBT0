@@ -2,9 +2,10 @@ package Metatron.Core.Primitive.Impl;
 
 import Metatron.Core.Math.aMaths;
 import Metatron.Core.Primitive.Struct._Array;
+import Metatron.Core.Primitive.Struct._Object;
 import Metatron.Core.Utils.StringUtils;
 
-public class _Chord implements CharSequence {
+public class _Chord extends _Object implements CharSequence {
 
 	private _Array<String> inner;
 	private boolean del = true;

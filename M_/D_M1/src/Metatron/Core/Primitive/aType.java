@@ -2,6 +2,7 @@ package Metatron.Core.Primitive;
 
 import static Metatron.Core.M_Utils.instanceOf;
 
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 import Metatron.Core.Primitive.A_I.iCollection;
@@ -28,12 +29,16 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	// Path/Variant form WORD:OF
 	// form adhoc paths from types using : as seperator
 
+	private T defaultNew;
+
 	public aSet<T> instances = new aSet<T>();
 
 	public aSet<aType> inherits;
 	public aSet<aType> extensions;
 
 	// public aDictionary<Pattern> patterns;
+
+	Supplier isNumeric = () -> instanceOf(Number.class).test(this.defaultNew);
 
 	public static final aType Any;
 	static {
@@ -43,12 +48,18 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	public aType(String typeName) {
 		super(typeName, new aSet<aToken<T>>());
 		this.label = typeName;
-		this.type = typeName;//pull token from _Types?
+		this.type = typeName;// pull token from _Types?
 
 		_Types.register(this);
 	}
 
-
+	public aType(String typeName, T defaultVal) {
+		super(typeName, new aSet<aToken<T>>());
+		this.label = typeName;
+		this.type = typeName;// pull token from _Types?
+		this.defaultNew = defaultVal;
+		_Types.register(this);
+	}
 
 	@Override
 	public String toToken() {

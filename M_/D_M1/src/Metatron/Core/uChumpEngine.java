@@ -122,6 +122,18 @@ public class uChumpEngine extends uApp {
 		Log(_Types.ALL.toLog());
 		// Log(_Types.ALL.size());
 		// Log(_Types.ALL.keys.size());
+		
+		
+
+		Log(_Types.getA("ANY", "Archetype"));
+		Log();
+		Log(_Types.jType.ALL);
+		Log(_Types.jType.TYPES);
+		Log("______________");
+		Object x = _Types.jType.getA("int");
+		Log(x + " :: " + x.getClass());
+		Log(1/0);
+		
 
 		/*
 		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);

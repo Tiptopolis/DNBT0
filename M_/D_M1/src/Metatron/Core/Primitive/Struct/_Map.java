@@ -27,7 +27,7 @@ import Metatron.Core.Utils.StringUtils;
 
 
 
-public abstract class _Map<K, V> implements iMap<K, V> {
+public abstract class _Map<K, V> extends _Object implements iMap<K, V> {
 
 	// index-mapped lists
 	// 1-many[unique] mapping
