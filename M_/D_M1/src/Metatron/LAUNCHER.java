@@ -2,6 +2,8 @@ package Metatron;
 
 import static Metatron.Core.M_Utils.*;
 
+import javax.swing.SwingUtilities;
+
 import Metatron.Core.uChumpEngine;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Math.Util.aVectorUtils;
@@ -23,7 +25,12 @@ public class LAUNCHER {
 		Log("!!!");
 
 		T1();
-		CORE.create();
+		 SwingUtilities.invokeLater(new Runnable() {
+	            public void run() {
+	                CORE.create();
+	            }
+	        });
+		//CORE.create();
 		// Log(uChumpEngine.HostSystemData.logSystemProps());
 
 	}
