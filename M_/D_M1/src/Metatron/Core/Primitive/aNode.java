@@ -174,6 +174,24 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 		return false;
 	}
 
+	public boolean is(Class... c) {
+		boolean cls = true;
+		boolean t = true;
+		for (Class C : c) {
+			if (!instanceOf(C).test(this.get().getClass()))
+				cls = false;
+			if (!this.type.equals(C))
+				t = false;
+
+		}
+		return cls || t || instanceOf(c).test(this);
+	}
+
+	public boolean is(aNode n) {
+		return false;
+	}
+	
+
 	public boolean has(String what) {
 
 		if (this.links != null && !this.links.isEmpty())
@@ -624,9 +642,9 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 			}
 		if (this.shared != null) {
 			log += "  [SHARED]{\n";
-			log += "     "+this.shared.toLog();
+			log += "     " + this.shared.toLog();
 		}
-		log+="  }\n";
+		log += "  }\n";
 		return log;
 	}
 

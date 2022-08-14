@@ -134,9 +134,11 @@ public class uChumpEngine extends uApp {
 		Log(x + " :: " + x.getClass());
 		Log(_Types.jType.getNew("int"));
 		Log(_Types.jType.getItems());
-		Log(1/0);
 		
-
+		
+		Log(new aNode(1).is(Integer.class));
+		Log(new aNode(1).is(_Types.jType.getA("int")));
+		Log(1/0);
 		/*
 		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
 		 * Log(LL.toLog());

@@ -1,8 +1,13 @@
 package Metatron.Core.Primitive.Util;
 
+import java.util.Comparator;
+
+import Metatron.Core.M_Utils;
 import Metatron.Core.uChumpEngine;
+import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aType;
 import Metatron.Core.Primitive.A_I.iEnum;
+import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aDictionary.D_Key;
@@ -29,6 +34,31 @@ public class _Types {
 		return ALL.get(context, label);
 	}
 
+	
+	public static Comparator<Object> isA(Object a,Object b)
+	{
+		return new Comparator() {
+
+			@Override
+			public int compare(Object o1, Object o2) {
+				
+				if(M_Utils.instanceOf(o2.getClass()).test(o1.getClass()))
+				return 0;
+				if(o1 instanceof aNode)
+				{
+					if(o1.equals(o2))
+						return 1;
+				}
+				
+				
+				return -1;
+			}
+			
+		};
+	}
+	
+	
+	
 	public static enum jType_Data {
 		PRIMITIVE, STRUCT;
 
@@ -118,6 +148,66 @@ public class _Types {
 		@Override
 		public String toString() {
 			return "<" + this.name() + ">";
+		}
+
+		@Override
+		public void append(jType entry) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void appendAll(jType... entries) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public jType get(Integer index) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Integer indexOf(Object member) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void remove(Integer at) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean contains(jType entry) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isEmpty() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public int size() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void clear() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public <N, X> iMap<N, X> toMap() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}
