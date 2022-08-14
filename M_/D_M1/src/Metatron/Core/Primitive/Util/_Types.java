@@ -8,6 +8,7 @@ import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aType;
 import Metatron.Core.Primitive.A_I.iEnum;
 import Metatron.Core.Primitive.A_I.iMap;
+import Metatron.Core.Primitive.A_I.iType;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aDictionary.D_Key;
@@ -25,7 +26,7 @@ public class _Types {
 			ALL = new aDictionary<aType>();
 
 		for (aType T : t) {
-			ALL.put("ANY", T.label, T);
+			ALL.put("METATRON", T.label, T);
 		}
 		return null;
 	}
@@ -65,7 +66,7 @@ public class _Types {
 	}
 
 	// java primitives
-	public static enum jType implements iEnum<jType> {
+	public static enum jType implements iEnum<iType> {
 		NULL(null, new D_Key("JAVA", "TYPE:NONNUMERIC"), null, true, jType_Data.PRIMITIVE, "null"),
 		VOID(Void.class, new D_Key("JAVA", "TYPE:NONNUMERIC"), null, true, jType_Data.PRIMITIVE, "void"),
 		BYTE(Byte.class, new D_Key("JAVA",
@@ -79,14 +80,16 @@ public class _Types {
 		CHARACTER(Character.class, new D_Key("JAVA", "TYPE"), (char) 0, false, jType_Data.PRIMITIVE, "char",
 				"Character");
 
-		public static aMap<String, jType> ALL;
+		public static aMap<String, iType> ALL;
 		public static aSet<jType> TYPES;
 		private static aSet<jType> _Numeric = new aSet<jType>();
+		
 
 		protected final Class c;
 		public final aSet<String> name;
 		public final boolean numeric;
 		protected final Object defaultVal;
+		public aSet<D_Key> aliases;
 
 		private jType(Class c, D_Key def, Object defVal, boolean num, jType_Data dType, String... names) {
 			this.c = c;
@@ -102,7 +105,7 @@ public class _Types {
 
 		private static void reg(jType t) {
 			if (jType.ALL == null)
-				jType.ALL = new aMap<String, jType>();
+				jType.ALL = new aMap<String, iType>();
 			if (TYPES == null)
 				TYPES = new aSet<jType>();
 
@@ -136,34 +139,40 @@ public class _Types {
 		}
 
 		@Override
-		public aMap<String, jType> getAll() {
+		public aMap<String, iType> getAll() {
 
 			return jType.ALL;
 		}
 
-		public static aMap<String, jType> getItems() {
+		public static aMap<String, iType> getItems() {
 			return jType.ALL;
 		}
 
+		@Override
+		public String label() {
+			return this.name();
+		}
+
+		
 		@Override
 		public String toString() {
 			return "<" + this.name() + ">";
 		}
 
 		@Override
-		public void append(jType entry) {
+		public void extend(iType sub)
+		{
+			
+		}
+
+		@Override
+		public void appendAll(iType... entries) {
 			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
-		public void appendAll(jType... entries) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public jType get(Integer index) {
+		public iType get(Integer index) {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -181,7 +190,7 @@ public class _Types {
 		}
 
 		@Override
-		public boolean contains(jType entry) {
+		public boolean contains(iType entry) {
 			// TODO Auto-generated method stub
 			return false;
 		}
@@ -209,6 +218,9 @@ public class _Types {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		
+
 
 	}
 }

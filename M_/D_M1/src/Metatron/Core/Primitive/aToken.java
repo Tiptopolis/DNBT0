@@ -7,15 +7,11 @@ import Metatron.Core.Primitive.Struct.aDictionary;
 
 public class aToken<T> extends _Object implements iToken<T>{
 
-	public static aDictionary<String> TYPES = new aDictionary<String>();
+	
 	public T value;
 	public Object type;
 	
-	static {
-		if (TYPES == null)
-			TYPES = new aDictionary<String>();
-
-	}
+	
 	
 	public static String getType(aToken T) {
 		return "";

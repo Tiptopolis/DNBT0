@@ -75,6 +75,12 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 		this.instances.append(entry);
 
 	}
+	
+	@Override
+	public void extend(iType sub)
+	{
+		
+	}
 
 	@Override
 	public void appendAll(T... entries) {
@@ -125,6 +131,13 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	public boolean equals(Object other) {
 		if (this == other)
 			return true;
+
+		if (other instanceof Class) {
+
+			if (instanceOf(other).test(this.defaultNew))
+				return true;
+		}
+
 		if (other instanceof aType) {
 			aType T = (aType) other;
 			if (this.label.equals(T.label))
