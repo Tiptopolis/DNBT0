@@ -132,6 +132,8 @@ public class uChumpEngine extends uApp {
 		Log("______________");
 		Object x = _Types.jType.getA("int");
 		Log(x + " :: " + x.getClass());
+		Log(_Types.jType.getNew("int"));
+		Log(_Types.jType.getItems());
 		Log(1/0);
 		
 
