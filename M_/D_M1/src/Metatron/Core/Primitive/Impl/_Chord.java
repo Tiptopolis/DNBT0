@@ -1,6 +1,7 @@
-package Metatron.Core.Primitive.Struct;
+package Metatron.Core.Primitive.Impl;
 
 import Metatron.Core.Math.aMaths;
+import Metatron.Core.Primitive.Struct._Array;
 import Metatron.Core.Utils.StringUtils;
 
 public class _Chord implements CharSequence {
@@ -13,6 +14,7 @@ public class _Chord implements CharSequence {
 	Number maxLength = Float.POSITIVE_INFINITY;
 	Number minLength = Float.NEGATIVE_INFINITY;
 	String nullDef = "";
+
 	public _Chord() {
 		this.inner = new _Array<String>(" ");
 		this.delimiter = "";
@@ -66,8 +68,11 @@ public class _Chord implements CharSequence {
 	public String[] parse() {
 		int s = this.inner.size();
 		String[] out = new String[s];
+		
 		for (int i = 0; i < s; i++)
 			out[i] = this.inner.get(i);
+		
+		
 		return out;
 	}
 

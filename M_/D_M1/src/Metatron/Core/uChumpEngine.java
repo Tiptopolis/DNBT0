@@ -22,7 +22,7 @@ import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.Data.aModel;
 import Metatron.Core.Primitive.Data.aTable;
-import Metatron.Core.Primitive.Struct._Chord;
+import Metatron.Core.Primitive.Impl._Chord;
 import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;

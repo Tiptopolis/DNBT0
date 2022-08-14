@@ -3,7 +3,6 @@ package Metatron.Core.Primitive.Impl;
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.A_I.iNumeric;
 import Metatron.Core.Primitive.A_I.iNode;
-import Metatron.Core.Primitive.Struct._Chord;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 
