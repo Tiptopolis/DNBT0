@@ -2,6 +2,8 @@ package Metatron.Core;
 
 import static Metatron.Core.M_Utils.*;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
@@ -34,7 +36,8 @@ import Metatron.Core.System.uApp;
 import Metatron.Core.System.A_I.iApplet;
 import Metatron.Core.System.COM.Console.aConsole;
 import Metatron.Core.System.ECS.FSM.aState;
-import Metatron.Core.System.GUI.aFrame;
+import Metatron.Core.System.UI.aFrame;
+import Metatron.Core.System.UI.Util.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
@@ -47,7 +50,7 @@ public class uChumpEngine extends uApp {
 	// lang-> {fn,evt,val}
 	public static uChumpEngine CORE;
 	public boolean running = false;
-	public static aFrame MainFrame; //transparent background with app.clickout event
+	public static aFrame MainFrame; // transparent background with app.clickout event
 
 	public static aConsole M_Console;
 	public static WindowsConsoleAdapter CMD;
@@ -76,17 +79,15 @@ public class uChumpEngine extends uApp {
 
 	aModel door;
 	aTable doors;
-	
-	public uChumpEngine()
-	{
+
+	public uChumpEngine() {
 		CORE = this;
 	}
 
 	@Override
 	public void create() {
 		CMD = WindowsConsoleAdapter.WIN;
-		 initMainRenderFrame();
-		
+		initMainRenderFrame();
 
 		S1 = new aShell("S1", this.get());
 		S2 = new aShell("S2", this.get());
@@ -104,6 +105,9 @@ public class uChumpEngine extends uApp {
 
 		Log("---");
 		Log(door.get("color"));
+		
+		
+		Log(SwingUtils.mapComponentLocations(MainFrame).toLog());
 		// Log(1/0);
 
 		// initialize REPL
@@ -122,8 +126,6 @@ public class uChumpEngine extends uApp {
 		Log(_Types.ALL.toLog());
 		// Log(_Types.ALL.size());
 		// Log(_Types.ALL.keys.size());
-		
-		
 
 		Log(_Types.getA("ANY", "Archetype"));
 		Log();
@@ -134,11 +136,12 @@ public class uChumpEngine extends uApp {
 		Log(x + " :: " + x.getClass());
 		Log(_Types.jType.getNew("int"));
 		Log(_Types.jType.getItems());
-		
-		
+
 		Log(new aNode(1).is(Integer.class));
 		Log(new aNode(1).is(_Types.jType.getA("int")));
-		Log(1/0);
+
+		// Log(1/0);
+
 		/*
 		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
 		 * Log(LL.toLog());
@@ -190,7 +193,7 @@ public class uChumpEngine extends uApp {
 
 		Log(iCypher.rdxComp(iCypher._HEX, 0) + " -> " + iCypher.rdxComp(iCypher._HEX, 15));
 
-		////Log(1 / 0);
+		//// Log(1 / 0);
 
 		Log(CMD.toLog());
 		D = new aDictionary<String>();
@@ -242,6 +245,7 @@ public class uChumpEngine extends uApp {
 				O = h;
 			}
 			ellapsed = 0f;
+			Log(SwingUtils.mousePos());
 			Log(S1.toLog());
 			Log(S2.toLog());
 			// Log("!" + CMD);
@@ -271,28 +275,30 @@ public class uChumpEngine extends uApp {
 		return this.running;
 	}
 
-	
-	private static void initMainRenderFrame()
-	{
+	private static void initMainRenderFrame() {
 		aFrame f = new aFrame("uChumpEngine");
 		f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        f.setSize(250,250);
-        f.setVisible(true);
-        MainFrame = f;
-        
-        f.addWindowListener(new WindowAdapter() {
+		f.setSize(900, 480);
+		f.setVisible(true);
+		MainFrame = f;
 
-            @Override
-            public void windowClosing(WindowEvent e) {
-            	Log(" >>>>>> " + e);
-               uChumpEngine.CORE.dispose();
-               
-            }
-        });
+		f.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Log(" >>>>>> " + e);
+				uChumpEngine.CORE.dispose();
+
+			}
+		});
+		
+		f.addComponentListener(new ComponentAdapter() {
+		    public void componentResized(ComponentEvent componentEvent) {
+		        // do stuff
+		    }
+		});
 	}
-	
 
-	
 	public static class jVM_SysData {
 
 		static String userRootPath = "";
