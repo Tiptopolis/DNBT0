@@ -15,6 +15,7 @@ import Metatron.Core.Primitive.A_I.iType;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aDictionary.D_Key;
+import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Primitive.Util._Types;
@@ -33,8 +34,8 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 
 	public aSet<T> instances = new aSet<T>();
 
-	public aSet<aType> inherits;
-	public aSet<aType> extensions;
+	public aSet<iType> inherits;
+	public aSet<iType> extensions;
 
 	// public aDictionary<Pattern> patterns;
 
@@ -60,7 +61,19 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 		this.defaultNew = defaultVal;
 		_Types.register(this);
 	}
-
+	
+	public aType(Object context,String label, String typeName) {
+		this(context,label,typeName,null);
+	}
+	public aType(Object context, String label, String typeName, T defVal)
+	{
+		super(typeName, new aSet<aToken<T>>());
+		this.label = typeName;
+		this.type = typeName;// pull token from _Types?
+		this.defaultNew = defVal;
+		_Types.register(context,label,this);
+	}
+	
 	@Override
 	public String toToken() {
 		String tag = "";
@@ -73,12 +86,19 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	@Override
 	public void append(T entry) {
 		this.instances.append(entry);
-
 	}
 	
 	@Override
 	public void extend(iType sub)
 	{
+		
+		this.extensions.append(sub);
+		sub.inherit(this);		
+	}
+	
+	@Override
+	public void inherit(iType sup) {
+		this.inherits.append(sup);
 		
 	}
 
@@ -86,9 +106,19 @@ public class aType<T> extends aNode<aSet<aToken<T>>> implements iType<T>/* imple
 	public void appendAll(T... entries) {
 		for (T t : entries)
 			this.append(t);
-
 	}
 
+	
+	@Override
+	public void insert(Integer at, T member)
+	{
+		if(at.intValue()==0)
+			this.instances.append(member);
+		//if(at.intValue() == 1)
+			//this.inherit(_Types.getA);
+	}
+	
+	
 	@Override
 	public T get(Integer index) {
 		return this.instances.get(index);

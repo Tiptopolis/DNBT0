@@ -373,6 +373,14 @@ public abstract class _Map<K, V> extends _Object implements iMap<K, V> {
 
 			return false;
 		}
+		
+		public boolean equals(Object c, Object l) {
+			if (this.getKey().equals(c) && this.getValue().equals(l))
+				return true;
+			if (c.equals(this.getKey()) || l.equals(this.getValue()))
+				return true;
+			return false;
+		}
 
 		@Override
 		public int compareTo(Object other) {

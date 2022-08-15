@@ -8,24 +8,20 @@ import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Utils.StringUtils;
 
 public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
-	
-	public aDictionary()
-	{
+
+	public aDictionary() {
 		this.keys = new aList<Entry<Object, String>>();
 		this.values = new aList<V>();
 	}
-	
-	
+
 	public void put(D_Key key, Object val) {
 		if (!this.contains(key, val)) {
 			if (this.containsKey(key))
 				key = (aDictionary.D_Key) this.keys.get(this.keys.indexOf(key));
 			this.keys.append(key);
 			this.values.append((V) val);
-		}
-		else {
-			
-			
+		} else {
+
 		}
 	}
 
@@ -41,22 +37,16 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 
 	public void put(Object context, String label, V as) {
 
-		
-		/*D_Key D = newEntry(context, label);
-
-		if (!this.getAll(D).contains(as)) {
-			this.keys.append(D);
-			this.values.append(as);
-		}
-		else
-		{
-			D = this.getKey(context, label);
-			this.keys.append(D);
-			this.values.append(as);
-		}*/
-		Log(context + "  :>: " + label +" :>: " + as);
+		/*
+		 * D_Key D = newEntry(context, label);
+		 * 
+		 * if (!this.getAll(D).contains(as)) { this.keys.append(D);
+		 * this.values.append(as); } else { D = this.getKey(context, label);
+		 * this.keys.append(D); this.values.append(as); }
+		 */
+		//Log(context + "  :>: " + label + " :>: " + as);
 		D_Key D = this.getKey(context, label);
-		Log( " >>  " + D);
+		//Log(" >>  " + D);
 		this.keys.append(D);
 		this.values.append(as);
 	}
@@ -67,18 +57,16 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 			this.put(context, label, v);
 	}
 
-	public D_Key getKey(Object context, String label)
-	{
-		for(Object O : this.keys)
-		{
-			D_Key D = (D_Key)O;
-			if(D.getKey()==context||D.getKey().equals(context))
-				if(D.getValue()==label || D.getValue().equals(label))
+	public D_Key getKey(Object context, String label) {
+		for (Object O : this.keys) {
+			D_Key D = (D_Key) O;
+			if (D.getKey() == context || D.getKey().equals(context))
+				if (D.getValue() == label || D.getValue().equals(label))
 					return D;
 		}
-		return new D_Key(context,label);
+		return new D_Key(context, label);
 	}
-	
+
 	@Override
 	public Entry<Entry<Object, String>, V> get(Integer index) {
 		if (this.size() == 0)
@@ -95,14 +83,14 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 	}
 
 	public Object get(Object context, String as) {
-		//return this.getAll(new Entry(context, as));
-		
+		// return this.getAll(new Entry(context, as));
+
 		aSet all = new aSet(this.getAll(new Entry(context, as)));
-		
-		if(all.size()==1)
+
+		if (all.size() == 1)
 			return all.get(0);
 		else {
-			Log("!!       " + all);
+			//Log("!!       " + all);
 			return all;
 		}
 	}
@@ -114,7 +102,7 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 		int s = ent.size();
 		if (s == 1)
 			return ent.get(0);
-		//Log("!!       " + ent);
+		// Log("!! " + ent);
 		for (String S : as)
 			for (int i = 0; i < s; i++) {
 				Entry E = (Entry) ent.get(i);
@@ -168,18 +156,17 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 			return out.get(0);
 		return out;
 	}
-	
-	public iCollection collect(Object context)
-	{
-		aSet ent = (aSet) new aSet().with(this.getAllOf(context));;
-		
+
+	public iCollection collect(Object context) {
+		aSet ent = (aSet) new aSet().with(this.getAllOf(context));
+		;
+
 		return ent;
 	}
-	
-	public iCollection collect(Object context, String...names)
-	{
-		aSet ent = (aSet) new aSet().with(this.get(context,names));
-		
+
+	public iCollection collect(Object context, String... names) {
+		aSet ent = (aSet) new aSet().with(this.get(context, names));
+
 		return ent;
 	}
 
@@ -245,6 +232,8 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 			return false;
 		}
 
+
+
 		@Override
 		public boolean equals(Object other) {
 			if (other instanceof _Map.Entry) {
@@ -253,6 +242,15 @@ public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 				boolean V = this.getValue() == M.getValue() || this.getValue().equals(M.getValue());
 				return K && V;
 			}
+			return false;
+		}
+		
+		@Override
+		public boolean equals(Object c, Object l) {
+			if (this.getKey().equals(c) && this.getValue().equals(l))
+				return true;
+			if (c.equals(this.getKey()) || l.equals(this.getValue()))
+				return true;
 			return false;
 		}
 

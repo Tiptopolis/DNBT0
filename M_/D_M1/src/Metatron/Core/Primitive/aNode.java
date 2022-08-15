@@ -39,9 +39,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 	// dictionary & links
 	public aMap<String, aDictionary> data; // Data, Inner, Outter
 
-	public aMap<String, Object> shared;
-	public aMultiMap<_Map.Entry<String, Object>, Object> meta;
-	public aMap<_Map.Entry<String, Object>, iFunctor> fields;
+	public aMap<String, Object> shared;	
 
 	public aDictionary<aLink> links;
 
@@ -80,10 +78,8 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 	@Override
 	public String type() {
-		// if (!(this.get() instanceof iToken))
 		if (instanceOf(aNode.class).test(this.value))
 			return ((aNode) this.value).toToken();
-		// return ((aNode)this.value).toNodeTag();
 		if (instanceOf(iToken.class).test(this.value))
 			return "<" + ((iToken) this.get()).type() + ">";
 		if (instanceOf(iCollection.class).test(this.value)) {
@@ -153,8 +149,6 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 		}
 		if (this.data != null)
 			this.data.clear();
-		if (this.meta != null)
-			this.meta.clear();
 		if (this.shared != null)
 			this.shared.clear();
 	}
@@ -631,13 +625,7 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 	@Override
 	public String toString() {
-		/*
-		 * String s = ""; String t = ""; if (this.type != null) t = "" + this.type;
-		 * 
-		 * s = this.label() + " = " + this.value + t;
-		 */
-
-		// return s;
+		
 		return this.toToken();
 	}
 

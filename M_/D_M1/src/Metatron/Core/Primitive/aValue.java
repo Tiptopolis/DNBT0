@@ -3,6 +3,7 @@ package Metatron.Core.Primitive;
 
 import static Metatron.Core.M_Utils.*;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -19,7 +20,7 @@ import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.Utils.StringUtils;
 
-public class aValue<T> extends _Map.Entry<String, T> {
+public class aValue<T> extends _Map.Entry<String, T> implements Serializable{
 
 	public static aValue EMPTY;
 	// aLabeldValue lol, a meme

@@ -2,6 +2,7 @@ package Metatron.Core.Primitive.Data;
 
 import static Metatron.Core.M_Utils.*;
 
+import java.io.Serializable;
 import java.util.function.Function;
 
 import Metatron.Core.Primitive.aLink;
@@ -11,7 +12,7 @@ import Metatron.Core.Primitive.Struct.aLinkedSet;
 import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Primitive.Struct._Map.Entry;
 
-public class aModel extends aNode<aSet<aValue>> {
+public class aModel extends aNode<aSet<aValue>> implements Serializable{
 
 	// 'aVector' of aValue
 	public Function<String, aValue> get = (a) -> {

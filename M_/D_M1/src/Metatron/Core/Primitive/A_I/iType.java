@@ -4,12 +4,19 @@ public interface iType<T> extends iCollection<T> {
 
 	public String label();
 
-	public void extend(iType sub);
+	public default void extend(iType sub) {
+		
+	}
+
+	public default void inherit(iType sup) {
+		
+	}
 
 	@Override
 	public default void insert(Integer at, T member) {
-		this.append(member);
-
+		 this.append(member);
+		
+			
 	}
 
 	@Override

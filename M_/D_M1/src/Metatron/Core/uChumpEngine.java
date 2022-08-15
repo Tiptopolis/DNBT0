@@ -129,8 +129,13 @@ public class uChumpEngine extends uApp {
 
 		Log(new aNode(1).is(Integer.class));
 		Log(new aNode(1).is(_Types.jType.getA("int")));
-
-		// Log(1/0);
+		Log(new aNode(1).is(_Types.jType.getA("Integer")));
+		Log(new aNode(1.0).is(_Types.jType.getA("int")));
+		
+		Log(_Types.ALL.toLog());
+		
+		_Types.getA("JAVA", "int");
+		 Log(1/0);
 
 		/*
 		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
