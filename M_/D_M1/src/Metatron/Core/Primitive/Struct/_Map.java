@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.A_I.iCollection;
+import Metatron.Core.Primitive.A_I.iEntry;
 import Metatron.Core.Primitive.A_I.iGroup;
 import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.A_I.iNode;
@@ -305,7 +306,7 @@ public abstract class _Map<K, V> extends _Object implements iMap<K, V> {
 		return log;
 	}
 
-	public static class Entry<K, V> extends aNode<V> implements iNode<V> {
+	public static class Entry<K, V> extends aNode<V> implements iNode<V>,iEntry<K,V> {
 
 		protected K key;
 		public Supplier<K> Key = () -> this.key;
@@ -330,10 +331,12 @@ public abstract class _Map<K, V> extends _Object implements iMap<K, V> {
 			this.label = (this.key + "|" + this.value);
 		}
 
+		@Override
 		public K getKey() {
 			return this.key;
 		}
 
+		@Override
 		public V getValue() {
 			return this.value;
 		}
