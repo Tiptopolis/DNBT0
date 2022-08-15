@@ -188,9 +188,12 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 	}
 
 	public boolean is(aNode n) {
-		return false;
+
+		if (n == this || this.get() == n || n.get() == this)
+			return true;
+
+		return this.equals(n);
 	}
-	
 
 	public boolean has(String what) {
 
