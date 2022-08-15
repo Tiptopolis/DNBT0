@@ -155,22 +155,14 @@ public class uChumpEngine extends uApp {
 
 		Log(iCypher.rdxComp(16));
 
-		aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
-		// Log(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
-		// Log(Permutes_8Bit.toLog());
-
+		/*aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
+		
+		
 		for (aVector v : Permutes_8Bit)
 			Log(v.toJoinedString());
 		Log("\n\n\n");
 
-		/*
-		 * for (aVector v : B) Log(v.toJoinedString());
-		 */
-
-		// aList<aVector> B = (aList<aVector>)
-		// aVectorUtils.sortElementsAscending(Permutes_8Bit.cpy()); //Z-patterning?
-		// aList<aVector> B = (aList<aVector>)
-		// aVectorUtils.sortSumAscending(Permutes_8Bit.cpy());
+		
 
 		aList<aVector> B = (aList<aVector>) aVectorUtils.sortMagnitudeAscending(Permutes_8Bit.cpy()); // normal binary
 																										// lol
@@ -179,7 +171,7 @@ public class uChumpEngine extends uApp {
 			Log(v.toJoinedString());
 			// if(Permutes_8Bit.get(B.indexOf(v))!= v)
 			// Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		}
+		}*/
 
 		Log(iCypher.rdxComp(iCypher._HEX, 0) + " -> " + iCypher.rdxComp(iCypher._HEX, 15));
 

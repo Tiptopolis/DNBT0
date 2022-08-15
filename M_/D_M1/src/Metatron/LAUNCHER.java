@@ -24,7 +24,7 @@ public class LAUNCHER {
 		Log(args);
 		Log("!!!");
 
-		T1();
+		//T1();
 
 		CORE.create();
 		
