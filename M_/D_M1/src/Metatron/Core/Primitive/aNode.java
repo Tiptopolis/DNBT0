@@ -191,6 +191,13 @@ public class aNode<T> extends aToken<T> implements iNode<T>, iEventHandler {
 
 		if (n == this || this.get() == n || n.get() == this)
 			return true;
+		
+		if(n instanceof _Map.Entry)
+		{
+			_Map.Entry E = (_Map.Entry)n;
+			if(instanceOf(E.getValue().getClass()).test(this.get()))
+				return true;
+		}
 
 		return this.equals(n);
 	}
