@@ -6,38 +6,29 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+
 import javax.swing.WindowConstants;
 
-import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Math.Primitive.fromGdx.Gfx.Color;
 import Metatron.Core.Math.Util.aVectorUtils;
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aType;
 import Metatron.Core.Primitive.aValue;
-import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.Data.aModel;
 import Metatron.Core.Primitive.Data.aTable;
 import Metatron.Core.Primitive.Impl._Chord;
-import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;
-import Metatron.Core.Primitive.Struct.aLinkedList;
 import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aMultiMap;
 import Metatron.Core.System.aShell;
 import Metatron.Core.System.uApp;
-import Metatron.Core.System.A_I.iApplet;
 import Metatron.Core.System.COM.Console.aConsole;
 import Metatron.Core.System.ECS.FSM.aState;
 import Metatron.Core.System.UI.aFrame;
-import Metatron.Core.System.UI.Util.SwingUtils;
+import Metatron.Core.System.UI.Utils.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
@@ -105,8 +96,7 @@ public class uChumpEngine extends uApp {
 
 		Log("---");
 		Log(door.get("color"));
-		
-		
+
 		Log(SwingUtils.mapComponentLocations(MainFrame).toLog());
 		// Log(1/0);
 
@@ -250,13 +240,15 @@ public class uChumpEngine extends uApp {
 			Log(S2.toLog());
 			// Log("!" + CMD);
 			// M_Console.input(":LOG");
+			Log(M_Gfx.ScreenSize);
 		}
 
 	}
 
 	@Override
 	public void resize(Number... basis) {
-
+		//Log(1/0);
+		M_Gfx.ScreenSize = SwingUtils.getRootWindowSize();
 	}
 
 	@Override
@@ -278,7 +270,7 @@ public class uChumpEngine extends uApp {
 	private static void initMainRenderFrame() {
 		aFrame f = new aFrame("uChumpEngine");
 		f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		f.setSize(900, 480);
+		f.setSize(800, 480);
 		f.setVisible(true);
 		MainFrame = f;
 
@@ -291,11 +283,11 @@ public class uChumpEngine extends uApp {
 
 			}
 		});
-		
+
 		f.addComponentListener(new ComponentAdapter() {
-		    public void componentResized(ComponentEvent componentEvent) {
-		        // do stuff
-		    }
+			public void componentResized(ComponentEvent componentEvent) {
+				uChumpEngine.CORE.resize(null);
+			}
 		});
 	}
 

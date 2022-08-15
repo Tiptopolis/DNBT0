@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.System.A_I.iApplet;
-import Metatron.Core.System.ECS.aEnvironment;
 
 public class uApp extends aShell implements iApplet {
 

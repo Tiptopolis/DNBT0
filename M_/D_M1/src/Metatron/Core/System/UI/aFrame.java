@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
+import Metatron.Core.Primitive.A_I.iSpace;
 import Metatron.Core.System.GFX.aCanvas;
 import Metatron.Core.System.GFX.A_I.iRenderTarget;
 
@@ -24,5 +25,7 @@ public class aFrame extends JFrame {
 		this(title);
 		this.mainBuffer = c;
 	}
+
+
 
 }

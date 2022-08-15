@@ -3,9 +3,7 @@ package Metatron.Core.System;
 import static Metatron.Core.M_Utils.*;
 
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.function.Function;
 
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.iFunctor;
@@ -14,7 +12,6 @@ import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.System.ECS.aEnvironment;
 import Metatron.Core.System.ECS.FSM.iState;
 import Metatron.Core.System.Event.iEvent;
-import Metatron.Core.System.Event.iEventHandler;
 
 public class aShell extends aNode<aEnvironment>  {
 

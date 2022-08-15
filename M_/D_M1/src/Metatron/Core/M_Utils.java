@@ -4,10 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.Stack;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,14 +12,25 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import Metatron.Core.Math.N_Operator;
-import Metatron.Core.Primitive.iFunctor;
 import Metatron.Core.Utils.StringUtils;
 import squidpony.squidmath.RNG;
 
 public class M_Utils {
 
+	
+	
+	
+	
 	public static RNG RND = new RNG();
+	public static float DeltaTime = 0f;
+	public static int Width = 0;
+	public static int Height = 0;
+	
 
+	
+	
+	
+	
 	public static void Log() {
 		System.out.println("\n");
 	}
