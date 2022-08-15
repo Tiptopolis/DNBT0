@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-3.0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-extra-3.0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/hibernate-core-6.1.2.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/jakarta.persistence-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/javax.websocket-api-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
