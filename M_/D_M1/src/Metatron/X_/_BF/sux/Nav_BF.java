@@ -1,4 +1,4 @@
-package Metatron.X_._BF;
+package Metatron.X_._BF.sux;
 
 import java.io.File;
 import java.util.Scanner;

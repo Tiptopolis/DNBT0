@@ -30,12 +30,17 @@ public class aBF {
 
 	public static aMap<_Map.Entry<Character, String>, iFunctor> Commands = new aMap<_Map.Entry<Character, String>, iFunctor>();
 
+	boolean firstRun = true;
+	protected int postCalcSize = 0;
+
 	static {
 		iFunctor.Effect<aBF> F;
 
 		F = (a) -> {
 			a.memPointer = a.memPointer % a.memory.size();
 			a.memPointer++;
+			if (a.memPointer >= a.memory.size())
+				a.memory.append(0);
 			return a;
 		};
 		buildCommand('>', "++ptr;", F);
@@ -44,6 +49,8 @@ public class aBF {
 			if (a.memPointer == 0)
 				a.memPointer = a.memory.size();
 			a.memPointer--;
+			if (a.memPointer < 0)
+				a.memory.insert(0, 0);
 			return a;
 		};
 		buildCommand('<', "--ptr;", F);
@@ -87,7 +94,6 @@ public class aBF {
 				return a;
 			else {
 				a.progCnt = a.loopIndex[a.progCnt];
-				Log(" _" +a.loopIndex[a.progCnt]);
 			}
 			return a;
 
@@ -96,10 +102,12 @@ public class aBF {
 	}
 
 	public aBF(String script) {
-		String s = StringUtils.stripExcept(script, alphabet)+end;
+		String s = StringUtils.stripExcept(script, alphabet) + end;
 		this.script = s.toCharArray();
 		this.memory = new _Array<Integer>();
-		for (int i = 0; i < 100; i++)
+		int c = this.estSize();
+		for (int i = 0; i < c; i++) // could could the balance of shift characters to determine size? dont ant
+									// array-growth during execution lol
 			memory.append(0);
 		this.prepLoops();
 		this.inputReader = new InputStreamReader(System.in);
@@ -109,6 +117,18 @@ public class aBF {
 	public static void buildCommand(char sym, String alt, iFunctor fn) {
 		Entry<Character, String> E = new Entry<>(sym, alt);
 		Commands.put(E, fn);
+	}
+
+	private int estSize() {
+		// trys to precalculate size
+		// doesnt take branches into account
+		int c = 0;
+		for (char C : this.script)
+			switch (C) {
+			case '>' -> c++;
+			case '<' -> c--;
+			}
+		return c;
 	}
 
 	private void prepLoops() throws IllegalArgumentException {
@@ -150,6 +170,7 @@ public class aBF {
 	}
 
 	private void outputMemCell() {
+		Log("<!>");
 		outputSt.print((char) memory.get(memPointer).intValue());
 	}
 
@@ -159,9 +180,6 @@ public class aBF {
 		} catch (IOException e) {
 		}
 	}
-
-	//////
-	//
 
 	protected static iFunctor getCommand(char sym) {
 		for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
@@ -185,16 +203,20 @@ public class aBF {
 
 	protected void parseAt(int index) {
 
-		// Log(index +" -> "+this.script[index] + "("+this.memPointer + ":"+this.memory.get(index)+")"+this.script.length);
-		if(index>this.script.length || this.script[index]==end)
+		if (index > this.script.length || this.script[index] == end)
 			this.memPointer = -1;
-				
-		iFunctor f = this.getCommand(this.script[index]);
-		if(f!= null)
-			f.apply(this);
-		
-		//Log("  " + progCnt + " -> " + this.script[index] + "(" + this.memPointer + ":" + this.memory.get(index) + ") "+this.progCnt);
 
+		if (this.firstRun) {
+			char c = this.script[index];
+			switch (c) {
+			case '>' -> this.postCalcSize++;
+			case '<' -> this.postCalcSize--;
+			}
+		}
+
+		iFunctor f = this.getCommand(this.script[index]);
+		if (f != null)
+			f.apply(this);
 	}
 
 	public int get() {
@@ -207,16 +229,26 @@ public class aBF {
 
 	public void execute() {
 		this.progCnt = 0;
-		this.memPointer=0;
-		
-		while(this.memPointer!=-1)
-		{
+		this.memPointer = 0;
+
+		while (this.memPointer != -1) {
 			this.parseAt(this.progCnt);
 			this.progCnt++;
 		}
+
+		if (this.firstRun)
+			this.firstRun = false;
+
+		this.end();
 	}
 
 	public _Array<Integer> getMemory() {
 		return this.memory;
+	}
+
+	public void end() {
+		this.memory = new _Array<Integer>();
+		for (int i = 0; i < postCalcSize; i++)
+			this.memory.append(0);
 	}
 }
