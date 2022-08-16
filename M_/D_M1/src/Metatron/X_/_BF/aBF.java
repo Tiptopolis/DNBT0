@@ -264,4 +264,15 @@ public class aBF {
 		for (int i = 0; i < this.postCalcSize; i++)
 			this.memory.append(0);
 	}
+
+	public String toC() {
+		String out = "";
+		for (int i = 0; i < this.script.length; i++) 
+			for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
+				if (E.getKey().getKey() == this.script[i])
+					out+= E.getKey().getValue()+"\n";
+			}
+		
+		return out;
+	}
 }
