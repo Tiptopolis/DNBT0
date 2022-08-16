@@ -4,15 +4,11 @@ import Metatron.Core.Primitive.A_I.iToken;
 import Metatron.Core.Primitive.Struct._Object;
 import Metatron.Core.Primitive.Struct.aDictionary;
 
+public class aToken<T> extends _Object implements iToken<T> {
 
-public class aToken<T> extends _Object implements iToken<T>{
-
-	
 	public T value;
 	public Object type;
-	
-	
-	
+
 	public static String getType(aToken T) {
 		return "";
 	}
@@ -20,8 +16,6 @@ public class aToken<T> extends _Object implements iToken<T>{
 	public String getName(aToken T) {
 		return "";
 	}
-
-
 
 	@Override
 	public T get() {

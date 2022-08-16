@@ -7,7 +7,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 import javax.swing.WindowConstants;
 
 import Metatron.Core.Math.Primitive.aVector;
@@ -32,6 +31,7 @@ import Metatron.Core.System.UI.Utils.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
+import Metatron.X_._BF.aBF_Script;
 
 public class uChumpEngine extends uApp {
 
@@ -131,11 +131,18 @@ public class uChumpEngine extends uApp {
 		Log(new aNode(1).is(_Types.jType.getA("int")));
 		Log(new aNode(1).is(_Types.jType.getA("Integer")));
 		Log(new aNode(1.0).is(_Types.jType.getA("int")));
-		
+
 		Log(_Types.ALL.toLog());
-		
+
 		_Types.getA("JAVA", "int");
-		 Log(1/0);
+		
+		//++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+		String b = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+		aBF_Script B = new aBF_Script();
+		B.apply(b);
+		Log(B.toString());
+		Log(B.data);
+		Log(1 / 0);
 
 		/*
 		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
@@ -160,23 +167,23 @@ public class uChumpEngine extends uApp {
 
 		Log(iCypher.rdxComp(16));
 
-		/*aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2, 2, 2, 2, 2, 2, 2, 2));
-		
-		
-		for (aVector v : Permutes_8Bit)
-			Log(v.toJoinedString());
-		Log("\n\n\n");
-
-		
-
-		aList<aVector> B = (aList<aVector>) aVectorUtils.sortMagnitudeAscending(Permutes_8Bit.cpy()); // normal binary
-																										// lol
-
-		for (aVector v : B) {
-			Log(v.toJoinedString());
-			// if(Permutes_8Bit.get(B.indexOf(v))!= v)
-			// Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		}*/
+		/*
+		 * aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2,
+		 * 2, 2, 2, 2, 2, 2, 2));
+		 * 
+		 * 
+		 * for (aVector v : Permutes_8Bit) Log(v.toJoinedString()); Log("\n\n\n");
+		 * 
+		 * 
+		 * 
+		 * aList<aVector> B = (aList<aVector>)
+		 * aVectorUtils.sortMagnitudeAscending(Permutes_8Bit.cpy()); // normal binary //
+		 * lol
+		 * 
+		 * for (aVector v : B) { Log(v.toJoinedString()); //
+		 * if(Permutes_8Bit.get(B.indexOf(v))!= v) //
+		 * Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); }
+		 */
 
 		Log(iCypher.rdxComp(iCypher._HEX, 0) + " -> " + iCypher.rdxComp(iCypher._HEX, 15));
 
@@ -238,13 +245,16 @@ public class uChumpEngine extends uApp {
 			// Log("!" + CMD);
 			// M_Console.input(":LOG");
 			Log(M_Gfx.ScreenSize);
+			
+			
+			
 		}
 
 	}
 
 	@Override
 	public void resize(Number... basis) {
-		//Log(1/0);
+		// Log(1/0);
 		M_Gfx.ScreenSize = SwingUtils.getRootWindowSize();
 	}
 

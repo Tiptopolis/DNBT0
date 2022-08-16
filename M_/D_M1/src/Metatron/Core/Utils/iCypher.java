@@ -490,5 +490,10 @@ public abstract class iCypher {
 
 		return true;
 	}
+	
+	public static boolean containsAllThese(String line, String alphabet)
+	{
+		return hasCharsOf(line,alphabet);
+	}
 
 }

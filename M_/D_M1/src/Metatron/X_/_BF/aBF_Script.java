@@ -1,21 +1,27 @@
 package Metatron.X_._BF;
 
+import static Metatron.Core.M_Utils.*;
+
+
 import Metatron.Core.Primitive.iFunctor;
+import Metatron.Core.Primitive.A_I.iCollection;
+import Metatron.Core.Primitive.A_I.iGroup;
+import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.Struct._Array;
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aQueue;
 import Metatron.Core.Utils.iCypher;
 
-public class aBF_Script implements iFunctor.Function<aBF_Script,_Array<Integer>>{
+public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>> {
 
 	protected String alpabet;
 	String script;
 
-	aQueue<String> op;	
-	_Array<Integer> data;// 32-Bit cells
+	aQueue<String> op;
+	public _Array<Integer> data;// 32-Bit cells
 
-	int dataPointer;
-	int cellValue; // index
+	int dataPointer =0;
+	int cellValue =0; // index
 
 	public int cellMod = 16;
 	protected boolean wrap = true;
@@ -117,11 +123,12 @@ public class aBF_Script implements iFunctor.Function<aBF_Script,_Array<Integer>>
 		this(iCypher._REX, 16000);
 	}
 
-	public aBF_Script(String alphabet, long tapeLen) {
+	public aBF_Script(String alphabet, int tapeLen) {
 		this.alpabet = alphabet;
 		data = new _Array<Integer>();
 		for (int i = 0; i < tapeLen; i++)
 			data.append(0);
+		
 	}
 
 	public String parse() {
@@ -136,15 +143,38 @@ public class aBF_Script implements iFunctor.Function<aBF_Script,_Array<Integer>>
 			this.dataPointer = this.dataPointer % this.data.size();
 	}
 
-	
-
-
 	@Override
 	public _Array<Integer> apply(Object... t) {
-    //String or Char[]
-
+		// String or Char[]
+		String p = ""+t[0];
 		
-		return this.data;	
+		if(validScript(p))
+			for(int i =0; i < p.length(); i++)			
+				this.CommandSymbols.get(""+p.charAt(i)).apply(this);
+				
+			
+		
+		return this.data;
+	}
+
+
+	public boolean validScript(String s) {
+		boolean v = false;
+
+		if (iCypher.containsOnlyThese(s, this.alpabet))
+			if (iCypher.containsAllThese(s, s))
+				v = true;
+		return v;
+
 	}
 	
+	@Override
+	public String toString()
+	{
+		
+		
+		
+		return this.script;
+	}
+
 }
