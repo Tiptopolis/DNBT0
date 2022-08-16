@@ -74,8 +74,10 @@ public class aBF {
 		buildCommand(',', "*ptr = getchar();", F);
 
 		F = (a) -> {
-			if (a.get() == 0)
+			if (a.get() == 0) {
 				a.progCnt = a.loopIndex[a.progCnt];
+				Log(" _" +a.loopIndex[a.progCnt]);
+			}
 			return a;
 		};
 		buildCommand('[', "while (*ptr) {", F);
@@ -83,8 +85,10 @@ public class aBF {
 		F = (a) -> {
 			if (a.get() == 0)
 				return a;
-			else
+			else {
 				a.progCnt = a.loopIndex[a.progCnt];
+				Log(" _" +a.loopIndex[a.progCnt]);
+			}
 			return a;
 
 		};
