@@ -2,12 +2,14 @@ package Metatron.X_._BF;
 
 import static Metatron.Core.M_Utils.*;
 
+import java.util.Map.Entry;
 
 import Metatron.Core.Primitive.iFunctor;
 import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iGroup;
 import Metatron.Core.Primitive.A_I.iMap;
 import Metatron.Core.Primitive.Struct._Array;
+import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aQueue;
 import Metatron.Core.Utils.iCypher;
@@ -19,8 +21,8 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 
 	public _Array<Integer> cells;// 32-Bit cells
 
-	int dataPointer =0;
-	int cellValue =0; // index
+	int dataPointer = 0;
+	int cellValue = 0; // index
 
 	public int cellMod = 16;
 	protected boolean wrap = true;
@@ -64,7 +66,8 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 			return a;
 		};
 
-		//not quite right, needs to jump to -matching-, not immediate next counter sub-iterator
+		// not quite right, needs to jump to -matching-, not immediate next counter
+		// sub-iterator
 		iFunctor.Effect<aBF_Script> loop = (a) -> {
 
 			if (a.dataPointer == 0)
@@ -108,8 +111,8 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 
 		CommandNames.put("Loop", loop);
 		CommandSymbols.put("[", loop);
-		CommandNames.put("]", back);
-		CommandSymbols.put("Back", back);
+		CommandNames.put("Back", back);
+		CommandSymbols.put("]", back);
 
 		// <> iP
 		// +- iD
@@ -120,7 +123,8 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 	}
 
 	public aBF_Script() {
-		this(iCypher._REX, 160);
+		// this(iCypher._REX, 160);
+		this("><+-.,[]", 160);
 	}
 
 	public aBF_Script(String alphabet, int tapeLen) {
@@ -128,7 +132,7 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 		this.cells = new _Array<Integer>();
 		for (int i = 0; i < tapeLen; i++)
 			cells.append(0);
-		
+
 	}
 
 	public String parse() {
@@ -146,37 +150,40 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 	@Override
 	public _Array<Integer> apply(Object... t) {
 		// String or Char[]
-		this.script = ""+t[0];
-		if(this.cells==null)
+		this.script = "" + t[0];
+		if (this.cells == null)
 			this.cells = new _Array<Integer>();
-		if(validScript(this.script)) {
-			for(int i =0; i < this.script.length(); i++)			
-				this.CommandSymbols.get(""+this.script.charAt(i)).apply(this);
-		}
+		if (validScript(this.script))
+			for (int i = 0; i < this.script.length(); i++) {
+
+				String c = "" + this.script.charAt(i);
+				
+				for (_Map.Entry<String, iFunctor> E : this.CommandSymbols)
+					if (E.getKey().equals(c) || E.getKey() == c)
+						E.getValue().apply(this);
+
+				// CommandSymbols.get(c).apply(this);
+			}
+
 		else
 			this.script = "";
-			
-		
+
 		return this.cells;
 	}
-
 
 	public boolean validScript(String s) {
 		boolean v = false;
 
 		if (iCypher.containsOnlyThese(s, this.alpabet))
-			if (iCypher.containsAllThese(s, s))
-				v = true;
+			v = true;
+
 		return v;
 
 	}
-	
+
 	@Override
-	public String toString()
-	{
-		
-		
-		
+	public String toString() {
+
 		return this.script;
 	}
 

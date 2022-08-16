@@ -140,7 +140,9 @@ public class uChumpEngine extends uApp {
 		String b = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
 		aBF_Script B = new aBF_Script();
 		Log(B.cells);
-		B.apply(b);
+		
+		B.apply("++");
+		Log(B.cells);
 		Log(B.toString());
 		Log(B);
 		Log(1 / 0);
