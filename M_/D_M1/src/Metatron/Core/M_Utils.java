@@ -1,10 +1,12 @@
 package Metatron.Core;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -28,7 +30,19 @@ public class M_Utils {
 	
 
 	
-	
+    private static String readFile(String sourceFile) {
+        try (Scanner input = new Scanner(new File(sourceFile))) {
+            StringBuilder sb = new StringBuilder();
+            while (input.hasNext()) { // read all lines and append to String Builder
+                sb.append(input.nextLine());
+            }
+            return sb.toString();
+        } catch (Exception ex) {
+            // if the file does not exist the exception will be caught here
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
 	
 	
 	public static void Log() {

@@ -129,6 +129,7 @@ public class StringUtils {
 
 		return new aThingCounter(R2).things;
 	}
+	
 
 	public static String[] CharArray(String s) {
 		String[] res = new String[s.length()];
@@ -947,6 +948,32 @@ public class StringUtils {
 		if (starts.contains("" + in.charAt(0)))
 			process.deleteCharAt(0);
 		return process.toString();
+	}
+	
+	public static String stripAll(String mat, String toStrip)
+	{
+		String s = ""+mat;
+		mat ="";
+		
+		for(int i=0; i < s.length(); i++)
+		{
+			if(!toStrip.contains(""+s.charAt(i)))
+				mat+=""+s.charAt(i);
+		}
+		return mat;
+	}
+	
+	public static String stripExcept(String mat, String toStrip)
+	{
+		String s = ""+mat;
+		mat ="";
+		
+		for(int i=0; i < s.length(); i++)
+		{
+			if(toStrip.contains(""+s.charAt(i)))
+				mat+=""+s.charAt(i);
+		}
+		return mat;
 	}
 
 	public static boolean listContains(iCollection<String> C, String S) {

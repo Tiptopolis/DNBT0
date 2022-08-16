@@ -31,6 +31,7 @@ import Metatron.Core.System.UI.Utils.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
+import Metatron.X_._BF.BF_Script;
 import Metatron.X_._BF.aBF_Script;
 
 public class uChumpEngine extends uApp {
@@ -138,13 +139,18 @@ public class uChumpEngine extends uApp {
 		
 		//++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 		String b = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
-		aBF_Script B = new aBF_Script();
-		Log(B.cells);
+		/*aBF_Script B = new aBF_Script();
 		
-		B.apply("++");
+		B.apply("++>+++++[<+>-]");
 		Log(B.cells);
 		Log(B.toString());
+		Log(">>> "+B.state());*/
+		
+		BF_Script B = new BF_Script("++>+++++[<+>-]");
 		Log(B);
+		B.execute();
+		Log("> "+B.memOut());
+		
 		Log(1 / 0);
 
 		/*
