@@ -31,7 +31,7 @@ public class aBF {
 
 	public static aMap<_Map.Entry<Character, String>, iFunctor> Commands = new aMap<_Map.Entry<Character, String>, iFunctor>();
 
-	boolean firstRun = true;
+	private boolean firstRun = true;
 	protected int postCalcSize = 0;
 	public aVector lastMemory;
 	public String lastOut = "";
@@ -264,8 +264,65 @@ public class aBF {
 		for (int i = 0; i < this.postCalcSize; i++)
 			this.memory.append(0);
 	}
+	
+	public String[] toHex()
+	{
+		String[] out = new String[this.lastMemory.size()];
+		for (int i = 0; i < this.lastMemory.size(); i++) {
+			out[i] = Integer.toHexString(this.lastMemory.get(i).intValue());
+		}
 
-	public String toC() {
+		return out;
+	}
+	
+	public String toHexString()
+	{
+		String H = "";
+		String[] h = this.toHex();
+		for(int i =0; i < h.length; i++) {
+			H+=h[i];
+			if(i!=h.length-1)
+				H+=",";
+		}
+			
+			return "("+H+")";
+	}
+
+	public String[] toBin()
+	{
+		String[] out = new String[this.lastMemory.size()];
+		for (int i = 0; i < this.lastMemory.size(); i++) {
+			out[i] = Integer.toBinaryString(this.lastMemory.get(i).intValue());
+		}
+
+		return out;
+	}
+	
+	public String toBinString()
+	{
+		String B = "";
+		String[] b = this.toBin();
+		for(int i =0; i < b.length; i++) {
+			B+=b[i];
+			if(i!=b.length-1)
+				B+=",";
+		}
+			
+			return "("+B+")";
+	}
+	
+	public String[] toC() {
+		String[] out = new String[this.script.length];
+		for (int i = 0; i < this.script.length; i++)
+			for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
+				if (E.getKey().getKey() == this.script[i])
+					out[i]=E.getKey().getValue();
+			}
+
+		return out;
+	}
+	
+	public String toC_String() {
 		String out = "";
 		for (int i = 0; i < this.script.length; i++)
 			for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {

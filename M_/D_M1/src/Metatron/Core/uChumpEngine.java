@@ -154,6 +154,8 @@ public class uChumpEngine extends uApp {
 		Log(":->:");
 		Log("* " + B.lastOut);
 		Log("* " + B.lastMemory);
+		Log(B.toHexString());
+		Log(B.toBinString());
 		// Log(B.toC());
 		Log();
 
