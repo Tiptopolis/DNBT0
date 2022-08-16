@@ -9,6 +9,11 @@ import Metatron.Core.Utils.StringUtils;
 
 public class aDictionary<V> extends aMultiMap<Entry<Object, String>, V> {
 
+	//has become an defacto EVA model
+	//Entity-Attribute-Value / Vertical database / open schema
+	
+	
+	
 	public aDictionary() {
 		this.keys = new aList<Entry<Object, String>>();
 		this.values = new aList<V>();

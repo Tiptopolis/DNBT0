@@ -68,11 +68,6 @@ public class uChumpEngine extends uApp {
 		GFX = new M_Gfx();
 	}
 
-	aDictionary<String> D;
-
-	aModel door;
-	aTable doors;
-
 	public uChumpEngine() {
 		CORE = this;
 	}
@@ -92,119 +87,12 @@ public class uChumpEngine extends uApp {
 		this.running = true;
 
 		M_Console = new aConsole(this);
-		door = new aModel("Door", new aValue("DIMENSIONS", new aVector(0f).resize(4)),
-				new aValue("COLOR", new Color(1, 1, 1, 1)));
-		Log(door.toLog());
 
-		Log("---");
-		Log(door.get("color"));
-
-		Log(SwingUtils.mapComponentLocations(MainFrame).toLog());
-		// Log(1/0);
-
-		// initialize REPL
-		// Log(CMD.Main.directory());
-		// Map<String, String> environment = CMD.Main.environment();
-		// environment.forEach((key, value) -> Log(key + value));
-		_Chord X = new _Chord("A", "B", "A&B");
-		Log(X);
-		Log(X.parse());
-		Log(X.parseAgainst("A B A&B"));
-
-		aType an = new aType("Archetype");
-
-		Log(an.toLog());
-
-		Log(_Types.ALL.toLog());
-		// Log(_Types.ALL.size());
-		// Log(_Types.ALL.keys.size());
-
-		Log(_Types.getA("ANY", "Archetype"));
-		Log();
-		Log(_Types.jType.ALL);
-		Log(_Types.jType.TYPES);
-		Log("______________");
-		Object x = _Types.jType.getA("int");
-		Log(x + " :: " + x.getClass());
-		Log(_Types.jType.getNew("int"));
-		Log(_Types.jType.getItems());
-
-		Log(new aNode(1).is(Integer.class));
-		Log(new aNode(1).is(_Types.jType.getA("int")));
-		Log(new aNode(1).is(_Types.jType.getA("Integer")));
-		Log(new aNode(1.0).is(_Types.jType.getA("int")));
-
-		Log(_Types.ALL.toLog());
-
-		_Types.getA("JAVA", "int");
-
-		Log("__________________________________________________________________________________________________________");
-		// ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
-		String b = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
-
-		Log(b);
-		// aBF B = new aBF("++>+++++[<+>-]");
-
-		aBF B = new aBF(b);
-
-		B.execute();
-
-		Log("-------------------------------");
-		Log(B.getMemory());
-		Log(":->:");
-		Log("* " + B.lastOut);
-		Log("* " + B.lastMemory);
-		Log(B.toHexString());
-		Log(B.toBinString());
-		// Log(B.toC());
-		Log();
-
-		Log(1 / 0);
-
-		/*
-		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
-		 * Log(LL.toLog());
-		 * 
-		 * aNode N1 = new aNode("N1",1); aNode N2 = new aNode("N2",2); aNode N3 = new
-		 * aNode("N3",3); aNode N4 = new aNode("N4",4);
-		 * 
-		 * N1.link("-!", "NEXT", N2); N2.link("-!", "NEXT", N3); N3.link("-!", "NEXT",
-		 * N4); N1.link("-!", "NEXT", N3); N1.link("-!", "NEXT", N4); Log(N1.toLog());
-		 * Log(N1.links.toLog());
-		 */
-
-		Log(iCypher.hasCharsOf("THICC ASS HOES", "CHAOS"));
-
-		Log("\n\n\n\n\n\n\n\n\n");
-
-		Log(iCypher.permutation("GUAC"));
-		Log(StringUtils.split("123456789123456789123456789666", 3));
-
-		Log(StringUtils.backFill(8, "0", "a", "a", "a", "a", "a", "a", "a", "a"));
-
-		Log(iCypher.rdxComp(16));
-
-		/*
-		 * aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2,
-		 * 2, 2, 2, 2, 2, 2, 2));
-		 * 
-		 * 
-		 * for (aVector v : Permutes_8Bit) Log(v.toJoinedString()); Log("\n\n\n");
-		 * 
-		 * 
-		 * 
-		 * aList<aVector> B = (aList<aVector>)
-		 * aVectorUtils.sortMagnitudeAscending(Permutes_8Bit.cpy()); // normal binary //
-		 * lol
-		 * 
-		 * for (aVector v : B) { Log(v.toJoinedString()); //
-		 * if(Permutes_8Bit.get(B.indexOf(v))!= v) //
-		 * Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); }
-		 */
-
-		Log(iCypher.rdxComp(iCypher._HEX, 0) + " -> " + iCypher.rdxComp(iCypher._HEX, 15));
-
-		//// Log(1 / 0);
+		// T1();
+		// T2();
+		T3_BF();
+		// T4();
+		 M_Console.input(":TERMINATE");
 
 		Log(CMD.toLog());
 		D = new aDictionary<String>();
@@ -332,6 +220,134 @@ public class uChumpEngine extends uApp {
 			return SystemProperties.toLog();
 		}
 
+	}
+
+	///////////////////////////////////////
+	// TESTS
+	aDictionary<String> D;
+
+	aModel door;
+	aTable doors;
+
+	private void T1() {
+		door = new aModel("Door", new aValue("DIMENSIONS", new aVector(0f).resize(4)),
+				new aValue("COLOR", new Color(1, 1, 1, 1)));
+		Log(door.toLog());
+
+		Log("---");
+		Log(door.get("color"));
+
+		Log(SwingUtils.mapComponentLocations(MainFrame).toLog());
+		// Log(1/0);
+
+		// initialize REPL
+		// Log(CMD.Main.directory());
+		// Map<String, String> environment = CMD.Main.environment();
+		// environment.forEach((key, value) -> Log(key + value));
+		_Chord X = new _Chord("A", "B", "A&B");
+		Log(X);
+		Log(X.parse());
+		Log(X.parseAgainst("A B A&B"));
+	}
+
+	private void T2() {
+		aType an = new aType("Archetype");
+
+		Log(an.toLog());
+
+		Log(_Types.ALL.toLog());
+		// Log(_Types.ALL.size());
+		// Log(_Types.ALL.keys.size());
+
+		Log(_Types.getA("ANY", "Archetype"));
+		Log();
+		Log(_Types.jType.ALL);
+		Log(_Types.jType.TYPES);
+		Log("______________");
+		Object x = _Types.jType.getA("int");
+		Log(x + " :: " + x.getClass());
+		Log(_Types.jType.getNew("int"));
+		Log(_Types.jType.getItems());
+
+		Log(new aNode(1).is(Integer.class));
+		Log(new aNode(1).is(_Types.jType.getA("int")));
+		Log(new aNode(1).is(_Types.jType.getA("Integer")));
+		Log(new aNode(1.0).is(_Types.jType.getA("int")));
+
+		Log(_Types.ALL.toLog());
+
+		_Types.getA("JAVA", "int");
+	}
+
+	private void T3_BF() {
+		Log("__________________________________________________________________________________________________________");
+		// ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+		String b = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+
+		Log(b);
+		// aBF B = new aBF("++>+++++[<+>-]");
+
+		aBF B = new aBF(b);
+
+		B.execute();
+
+		Log("-------------------------------");
+		Log(B.getMemory());
+		Log(":->:");
+		Log("* " + B.lastOut);
+		Log("* " + B.lastMemory);
+		Log(B.toHexString());
+		Log(B.toBinString());
+		// Log(B.toC());
+		Log();
+	}
+
+	private void T4() {
+
+		/*
+		 * aLinkedList<Integer> LL= new aLinkedList<Integer>(1,2,3,4,5,6,7,8,8,1,2,3);
+		 * Log(LL.toLog());
+		 * 
+		 * aNode N1 = new aNode("N1",1); aNode N2 = new aNode("N2",2); aNode N3 = new
+		 * aNode("N3",3); aNode N4 = new aNode("N4",4);
+		 * 
+		 * N1.link("-!", "NEXT", N2); N2.link("-!", "NEXT", N3); N3.link("-!", "NEXT",
+		 * N4); N1.link("-!", "NEXT", N3); N1.link("-!", "NEXT", N4); Log(N1.toLog());
+		 * Log(N1.links.toLog());
+		 */
+
+		Log(iCypher.hasCharsOf("THICC ASS HOES", "CHAOS"));
+
+		Log("\n\n\n\n\n\n\n\n\n");
+
+		Log(iCypher.permutation("GUAC"));
+		Log(StringUtils.split("123456789123456789123456789666", 3));
+
+		Log(StringUtils.backFill(8, "0", "a", "a", "a", "a", "a", "a", "a", "a"));
+
+		Log(iCypher.rdxComp(16));
+
+		/*
+		 * aList<aVector> Permutes_8Bit = new aList<aVector>(iCypher.fillPermutations(2,
+		 * 2, 2, 2, 2, 2, 2, 2));
+		 * 
+		 * 
+		 * for (aVector v : Permutes_8Bit) Log(v.toJoinedString()); Log("\n\n\n");
+		 * 
+		 * 
+		 * 
+		 * aList<aVector> B = (aList<aVector>)
+		 * aVectorUtils.sortMagnitudeAscending(Permutes_8Bit.cpy()); // normal binary //
+		 * lol
+		 * 
+		 * for (aVector v : B) { Log(v.toJoinedString()); //
+		 * if(Permutes_8Bit.get(B.indexOf(v))!= v) //
+		 * Log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); }
+		 */
+
+		Log(iCypher.rdxComp(iCypher._HEX, 0) + " -> " + iCypher.rdxComp(iCypher._HEX, 15));
+
+		//// Log(1 / 0);
 	}
 
 }

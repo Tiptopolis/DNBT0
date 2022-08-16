@@ -15,6 +15,8 @@ import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Utils.StringUtils;
 
 public class aBF {
+	
+	//https://github.com/gpolic/brainfuck-interpreter/blob/master/src/com/gpolic/brainfuck/BrainInt.java
 
 	public static final String alphabet = "><+-.,[]";
 	protected static final char end = '!';
