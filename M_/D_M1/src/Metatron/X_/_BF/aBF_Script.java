@@ -15,10 +15,9 @@ import Metatron.Core.Utils.iCypher;
 public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>> {
 
 	protected String alpabet;
-	String script;
+	public String script;
 
-	aQueue<String> op;
-	public _Array<Integer> data;// 32-Bit cells
+	public _Array<Integer> cells;// 32-Bit cells
 
 	int dataPointer =0;
 	int cellValue =0; // index
@@ -56,19 +55,20 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 		};
 
 		iFunctor.Effect<aBF_Script> put = (a) -> {
-			a.data.set(a.dataPointer, a.cellValue);
+			a.cells.set(a.dataPointer, a.cellValue);
 			return a;
 		};
 
 		iFunctor.Effect<aBF_Script> get = (a) -> {
-			a.cellValue = a.data.get(a.dataPointer);
+			a.cellValue = a.cells.get(a.dataPointer);
 			return a;
 		};
 
+		//not quite right, needs to jump to -matching-, not immediate next counter sub-iterator
 		iFunctor.Effect<aBF_Script> loop = (a) -> {
 
 			if (a.dataPointer == 0)
-				for (int i = a.dataPointer; i < a.data.size(); i++)
+				for (int i = a.dataPointer; i < a.cells.size(); i++)
 					if (a.script.charAt(i) == ']') {
 						a.dataPointer = i + 1;
 						a.doWrap();
@@ -120,41 +120,44 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 	}
 
 	public aBF_Script() {
-		this(iCypher._REX, 16000);
+		this(iCypher._REX, 160);
 	}
 
 	public aBF_Script(String alphabet, int tapeLen) {
 		this.alpabet = alphabet;
-		data = new _Array<Integer>();
+		this.cells = new _Array<Integer>();
 		for (int i = 0; i < tapeLen; i++)
-			data.append(0);
+			cells.append(0);
 		
 	}
 
 	public String parse() {
 		String s = "";
-		for (Integer i : data)
-			s += iCypher.decypher(this.alpabet, data.get(i).intValue());
+		for (Integer i : cells)
+			s += iCypher.decypher(this.alpabet, cells.get(i).intValue());
 		return s;
 	}
 
 	protected void doWrap() {
 		if (this.wrap)
-			this.dataPointer = this.dataPointer % this.data.size();
+			this.dataPointer = this.dataPointer % this.cells.size();
 	}
 
 	@Override
 	public _Array<Integer> apply(Object... t) {
 		// String or Char[]
-		String p = ""+t[0];
-		
-		if(validScript(p))
-			for(int i =0; i < p.length(); i++)			
-				this.CommandSymbols.get(""+p.charAt(i)).apply(this);
-				
+		this.script = ""+t[0];
+		if(this.cells==null)
+			this.cells = new _Array<Integer>();
+		if(validScript(this.script)) {
+			for(int i =0; i < this.script.length(); i++)			
+				this.CommandSymbols.get(""+this.script.charAt(i)).apply(this);
+		}
+		else
+			this.script = "";
 			
 		
-		return this.data;
+		return this.cells;
 	}
 
 
