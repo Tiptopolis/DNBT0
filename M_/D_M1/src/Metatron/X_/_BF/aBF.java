@@ -16,6 +16,7 @@ import Metatron.Core.Utils.StringUtils;
 public class aBF {
 
 	public static final String alphabet = "><+-.,[]";
+	protected static final char end = '!';
 	protected _Array<Integer> memory;
 	protected char[] script;
 
@@ -76,7 +77,6 @@ public class aBF {
 		F = (a) -> {
 			if (a.get() == 0) {
 				a.progCnt = a.loopIndex[a.progCnt];
-				Log(" _" +a.loopIndex[a.progCnt]);
 			}
 			return a;
 		};
@@ -96,7 +96,7 @@ public class aBF {
 	}
 
 	public aBF(String script) {
-		String s = StringUtils.stripExcept(script, alphabet);
+		String s = StringUtils.stripExcept(script, alphabet)+end;
 		this.script = s.toCharArray();
 		this.memory = new _Array<Integer>();
 		for (int i = 0; i < 100; i++)
@@ -185,10 +185,15 @@ public class aBF {
 
 	protected void parseAt(int index) {
 
-		// Log(index +" -> "+this.script[index] + "("+this.memPointer +
-		// ":"+this.memory.get(index)+")");
-		this.getCommand(this.script[index]).apply(this);
-		Log("  " + progCnt + " -> " + this.script[index] + "(" + this.memPointer + ":" + this.memory.get(index) + ")");
+		// Log(index +" -> "+this.script[index] + "("+this.memPointer + ":"+this.memory.get(index)+")"+this.script.length);
+		if(index>this.script.length || this.script[index]==end)
+			this.memPointer = -1;
+				
+		iFunctor f = this.getCommand(this.script[index]);
+		if(f!= null)
+			f.apply(this);
+		
+		//Log("  " + progCnt + " -> " + this.script[index] + "(" + this.memPointer + ":" + this.memory.get(index) + ") "+this.progCnt);
 
 	}
 
@@ -202,9 +207,12 @@ public class aBF {
 
 	public void execute() {
 		this.progCnt = 0;
-		for (int pc = progCnt; pc < this.script.length; pc++) {
-			this.progCnt = pc;
-			this.parseAt(pc);
+		this.memPointer=0;
+		
+		while(this.memPointer!=-1)
+		{
+			this.parseAt(this.progCnt);
+			this.progCnt++;
 		}
 	}
 
