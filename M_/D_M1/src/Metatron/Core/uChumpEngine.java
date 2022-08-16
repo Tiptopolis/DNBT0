@@ -137,18 +137,20 @@ public class uChumpEngine extends uApp {
 		Log(_Types.ALL.toLog());
 
 		_Types.getA("JAVA", "int");
-		
-		//++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+
+		// ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 		String b = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
 
 		Log(b);
-		//aBF B = new aBF("++>+++++[<+>-]");
+		// aBF B = new aBF("++>+++++[<+>-]");
 		aBF B = new aBF(b);
-		
+
 		B.execute();
 		Log("-------------------------------");
 		Log(B.getMemory());
-		Log(B.lastOut);
+		Log(":->:");
+		Log("* " + B.lastOut);
+		Log("* " + B.lastMemory);
 		Log(1 / 0);
 
 		/*
@@ -252,9 +254,7 @@ public class uChumpEngine extends uApp {
 			// Log("!" + CMD);
 			// M_Console.input(":LOG");
 			Log(M_Gfx.ScreenSize);
-			
-			
-			
+
 		}
 
 	}

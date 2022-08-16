@@ -172,14 +172,12 @@ public class aBF {
 		}
 	}
 
-
 	private void outputMemCell() {
-		//Log("<!>");
-		
+		// Log("<!>");
+
 		outputSt.print((char) memory.get(memPointer).intValue());
-		lastOut += (""+(char)memory.get(memPointer).intValue());
-		
-		
+		lastOut += ("" + (char) memory.get(memPointer).intValue());
+
 	}
 
 	private void inputIntoMemCell() {
@@ -255,14 +253,13 @@ public class aBF {
 	}
 
 	public void end() {
-		if(this.lastMemory == null) 
-			this.lastMemory = new aVector().resize(this.progCnt);
-		
-		
+		if (this.lastMemory == null)
+			this.lastMemory = new aVector().resize(this.memory.size());
+
 		this.lastMemory.clear();
-		for(int i =0; i < this.progCnt; i++)
+		for (int i = 0; i < this.postCalcSize; i++)
 			this.lastMemory.append(this.memory.get(i));
-		
+
 		this.memory.clear();
 		for (int i = 0; i < this.postCalcSize; i++)
 			this.memory.append(0);
