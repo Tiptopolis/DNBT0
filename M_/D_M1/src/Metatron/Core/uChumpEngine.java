@@ -151,7 +151,11 @@ public class uChumpEngine extends uApp {
 		Log(B);
 		B.execute();
 		Log("> "+B.memOut());*/
-		aBF B = new aBF("++");
+		aBF B = new aBF("[->+<]");
+		for(short s : B.loopIndex)
+		{
+			Log(" "+s);
+		}
 		B.execute();
 		Log(B.getMemory());
 		

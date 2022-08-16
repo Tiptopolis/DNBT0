@@ -2,7 +2,6 @@ package Metatron.X_._BF;
 
 import static Metatron.Core.M_Utils.*;
 
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -23,7 +22,7 @@ public class aBF {
 	private int memPointer = 0;
 	private int progCnt = 0;
 
-	private short loopIndex[];
+	public short loopIndex[];
 
 	private final InputStreamReader inputReader;
 	private final PrintStream outputSt;
@@ -49,14 +48,14 @@ public class aBF {
 		buildCommand('<', "--ptr;", F);
 
 		F = (a) -> {
-			int i = a.get()+1;
+			int i = a.get() + 1;
 			a.set(i);
 			return a;
 		};
 		buildCommand('+', "++*ptr;", F);
 
 		F = (a) -> {
-			int i = a.get()-1;
+			int i = a.get() - 1;
 			a.set(i);
 			return a;
 		};
@@ -82,8 +81,12 @@ public class aBF {
 		buildCommand('[', "while (*ptr) {", F);
 
 		F = (a) -> {
-
+			if (a.get() == 0)
+				return a;
+			else
+				a.progCnt = a.loopIndex[a.progCnt];
 			return a;
+
 		};
 		buildCommand(']', "}", F);
 	}
@@ -103,8 +106,6 @@ public class aBF {
 		Entry<Character, String> E = new Entry<>(sym, alt);
 		Commands.put(E, fn);
 	}
-
-
 
 	private void prepLoops() throws IllegalArgumentException {
 		loopIndex = new short[script.length];
@@ -154,10 +155,10 @@ public class aBF {
 		} catch (IOException e) {
 		}
 	}
-	
+
 	//////
 	//
-	
+
 	protected static iFunctor getCommand(char sym) {
 		for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
 			if (E.getKey().getKey() == sym)
@@ -178,11 +179,12 @@ public class aBF {
 		return null;
 	}
 
-
 	protected void parseAt(int index) {
-	
-		Log(index +" -> "+this.script[index] + "("+this.memPointer + ":"+this.memory.get(index)+")");
+
+		// Log(index +" -> "+this.script[index] + "("+this.memPointer +
+		// ":"+this.memory.get(index)+")");
 		this.getCommand(this.script[index]).apply(this);
+		Log("  " + progCnt + " -> " + this.script[index] + "(" + this.memPointer + ":" + this.memory.get(index) + ")");
 
 	}
 
@@ -193,18 +195,16 @@ public class aBF {
 	public void set(int to) {
 		this.memory.setAt(this.memPointer, to);
 	}
-	
 
 	public void execute() {
-		this.progCnt =0;
-		for (int pc = 0; pc < this.script.length; pc++) {
+		this.progCnt = 0;
+		for (int pc = progCnt; pc < this.script.length; pc++) {
 			this.progCnt = pc;
 			this.parseAt(pc);
 		}
 	}
-	
-	public _Array<Integer> getMemory()
-	{
+
+	public _Array<Integer> getMemory() {
 		return this.memory;
 	}
 }
