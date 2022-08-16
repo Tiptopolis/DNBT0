@@ -148,7 +148,7 @@ public class uChumpEngine extends uApp {
 		B.execute();
 		Log("-------------------------------");
 		Log(B.getMemory());
-		
+		Log(B.lastOut);
 		Log(1 / 0);
 
 		/*

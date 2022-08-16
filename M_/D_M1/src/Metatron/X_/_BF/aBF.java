@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
+import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Primitive.iFunctor;
 import Metatron.Core.Primitive.Struct._Array;
 import Metatron.Core.Primitive.Struct._Map;
@@ -32,6 +33,8 @@ public class aBF {
 
 	boolean firstRun = true;
 	protected int postCalcSize = 0;
+	public aVector lastMemory;
+	public String lastOut = "";
 
 	static {
 		iFunctor.Effect<aBF> F;
@@ -169,9 +172,14 @@ public class aBF {
 		}
 	}
 
+
 	private void outputMemCell() {
-		Log("<!>");
+		//Log("<!>");
+		
 		outputSt.print((char) memory.get(memPointer).intValue());
+		lastOut += (""+(char)memory.get(memPointer).intValue());
+		
+		
 	}
 
 	private void inputIntoMemCell() {
@@ -247,8 +255,16 @@ public class aBF {
 	}
 
 	public void end() {
-		this.memory = new _Array<Integer>();
-		for (int i = 0; i < postCalcSize; i++)
+		if(this.lastMemory == null) 
+			this.lastMemory = new aVector().resize(this.progCnt);
+		
+		
+		this.lastMemory.clear();
+		for(int i =0; i < this.progCnt; i++)
+			this.lastMemory.append(this.memory.get(i));
+		
+		this.memory.clear();
+		for (int i = 0; i < this.postCalcSize; i++)
 			this.memory.append(0);
 	}
 }
