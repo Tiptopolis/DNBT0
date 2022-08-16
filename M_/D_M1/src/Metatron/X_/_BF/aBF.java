@@ -267,12 +267,12 @@ public class aBF {
 
 	public String toC() {
 		String out = "";
-		for (int i = 0; i < this.script.length; i++) 
+		for (int i = 0; i < this.script.length; i++)
 			for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
 				if (E.getKey().getKey() == this.script[i])
-					out+= E.getKey().getValue()+"\n";
+					out += E.getKey().getValue() + "\n";
 			}
-		
+
 		return out;
 	}
 }
