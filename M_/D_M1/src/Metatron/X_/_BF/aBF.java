@@ -1,5 +1,8 @@
 package Metatron.X_._BF;
 
+import static Metatron.Core.M_Utils.*;
+
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -18,6 +21,7 @@ public class aBF {
 	protected char[] script;
 
 	private int memPointer = 0;
+	private int progCnt = 0;
 
 	private short loopIndex[];
 
@@ -43,44 +47,41 @@ public class aBF {
 			return a;
 		};
 		buildCommand('<', "--ptr;", F);
-		
+
 		F = (a) -> {
-			int i = a.get();
-			a.set(i++);
+			int i = a.get()+1;
+			a.set(i);
 			return a;
 		};
 		buildCommand('+', "++*ptr;", F);
-		
+
 		F = (a) -> {
-			int i = a.get();
-			a.set(i--);
+			int i = a.get()-1;
+			a.set(i);
 			return a;
 		};
 		buildCommand('-', "--*ptr;", F);
-		
+
 		F = (a) -> {
-
-
+			a.outputMemCell();
 			return a;
 		};
 		buildCommand('.', "putchar(*ptr);", F);
-		
+
 		F = (a) -> {
-
-
+			a.inputIntoMemCell();
 			return a;
 		};
 		buildCommand(',', "*ptr = getchar();", F);
-		
+
 		F = (a) -> {
-
-
+			if (a.get() == 0)
+				a.progCnt = a.loopIndex[a.progCnt];
 			return a;
 		};
-		buildCommand('[', "[", F);
-		
-		F = (a) -> {
+		buildCommand('[', "while (*ptr) {", F);
 
+		F = (a) -> {
 
 			return a;
 		};
@@ -91,7 +92,7 @@ public class aBF {
 		String s = StringUtils.stripExcept(script, alphabet);
 		this.script = s.toCharArray();
 		this.memory = new _Array<Integer>();
-		for (int i = 0; i < 6000; i++)
+		for (int i = 0; i < 100; i++)
 			memory.append(0);
 		this.prepLoops();
 		this.inputReader = new InputStreamReader(System.in);
@@ -103,40 +104,7 @@ public class aBF {
 		Commands.put(E, fn);
 	}
 
-	public void execute() {
 
-	}
-
-	protected void parseAt(int index) {
-		switch (this.script[index]) {
-		case '>' -> {
-
-		}
-		case '<' -> {
-
-		}
-		case '+' -> {
-
-		}
-		case '-' -> {
-
-		}
-		case '.' -> {
-
-		}
-		case ',' -> {
-
-		}
-		case '[' -> {
-
-		}
-		case ']' -> {
-
-		}
-		}
-		;// end switch
-
-	}
 
 	private void prepLoops() throws IllegalArgumentException {
 		loopIndex = new short[script.length];
@@ -187,15 +155,56 @@ public class aBF {
 		}
 	}
 	
+	//////
+	//
 	
-	public int get()
-	{
-		return this.memory.get(this.memPointer);
-	}
-	
-	public void set(int to)
-	{
-		this.memory.setAt(this.memPointer, to);
+	protected static iFunctor getCommand(char sym) {
+		for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
+			if (E.getKey().getKey() == sym)
+				return E.getValue();
+		}
+		return null;
 	}
 
+	protected static iFunctor getCommand(String name) {
+		if (name.length() == 1)
+			return getCommand(name.charAt(0));
+		else {
+			for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
+				if (StringUtils.isFormOf(E.getKey().getValue(), name))
+					return E.getValue();
+			}
+		}
+		return null;
+	}
+
+
+	protected void parseAt(int index) {
+	
+		Log(index +" -> "+this.script[index] + "("+this.memPointer + ":"+this.memory.get(index)+")");
+		this.getCommand(this.script[index]).apply(this);
+
+	}
+
+	public int get() {
+		return this.memory.get(this.memPointer);
+	}
+
+	public void set(int to) {
+		this.memory.setAt(this.memPointer, to);
+	}
+	
+
+	public void execute() {
+		this.progCnt =0;
+		for (int pc = 0; pc < this.script.length; pc++) {
+			this.progCnt = pc;
+			this.parseAt(pc);
+		}
+	}
+	
+	public _Array<Integer> getMemory()
+	{
+		return this.memory;
+	}
 }

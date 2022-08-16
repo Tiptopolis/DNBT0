@@ -32,6 +32,7 @@ import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
 import Metatron.X_._BF.BF_Script;
+import Metatron.X_._BF.aBF;
 import Metatron.X_._BF.aBF_Script;
 
 public class uChumpEngine extends uApp {
@@ -146,10 +147,13 @@ public class uChumpEngine extends uApp {
 		Log(B.toString());
 		Log(">>> "+B.state());*/
 		
-		BF_Script B = new BF_Script("++>+++++[<+>-]");
+		/*BF_Script B = new BF_Script("++>+++++[<+>-]");
 		Log(B);
 		B.execute();
-		Log("> "+B.memOut());
+		Log("> "+B.memOut());*/
+		aBF B = new aBF("++");
+		B.execute();
+		Log(B.getMemory());
 		
 		Log(1 / 0);
 
