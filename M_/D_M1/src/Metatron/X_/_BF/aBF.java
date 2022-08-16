@@ -20,7 +20,7 @@ public class aBF {
 	//https://esolangs.org/wiki/Extended_Brainfuck
 
 	public static final String alphabet = "><+-.,[]";
-	protected static final char end = '!';
+	protected static final char end = ';';
 	protected _Array<Integer> memory; //tape lol
 	protected char[] script;
 
