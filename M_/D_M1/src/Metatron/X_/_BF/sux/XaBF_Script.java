@@ -13,7 +13,7 @@ import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aQueue;
 import Metatron.Core.Utils.iCypher;
 
-public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>> {
+public class XaBF_Script implements iFunctor.Function<XaBF_Script, _Array<Integer>> {
 
 	protected String alphabet;
 	public String script;
@@ -33,7 +33,7 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 		CommandNames = new aMap<String, _Map.Entry<String, iFunctor>>();
 		CommandSymbols = new aMap<String, iFunctor>();
 
-		iFunctor.Effect<aBF_Script> incrementP = (a) -> {
+		iFunctor.Effect<XaBF_Script> incrementP = (a) -> {
 
 			a.dataPointer++;
 			a.doWrap();
@@ -41,36 +41,36 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> decrementP = (a) -> {
+		iFunctor.Effect<XaBF_Script> decrementP = (a) -> {
 			a.dataPointer--;
 			a.doWrap();
 			a.cellValue = a.cells.get(a.dataPointer);
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> incrementD = (a) -> {
+		iFunctor.Effect<XaBF_Script> incrementD = (a) -> {
 			a.cellValue++;
 			a.cells.setAt(a.dataPointer, a.cellValue);
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> decrementD = (a) -> {
+		iFunctor.Effect<XaBF_Script> decrementD = (a) -> {
 			a.cellValue--;
 			a.cells.setAt(a.dataPointer, a.cellValue);
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> put = (a) -> {
+		iFunctor.Effect<XaBF_Script> put = (a) -> {
 			a.cells.set(a.dataPointer, a.cellValue);
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> get = (a) -> {
+		iFunctor.Effect<XaBF_Script> get = (a) -> {
 			a.cellValue = a.cells.get(a.dataPointer);
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> loop = (a) -> {
+		iFunctor.Effect<XaBF_Script> loop = (a) -> {
 
 			if (a.cellValue == 0) {
 				int n = a.rMatch(a.dataPointer);
@@ -83,7 +83,7 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 			return a;
 		};
 
-		iFunctor.Effect<aBF_Script> back = (a) -> {
+		iFunctor.Effect<XaBF_Script> back = (a) -> {
 
 			if (a.cellValue != 0) {
 				int n = a.lMatch(a.dataPointer);
@@ -138,11 +138,11 @@ public class aBF_Script implements iFunctor.Function<aBF_Script, _Array<Integer>
 		// ] back
 	}
 
-	public aBF_Script() {
+	public XaBF_Script() {
 		this("><+-.,[]", 160);
 	}
 
-	public aBF_Script(String alphabet, int tapeLen) {
+	public XaBF_Script(String alphabet, int tapeLen) {
 		this.alphabet = alphabet;
 		this.cells = new _Array<Integer>();
 		for (int i = 0; i < tapeLen; i++)

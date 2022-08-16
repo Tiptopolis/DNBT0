@@ -18,7 +18,7 @@ public class aBF {
 
 	public static final String alphabet = "><+-.,[]";
 	protected static final char end = '!';
-	protected _Array<Integer> memory;
+	protected _Array<Integer> memory; //tape lol
 	protected char[] script;
 
 	private int memPointer = 0;
@@ -39,6 +39,8 @@ public class aBF {
 	static {
 		iFunctor.Effect<aBF> F;
 
+		//replace C-item with a C-map & a basic command name
+		//DEF( ">" | shift ptr right) 
 		F = (a) -> {
 			a.memPointer = a.memPointer % a.memory.size();
 			a.memPointer++;
@@ -48,6 +50,7 @@ public class aBF {
 		};
 		buildCommand('>', "++ptr;", F);
 
+		//DEF( "<" | shift ptr left)
 		F = (a) -> {
 			if (a.memPointer == 0)
 				a.memPointer = a.memory.size();
@@ -58,6 +61,7 @@ public class aBF {
 		};
 		buildCommand('<', "--ptr;", F);
 
+		//DEF( "+" | increment val@ptr)
 		F = (a) -> {
 			int i = a.get() + 1;
 			a.set(i);
@@ -65,6 +69,7 @@ public class aBF {
 		};
 		buildCommand('+', "++*ptr;", F);
 
+		//DEF( "-" | decrement val@ptr)
 		F = (a) -> {
 			int i = a.get() - 1;
 			a.set(i);
@@ -72,18 +77,21 @@ public class aBF {
 		};
 		buildCommand('-', "--*ptr;", F);
 
+		//DEF( "." | output <- val@ptr)
 		F = (a) -> {
 			a.outputMemCell();
 			return a;
 		};
 		buildCommand('.', "putchar(*ptr);", F);
 
+		//DEF( "." | input -> val@ptr)
 		F = (a) -> {
 			a.inputIntoMemCell();
 			return a;
 		};
 		buildCommand(',', "*ptr = getchar();", F);
 
+		//DEF( "[" | loop@ptr)
 		F = (a) -> {
 			if (a.get() == 0) {
 				a.progCnt = a.loopIndex[a.progCnt];
@@ -92,6 +100,7 @@ public class aBF {
 		};
 		buildCommand('[', "while (*ptr) {", F);
 
+		//DEF( "]" | break@ptr)
 		F = (a) -> {
 			if (a.get() == 0)
 				return a;
@@ -110,8 +119,8 @@ public class aBF {
 		this.memory = new _Array<Integer>();
 		int c = this.estSize();
 		for (int i = 0; i < c; i++) // could could the balance of shift characters to determine size? dont ant
-									// array-growth during execution lol
-			memory.append(0);
+			memory.append(0); // array-growth during execution lol
+
 		this.prepLoops();
 		this.inputReader = new InputStreamReader(System.in);
 		this.outputSt = System.out;
@@ -123,8 +132,10 @@ public class aBF {
 	}
 
 	private int estSize() {
+
 		// trys to precalculate size
 		// doesnt take branches into account
+
 		int c = 0;
 		for (char C : this.script)
 			switch (C) {
@@ -173,6 +184,7 @@ public class aBF {
 	}
 
 	private void outputMemCell() {
+
 		// Log("<!>");
 
 		outputSt.print((char) memory.get(memPointer).intValue());
@@ -208,7 +220,6 @@ public class aBF {
 	}
 
 	protected void parseAt(int index) {
-
 		if (index > this.script.length || this.script[index] == end)
 			this.memPointer = -1;
 
@@ -264,9 +275,8 @@ public class aBF {
 		for (int i = 0; i < this.postCalcSize; i++)
 			this.memory.append(0);
 	}
-	
-	public String[] toHex()
-	{
+
+	public String[] toHex() {
 		String[] out = new String[this.lastMemory.size()];
 		for (int i = 0; i < this.lastMemory.size(); i++) {
 			out[i] = Integer.toHexString(this.lastMemory.get(i).intValue());
@@ -274,23 +284,20 @@ public class aBF {
 
 		return out;
 	}
-	
-	public String toHexString()
-	{
+
+	public String toHexString() {
 		String H = "";
 		String[] h = this.toHex();
-		for(int i =0; i < h.length; i++) {
-			H+= StringUtils.frontFill(6, ""+0, h[i])[0];
-			//H+=h[i];
-			if(i!=h.length-1)
-				H+=",";
+		for (int i = 0; i < h.length; i++) {
+			H += StringUtils.frontFill(6, "" + 0, h[i])[0];
+			if (i != h.length - 1)
+				H += ",";
 		}
-			
-			return "["+H+"]";
+
+		return "[" + H + "]";
 	}
 
-	public String[] toBin()
-	{
+	public String[] toBin() {
 		String[] out = new String[this.lastMemory.size()];
 		for (int i = 0; i < this.lastMemory.size(); i++) {
 			out[i] = Integer.toBinaryString(this.lastMemory.get(i).intValue());
@@ -298,32 +305,30 @@ public class aBF {
 
 		return out;
 	}
-	
-	public String toBinString()
-	{
+
+	public String toBinString() {
 		String B = "";
 		String[] b = this.toBin();
-		for(int i =0; i < b.length; i++) {
-			B+= StringUtils.backFill(8, ""+0, b[i])[0];
-			//B+=b[i];
-			if(i!=b.length-1)
-				B+=",";
+		for (int i = 0; i < b.length; i++) {
+			B += StringUtils.backFill(8, "" + 0, b[i])[0];
+			if (i != b.length - 1)
+				B += ",";
 		}
-			
-			return "["+B+"]";
+
+		return "[" + B + "]";
 	}
-	
+
 	public String[] toC() {
 		String[] out = new String[this.script.length];
 		for (int i = 0; i < this.script.length; i++)
 			for (Entry<_Map.Entry<Character, String>, iFunctor> E : Commands) {
 				if (E.getKey().getKey() == this.script[i])
-					out[i]=E.getKey().getValue();
+					out[i] = E.getKey().getValue();
 			}
 
 		return out;
 	}
-	
+
 	public String toC_String() {
 		String out = "";
 		for (int i = 0; i < this.script.length; i++)

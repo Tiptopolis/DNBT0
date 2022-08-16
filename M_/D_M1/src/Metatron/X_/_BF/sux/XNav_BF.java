@@ -8,7 +8,7 @@ import Metatron.Core.Primitive.A_I.iEntry;
 import Metatron.Core.Primitive.Struct.aQueue;
 import Metatron.X_.ScriptNav;
 
-public class Nav_BF {
+public class XNav_BF {
 
 	
 

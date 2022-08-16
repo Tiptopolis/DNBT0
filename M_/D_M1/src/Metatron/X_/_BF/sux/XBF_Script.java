@@ -9,7 +9,7 @@ import Metatron.Core.Primitive.Struct._Array;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 
-public class BF_Script {
+public class XBF_Script {
 
 	protected static final String alphabet = "<>+-.,[]";
 
@@ -21,12 +21,12 @@ public class BF_Script {
 	private final InputStreamReader inputReader;
 	private final PrintStream outputSt;
 
-	public BF_Script(String prog) {
+	public XBF_Script(String prog) {
 		this(prog, (BufferedInputStream) System.in, System.out);
 
 	}
 
-	public BF_Script(String prog, BufferedInputStream inputSt, PrintStream outputSt) {
+	public XBF_Script(String prog, BufferedInputStream inputSt, PrintStream outputSt) {
 		StringUtils.stripExcept(prog, alphabet);
 		this.inputReader = new InputStreamReader(inputSt);
 		this.outputSt = outputSt;
@@ -84,7 +84,7 @@ public class BF_Script {
 		}
 	}
 
-	protected static void optimize(BF_Script scr) {
+	protected static void optimize(XBF_Script scr) {
 		scr.optimizeBf();
 		scr.optimizeLoops();
 	}

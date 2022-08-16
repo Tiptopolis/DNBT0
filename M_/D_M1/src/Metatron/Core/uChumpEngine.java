@@ -32,8 +32,8 @@ import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.W_CMD.WindowsConsoleAdapter;
 import Metatron.X_._BF.aBF;
-import Metatron.X_._BF.sux.BF_Script;
-import Metatron.X_._BF.sux.aBF_Script;
+import Metatron.X_._BF.sux.XBF_Script;
+import Metatron.X_._BF.sux.XaBF_Script;
 
 public class uChumpEngine extends uApp {
 
