@@ -427,6 +427,23 @@ public class StringUtils {
 
 		return s;
 	}
+	
+	public static String[] frontFill(int mod, String with, String...s)
+	{
+		for (int j = 0; j < s.length; j++) {
+			String S = s[j];
+			int m = S.length() % mod;
+			if (m != 0) {
+				String w = "";
+				for (int i = 0; i < (mod - m); i++)
+					w+=with;
+				s[j] = w+S;
+			}
+					
+
+		}
+		return s;
+	}
 
 	private static void METATRON_TYPE_STUFF_______() {
 

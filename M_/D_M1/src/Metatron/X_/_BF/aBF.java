@@ -280,12 +280,13 @@ public class aBF {
 		String H = "";
 		String[] h = this.toHex();
 		for(int i =0; i < h.length; i++) {
-			H+=h[i];
+			H+= StringUtils.frontFill(6, ""+0, h[i])[0];
+			//H+=h[i];
 			if(i!=h.length-1)
 				H+=",";
 		}
 			
-			return "("+H+")";
+			return "["+H+"]";
 	}
 
 	public String[] toBin()
@@ -303,12 +304,13 @@ public class aBF {
 		String B = "";
 		String[] b = this.toBin();
 		for(int i =0; i < b.length; i++) {
-			B+=b[i];
+			B+= StringUtils.backFill(8, ""+0, b[i])[0];
+			//B+=b[i];
 			if(i!=b.length-1)
 				B+=",";
 		}
 			
-			return "("+B+")";
+			return "["+B+"]";
 	}
 	
 	public String[] toC() {
