@@ -5,7 +5,7 @@ import static Metatron.Core.M_Utils.*;
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.A_I.iCollection;
-import Metatron.Core.Primitive.Data.BAK.aModel;
+import Metatron.Core.Primitive.Data.BAK.XaModel;
 import Metatron.Core.Primitive.Struct._Array;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aLinkedSet;
@@ -28,12 +28,12 @@ public class aTable<E> extends aList<aSet<aValue>> {
     //#2|
 	
 	
-	protected aModel model;
+	protected XaModel model;
 	_Array<Integer> relFlags; 
 	
 	
 	
-	public aTable(aModel model)
+	public aTable(XaModel model)
 	{
 		this.model = model;
 		this.relFlags = new _Array<Integer>();

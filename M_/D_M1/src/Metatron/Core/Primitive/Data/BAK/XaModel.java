@@ -12,14 +12,14 @@ import Metatron.Core.Primitive.Struct.aLinkedSet;
 import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Primitive.Struct._Map.Entry;
 
-public class aModel extends aNode<aSet<aValue>> implements Serializable{
+public class XaModel extends aNode<aSet<aValue>> implements Serializable{
 
 	// 'aVector' of aValue
 	public Function<String, aValue> get = (a) -> {
 		return this.get(a);
 	};
 
-	public aModel(String label, aValue... vals) {
+	public XaModel(String label, aValue... vals) {
 		super(label, new aSet<aValue>());
 		this.get().appendAll(vals);
 		for (aValue v : vals)

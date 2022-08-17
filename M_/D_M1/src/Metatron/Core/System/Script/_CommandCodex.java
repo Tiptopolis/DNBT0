@@ -21,12 +21,14 @@ public class _CommandCodex extends aNode<aDictionary<iFunctor>> {
 	
 	
 	public iFunctor getCommand(Object sym) {
-		for (Entry<_Map.Entry<Object, String>, iFunctor> E : this.get()) 			
-			if (E.getKey().getKey() == sym || E.getKey().getKey().equals(sym) || sym.equals(E.getKey().getKey())) {
-				Log(" x  " + E.getKey().getKey() + "  " + sym + " : ");
+		for (Entry<_Map.Entry<Object, String>, iFunctor> E : this.get()) {
+			
+			
+			if (E.getKey().getValue() == sym || E.getKey().getValue().equals(sym) || sym.equals(E.getKey().getValue())) {
 				return E.getValue();
 			}
 		
+		}
 		return null;
 	}
 }

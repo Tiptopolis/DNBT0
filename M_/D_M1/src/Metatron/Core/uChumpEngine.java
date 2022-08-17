@@ -18,7 +18,7 @@ import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.iFunctor;
 import Metatron.Core.Primitive.Data._Model;
 import Metatron.Core.Primitive.Data.aTable;
-import Metatron.Core.Primitive.Data.BAK.aModel;
+import Metatron.Core.Primitive.Data.BAK.XaModel;
 import Metatron.Core.Primitive.Impl._Chord;
 import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;
@@ -230,11 +230,11 @@ public class uChumpEngine extends uApp {
 	// TESTS
 	aDictionary<String> D;
 
-	aModel door;
+	XaModel door;
 	aTable doors;
 
 	private void T1() {
-		door = new aModel("Door", new aValue("DIMENSIONS", new aVector(0f).resize(4)),
+		door = new XaModel("Door", new aValue("DIMENSIONS", new aVector(0f).resize(4)),
 				new aValue("COLOR", new Color(1, 1, 1, 1)));
 		Log(door.toLog());
 
@@ -365,8 +365,10 @@ public class uChumpEngine extends uApp {
 		iFunctor.Effect<_Model> F;
 	
 		F = (a) -> {
-			boolean b = (boolean) a.get("OPEN").getValue();
+			boolean b = (boolean) a.read("OPEN");
+			Log("_- " + (boolean) a.read("OPEN"));
 			a.set("OPEN", !b);
+			Log("_-! " + (boolean) a.read("OPEN"));
 			return a;
 		};
 		
@@ -376,10 +378,13 @@ public class uChumpEngine extends uApp {
 		
 		Log(M.toLog());
 		
+		
 		C.getCommand(">").apply(M);
 		Log(M.toLog());
 		aValue V = new aValue("DIM",new aVector(0,0,0));
 		Log(V.toEVA());
+		Log();
+		
 	}
 
 }
