@@ -6,18 +6,23 @@ import java.util.function.Supplier;
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.aMaths;
 import Metatron.Core.Math.Primitive.A_I.iNumeric;
+import Metatron.Core.Primitive.aValue;
+import Metatron.Core.Primitive.iFunctor;
 import Metatron.Core.Primitive.A_I.iNode;
+import Metatron.Core.Primitive.A_I.iToken;
+import Metatron.Core.Primitive.Struct._Array;
+import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Utils.StringUtils;
-
-
 
 public class aNumber extends Number implements iNode<Number>, CharSequence, iNumeric {
 
 	public Number value = Float.NaN;
 	public Supplier<Number> Value = () -> this.value;
 
+	protected aSet<aValue> constraints;
+
 	public aNumber() {
-		
+
 	}
 
 	public aNumber(Number n) {
@@ -28,8 +33,6 @@ public class aNumber extends Number implements iNode<Number>, CharSequence, iNum
 	public aNumber(CharSequence s) {
 		this.value = StringUtils.parseNum("" + s);
 	}
-	
-	
 
 	public Number resolveToThis(Number n) {
 		return N_Operator.resolveTo(n, this.value);
@@ -117,7 +120,12 @@ public class aNumber extends Number implements iNode<Number>, CharSequence, iNum
 		return aMaths.isEqual(this.floatValue(), other.floatValue(), epsilon);
 	}
 
-	
+	public Number revalidate() {
+		for (aValue v : this.constraints) {
+
+		}
+		return this;
+	}
 
 
 
