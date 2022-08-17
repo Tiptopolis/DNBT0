@@ -3,7 +3,7 @@ package Metatron.Core.Primitive;
 
 import static Metatron.Core.M_Utils.*;
 
-
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import Metatron.Core.Math.aMaths;
@@ -13,7 +13,7 @@ import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Primitive.Struct._Map.Entry;
 
 
-public class aLink extends aSet<aNode>/* aSet<zEntry<Number,zNode>> */ implements iDisposable {
+public class aLink extends aSet<aNode>/* aSet<zEntry<Number,zNode>> */ implements iDisposable, Serializable {
 
 	// aSet of Nodes described by this link
 	// <LABEL>*[count]{contextTarget<V> % contextValue<K>}
@@ -279,7 +279,6 @@ public class aLink extends aSet<aNode>/* aSet<zEntry<Number,zNode>> */ implement
 		}
 		return log;
 	}
-
 
 
 }

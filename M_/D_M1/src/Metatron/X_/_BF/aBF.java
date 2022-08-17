@@ -15,13 +15,13 @@ import Metatron.Core.Primitive.Struct._Map.Entry;
 import Metatron.Core.Utils.StringUtils;
 
 public class aBF {
-	
-	//https://github.com/gpolic/brainfuck-interpreter/blob/master/src/com/gpolic/brainfuck/BrainInt.java
-	//https://esolangs.org/wiki/Extended_Brainfuck
+
+	// https://github.com/gpolic/brainfuck-interpreter/blob/master/src/com/gpolic/brainfuck/BrainInt.java
+	// https://esolangs.org/wiki/Extended_Brainfuck
 
 	public static final String alphabet = "><+-.,[]";
 	protected static final char end = ';';
-	protected _Array<Integer> memory; //tape lol
+	protected _Array<Integer> memory; // tape lol
 	protected char[] script;
 
 	private int memPointer = 0;
@@ -42,8 +42,8 @@ public class aBF {
 	static {
 		iFunctor.Effect<aBF> F;
 
-		//replace C-item with a C-map & a basic command name
-		//DEF( ">" | shift ptr right) 
+		// replace C-item with a C-map & a basic command name
+		// DEF( ">" | shift ptr right)
 		F = (a) -> {
 			a.memPointer = a.memPointer % a.memory.size();
 			a.memPointer++;
@@ -53,7 +53,7 @@ public class aBF {
 		};
 		buildCommand('>', "++ptr;", F);
 
-		//DEF( "<" | shift ptr left)
+		// DEF( "<" | shift ptr left)
 		F = (a) -> {
 			if (a.memPointer == 0)
 				a.memPointer = a.memory.size();
@@ -64,7 +64,7 @@ public class aBF {
 		};
 		buildCommand('<', "--ptr;", F);
 
-		//DEF( "+" | increment val@ptr)
+		// DEF( "+" | increment val@ptr)
 		F = (a) -> {
 			int i = a.get() + 1;
 			a.set(i);
@@ -72,7 +72,7 @@ public class aBF {
 		};
 		buildCommand('+', "++*ptr;", F);
 
-		//DEF( "-" | decrement val@ptr)
+		// DEF( "-" | decrement val@ptr)
 		F = (a) -> {
 			int i = a.get() - 1;
 			a.set(i);
@@ -80,21 +80,21 @@ public class aBF {
 		};
 		buildCommand('-', "--*ptr;", F);
 
-		//DEF( "." | output <- val@ptr)
+		// DEF( "." | output <- val@ptr)
 		F = (a) -> {
 			a.outputMemCell();
 			return a;
 		};
 		buildCommand('.', "putchar(*ptr);", F);
 
-		//DEF( "." | input -> val@ptr)
+		// DEF( "." | input -> val@ptr)
 		F = (a) -> {
 			a.inputIntoMemCell();
 			return a;
 		};
 		buildCommand(',', "*ptr = getchar();", F);
 
-		//DEF( "[" | loop@ptr)
+		// DEF( "[" | loop@ptr)
 		F = (a) -> {
 			if (a.get() == 0) {
 				a.progCnt = a.loopIndex[a.progCnt];
@@ -103,7 +103,7 @@ public class aBF {
 		};
 		buildCommand('[', "while (*ptr) {", F);
 
-		//DEF( "]" | break@ptr)
+		// DEF( "]" | break@ptr)
 		F = (a) -> {
 			if (a.get() == 0)
 				return a;

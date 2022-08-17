@@ -15,8 +15,10 @@ import Metatron.Core.Math.Util.aVectorUtils;
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aType;
 import Metatron.Core.Primitive.aValue;
-import Metatron.Core.Primitive.Data.aModel;
+import Metatron.Core.Primitive.iFunctor;
+import Metatron.Core.Primitive.Data._Model;
 import Metatron.Core.Primitive.Data.aTable;
+import Metatron.Core.Primitive.Data.BAK.aModel;
 import Metatron.Core.Primitive.Impl._Chord;
 import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;
@@ -26,6 +28,7 @@ import Metatron.Core.System.aShell;
 import Metatron.Core.System.uApp;
 import Metatron.Core.System.COM.Console.aConsole;
 import Metatron.Core.System.ECS.FSM.aState;
+import Metatron.Core.System.Script._CommandCodex;
 import Metatron.Core.System.UI.aFrame;
 import Metatron.Core.System.UI.Utils.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
@@ -88,11 +91,12 @@ public class uChumpEngine extends uApp {
 
 		M_Console = new aConsole(this);
 
-		// T1();
-		// T2();
-		T3_BF();
+		T1();
+		T2();
+		// T3_BF();
 		// T4();
-		 M_Console.input(":TERMINATE");
+		T5();
+		M_Console.input(":TERMINATE");
 
 		Log(CMD.toLog());
 		D = new aDictionary<String>();
@@ -348,6 +352,30 @@ public class uChumpEngine extends uApp {
 		Log(iCypher.rdxComp(iCypher._HEX, 0) + " -> " + iCypher.rdxComp(iCypher._HEX, 15));
 
 		//// Log(1 / 0);
+	}
+
+	private void T5() {
+		_Model M = new _Model("door");
+		M.put("DIMENSIONS", new aVector());
+		M.put("COLOR", new Color());
+		M.put("?isOPEN", false);
+		Log(M.toLog());
+		_CommandCodex C = new _CommandCodex("DOOR_");
+		iFunctor.Effect<_Model> open = new iFunctor.Effect<_Model>() {
+
+			@Override
+			public _Model apply(_Model t) {
+				t
+				return null;
+			}
+		};
+		C.get().put(M, ">", open);
+	
+		
+		
+		
+		Log(C.toLog());
+		
 	}
 
 }
