@@ -143,6 +143,17 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable{
 	public String toTag() {
 		return this.getKey() + " = " + this.getValue();
 	}
+	
+	public String toEVA()
+	{
+		String s = "["+this.label+"]"+" = "+"<"+this.value.getClass().getSimpleName()+">";
+		String v = ""+this.getValue();
+		String i ="(";
+		String o =")";
+	
+		
+		return s+i+v+o;
+	}
 
 	@Override
 	public String toString() {

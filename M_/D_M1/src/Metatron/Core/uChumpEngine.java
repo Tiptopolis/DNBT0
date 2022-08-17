@@ -358,24 +358,28 @@ public class uChumpEngine extends uApp {
 		_Model M = new _Model("door");
 		M.put("DIMENSIONS", new aVector());
 		M.put("COLOR", new Color());
-		M.put("?isOPEN", false);
+		M.put("OPEN", false);
+
 		Log(M.toLog());
 		_CommandCodex C = new _CommandCodex("DOOR_");
-		iFunctor.Effect<_Model> open = new iFunctor.Effect<_Model>() {
-
-			@Override
-			public _Model apply(_Model t) {
-				t
-				return null;
-			}
-		};
-		C.get().put(M, ">", open);
+		iFunctor.Effect<_Model> F;
 	
+		F = (a) -> {
+			boolean b = (boolean) a.get("OPEN").getValue();
+			a.set("OPEN", !b);
+			return a;
+		};
 		
 		
+		C.get().put(M, ">", F);
+		Log(C.get().toLog());
 		
-		Log(C.toLog());
+		Log(M.toLog());
 		
+		C.getCommand(">").apply(M);
+		Log(M.toLog());
+		aValue V = new aValue("DIM",new aVector(0,0,0));
+		Log(V.toEVA());
 	}
 
 }
