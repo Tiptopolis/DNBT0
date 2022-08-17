@@ -15,12 +15,14 @@ import Metatron.Core.Math.aMaths;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iMap;
+import Metatron.Core.Primitive.Impl._Constraint;
 import Metatron.Core.Primitive.Struct._Map;
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aMultiMap;
+import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Utils.StringUtils;
 
-public class aValue<T> extends _Map.Entry<String, T> implements Serializable{
+public class aValue<T> extends _Map.Entry<String, T> implements Serializable {
 
 	public static aValue EMPTY;
 	// aLabeldValue lol, a meme
@@ -33,6 +35,8 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable{
 	public Supplier<String> Name = () -> this.getKey();
 
 	protected boolean mutable = true;
+
+	protected aSet<_Constraint> constraints;
 
 	public aValue(String name) {
 		// super();
@@ -83,6 +87,16 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable{
 			this.set(s, o);
 		};
 
+	}
+
+	public aValue<T> apply(_Constraint C) {
+
+		return (aValue<T>) C.apply(this);
+	}
+
+	public aValue<T> apply(iFunctor F) {
+		F.apply(this);
+		return this;
 	}
 
 	public T get(int i) {
@@ -143,16 +157,14 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable{
 	public String toTag() {
 		return this.getKey() + " = " + this.getValue();
 	}
-	
-	public String toEVA()
-	{
-		String s = "["+this.label+"]"+" = "+"<"+this.value.getClass().getSimpleName()+">";
-		String v = ""+this.getValue();
-		String i ="(";
-		String o =")";
-	
-		
-		return s+i+v+o;
+
+	public String toEVA() {
+		String s = "[" + this.label + "]" + " = " + "<" + this.value.getClass().getSimpleName() + ">";
+		String v = "" + this.getValue();
+		String i = "(";
+		String o = ")";
+
+		return s + i + v + o;
 	}
 
 	@Override

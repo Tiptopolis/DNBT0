@@ -1,5 +1,8 @@
 package Metatron.Core.Primitive.Impl;
 
+import static Metatron.Core.M_Utils.*;
+
+
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Primitive.aToken;
 import Metatron.Core.Primitive.aValue;
@@ -13,25 +16,48 @@ public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunct
 		this.doFn = F;
 	}
 
+	@Override
+	public aValue<T> apply(aValue<T> t) {
+		Log(" >>>>>>> " + t);
+		T n = this.doFn.apply(t.get());
+		t.set(n);
+		Log(" <<<<<<<" + t);
+		return t;
+	}
+
+	/////////
+
+	public static aValue<Number> Min(aValue<Number> subject, Number min) {
+		subject.apply(new Min(subject, N_Operator.resolveTo(min, subject.get())));
+		return subject;
+	}
+
+	public static aValue<Number> Max(aValue<Number> subject, Number max) {
+		subject.apply(new Max(subject, N_Operator.resolveTo(max, subject.get())));
+		return subject;
+	}
+
+	public static aValue<Number> Range(aValue<Number> subject, Number min, Number max) {
+
+		Number a = N_Operator.resolveTo(min, subject.get());
+		Number b = N_Operator.resolveTo(max, subject.get());
+		subject.apply(new Range(subject, a, b));
+		return subject;
+	}
+
 	public static class Min extends _Constraint<Number> {
 
 		Number val = Integer.MIN_VALUE;
 
 		public Min(aValue<Number> subject, Number min) {
-			super((a) -> {
+			super((a) -> {				
 				return N_Operator.min(a, min);
 			});
 			this.apply(subject);
 			subject.data.put("@MIN", this);
 		}
 
-		@Override
-		public aValue<Number> apply(aValue<Number> t) {
-
-			Number n = this.doFn.apply(t.get());
-			t.set(n);
-			return t;
-		}
+	
 	}
 
 	public static class Max extends _Constraint<Number> {
@@ -46,13 +72,6 @@ public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunct
 			subject.data.put("@MAX", this);
 		}
 
-		@Override
-		public aValue<Number> apply(aValue<Number> t) {
-			Number n = this.doFn.apply(t.get());
-			t.set(n);
-			return t;
-		}
-
 	}
 
 	public static class Range extends _Constraint<Number> {
@@ -65,13 +84,6 @@ public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunct
 			});
 			this.apply(subject);
 			subject.data.put("@RANGE", this);
-		}
-
-		@Override
-		public aValue<Number> apply(aValue<Number> t) {
-			Number n = this.doFn.apply(t.get());
-			t.set(n);
-			return t;
 		}
 
 	}

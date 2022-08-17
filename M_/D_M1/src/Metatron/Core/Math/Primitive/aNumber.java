@@ -19,7 +19,6 @@ public class aNumber extends Number implements iNode<Number>, CharSequence, iNum
 	public Number value = Float.NaN;
 	public Supplier<Number> Value = () -> this.value;
 
-	protected aSet<aValue> constraints;
 
 	public aNumber() {
 
@@ -120,12 +119,7 @@ public class aNumber extends Number implements iNode<Number>, CharSequence, iNum
 		return aMaths.isEqual(this.floatValue(), other.floatValue(), epsilon);
 	}
 
-	public Number revalidate() {
-		for (aValue v : this.constraints) {
-
-		}
-		return this;
-	}
+	
 
 
 

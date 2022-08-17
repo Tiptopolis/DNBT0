@@ -20,6 +20,7 @@ import Metatron.Core.Primitive.Data._Model;
 import Metatron.Core.Primitive.Data.aTable;
 import Metatron.Core.Primitive.Data.BAK.XaModel;
 import Metatron.Core.Primitive.Impl._Chord;
+import Metatron.Core.Primitive.Impl._Constraint;
 import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aList;
@@ -380,6 +381,10 @@ public class uChumpEngine extends uApp {
 		aValue V = new aValue("DIM", new aVector(0, 0, 0));
 		Log(V.toEVA());
 		Log();
+		
+		aValue<Number> tN = new aValue<Number>("",1000);
+		tN.apply(new _Constraint.Max(tN, 666));
+		Log(tN.get());
 
 	}
 
