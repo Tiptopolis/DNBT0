@@ -1,7 +1,6 @@
 package Metatron.Core.System.Script;
 
-import static Metatron.Core.M_Utils.*;
-
+import static Metatron.Core._M.M_Utils.*;
 
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.iFunctor;

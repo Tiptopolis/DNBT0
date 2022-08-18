@@ -2,14 +2,13 @@
 package Metatron.Core.Math.Primitive;
 
 import static Metatron.Core.Math.N_Operator.*;
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import Metatron.Core.M_Utils;
 import Metatron.Core.Math.N_Operator;
 import Metatron.Core.Math.V_Operator;
 import Metatron.Core.Math.aGeom;
@@ -27,6 +26,7 @@ import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Primitive.Util.aThingCounter;
 import Metatron.Core.Utils.StringUtils;
+import Metatron.Core._M.M_Utils;
 
 public class aVector<N extends Number> extends aNumber implements Iterable<Number>, iCollection<Number> {
 

@@ -1,12 +1,12 @@
 
 package Metatron.Core.Math.Primitive.fromGdx.Gfx;
 
-import Metatron.Core.M_Gfx;
 import Metatron.Core.Math.Primitive.fromGdx.Math.Matrix4;
 import Metatron.Core.Math.Primitive.fromGdx.Math.Quaternion;
 import Metatron.Core.Math.Primitive.fromGdx.Math.Vector3;
 import Metatron.Core.Math.Primitive.fromGdx.Math.Collision.Frustum;
 import Metatron.Core.Math.Primitive.fromGdx.Math.Collision.Ray;
+import Metatron.Core._M.M_Gfx;
 
 /** Base class for {@link OrthographicCamera} and {@link PerspectiveCamera}.
  * @author mzechner */

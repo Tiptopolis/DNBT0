@@ -1,8 +1,7 @@
 
 package Metatron.Core.Primitive.Util;
 
-import static Metatron.Core.M_Utils.*;
-
+import static Metatron.Core._M.M_Utils.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

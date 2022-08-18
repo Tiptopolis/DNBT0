@@ -1,7 +1,6 @@
 package Metatron.Core.Math;
 
-import static Metatron.Core.M_Utils.*;
-
+import static Metatron.Core._M.M_Utils.*;
 
 import java.util.Collection;
 import java.util.Comparator;

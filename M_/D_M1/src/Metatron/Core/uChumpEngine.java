@@ -1,6 +1,6 @@
 package Metatron.Core;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -35,6 +35,8 @@ import Metatron.Core.System.UI.aFrame;
 import Metatron.Core.System.UI.Utils.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
+import Metatron.Core._M.M_Gfx;
+import Metatron.Core._M.M_Sys;
 import Metatron.W_CMD.WindowsConsoleAdapter;
 import Metatron.X_._BF.aBF;
 import Metatron.X_._BF.sux.XBF_Script;

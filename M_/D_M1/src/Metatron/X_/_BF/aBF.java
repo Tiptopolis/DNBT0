@@ -1,6 +1,6 @@
 package Metatron.X_._BF;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

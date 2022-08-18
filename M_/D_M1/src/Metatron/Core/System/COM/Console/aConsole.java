@@ -1,7 +1,7 @@
 
 package Metatron.Core.System.COM.Console;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.io.IOException;
 import java.util.Map;

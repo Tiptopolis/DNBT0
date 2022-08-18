@@ -1,6 +1,6 @@
 package Metatron.Core.Primitive;
 
-import static Metatron.Core.M_Utils.instanceOf;
+import static Metatron.Core._M.M_Utils.instanceOf;
 
 import java.util.function.Supplier;
 import java.util.regex.Pattern;

@@ -1,11 +1,10 @@
 
 package Metatron.Core.Primitive.Struct;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.util.Iterator;
 
-import Metatron.Core.M_Utils;
 import Metatron.Core.Primitive.aLink;
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.A_I.iCollection;
@@ -13,6 +12,7 @@ import Metatron.Core.Primitive.A_I.iGroup;
 import Metatron.Core.Primitive.A_I.iLinkedCollection;
 import Metatron.Core.Primitive.A_I.iNode;
 import Metatron.Core.Primitive.A_I.iNodeIterator;
+import Metatron.Core._M.M_Utils;
 
 
 

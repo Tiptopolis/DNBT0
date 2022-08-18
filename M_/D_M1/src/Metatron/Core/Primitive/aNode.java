@@ -1,6 +1,6 @@
 package Metatron.Core.Primitive;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;

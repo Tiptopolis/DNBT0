@@ -1,6 +1,6 @@
 package Metatron.Core.Math.Util;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import Metatron.Core.Primitive.aToken;
 import Metatron.Core.Primitive.aValue;

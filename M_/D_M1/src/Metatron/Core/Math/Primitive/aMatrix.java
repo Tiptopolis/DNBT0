@@ -1,8 +1,8 @@
 
 package Metatron.Core.Math.Primitive;
 
-import static Metatron.Core.M_Utils.*;
 import static Metatron.Core.Utils.StringUtils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import Metatron.Core.Math.M_Operator;
 import Metatron.Core.Math.N_Operator;

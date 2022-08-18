@@ -1,15 +1,15 @@
 
 package Metatron.Core.Math;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import java.math.BigDecimal;
 
-import Metatron.Core.M_Utils;
 import Metatron.Core.Math.Primitive.aNumber;
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Math.Util.aVectorUtils;
 import Metatron.Core.Primitive.aValue;
+import Metatron.Core._M.M_Utils;
 
 public abstract class aMaths {
 

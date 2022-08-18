@@ -1,7 +1,7 @@
 
 package Metatron.Core.Math;
 
-import static Metatron.Core.M_Utils.*;
+import static Metatron.Core._M.M_Utils.*;
 
 import Metatron.Core.Math.Primitive.aMatrix;
 import Metatron.Core.Math.Primitive.aVector;

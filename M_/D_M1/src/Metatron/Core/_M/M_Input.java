@@ -1,4 +1,4 @@
-package Metatron.Core;
+package Metatron.Core._M;
 
 import Metatron.Core.Primitive.Struct.aMap;
 import Metatron.Core.Primitive.Struct.aMultiMap;

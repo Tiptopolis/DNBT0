@@ -1,4 +1,4 @@
-package Metatron.Core;
+package Metatron.Core._M;
 
 import Metatron.Core.Math.Primitive.aVector;
 
@@ -6,7 +6,7 @@ public class M_Gfx {
 
 	//replaces Gdx.graphics. for Camera projection etc
 	//w/h of main render context
-	protected static aVector<Integer> ScreenSize = new aVector<Integer>(0,0);
+	public static aVector<Integer> ScreenSize = new aVector<Integer>(0,0);
 	
 	public static int getWidth()
 	{
