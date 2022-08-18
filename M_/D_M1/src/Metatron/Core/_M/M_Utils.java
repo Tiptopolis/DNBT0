@@ -3,9 +3,12 @@ package Metatron.Core._M;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -89,11 +92,39 @@ public class M_Utils {
 	}
 
 	// Instead of MyAnnotation.value() use
-	private static Object getAnnotationFieldWithReflection(Annotation annotation, String fieldName)
+	private static Object getAnnotationField(Annotation annotation, String fieldName)
 			throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 		return annotation.annotationType().getMethod(fieldName).invoke(annotation);
 	}
 
+	/**
+	 * Changes the annotation value for the given key of the given annotation to newValue and returns
+	 * the previous value.
+	 */
+	@SuppressWarnings("unchecked")
+	public static Object changeAnnotationValue(Annotation annotation, String key, Object newValue){
+	    Object handler = Proxy.getInvocationHandler(annotation);
+	    Field f;
+	    try {
+	        f = handler.getClass().getDeclaredField("memberValues");
+	    } catch (NoSuchFieldException | SecurityException e) {
+	        throw new IllegalStateException(e);
+	    }
+	    f.setAccessible(true);
+	    Map<String, Object> memberValues;
+	    try {
+	        memberValues = (Map<String, Object>) f.get(handler);
+	    } catch (IllegalArgumentException | IllegalAccessException e) {
+	        throw new IllegalStateException(e);
+	    }
+	    Object oldValue = memberValues.get(key);
+	    if (oldValue == null || oldValue.getClass() != newValue.getClass()) {
+	        throw new IllegalArgumentException();
+	    }
+	    memberValues.put(key,newValue);
+	    return oldValue;
+	}
+	
 	public static <T> boolean isInstanceOf(Class<T> clazz, Class<T> targetClass) {
 		return clazz.isInstance(targetClass);
 	}
