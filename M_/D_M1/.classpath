@@ -20,6 +20,5 @@
 	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/squidlib-util-3.0.4-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danielg/Desktop/BOX/J/LIB/org.sun.net.httpserver.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
