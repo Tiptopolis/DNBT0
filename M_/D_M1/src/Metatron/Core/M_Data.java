@@ -17,9 +17,24 @@ public class M_Data {
 	protected static final String defaultTempPath = defaultDataPath+"\\temp";
 
 	public static Path DataPath;
+	public static Path Resources;
 	
 	static {
 		DataPath = Path.of(defaultDataPath, "");
+		Resources = Path.of(defaultResourcePath, "");
+	}
+	
+	
+	public static String toLog()
+	{
+		String log = "";
+		
+		log += FS+"\n";
+		log += DataPath+"\n";
+		log += Resources+"\n";
+		
+		
+		return log;
 	}
 	
 }
