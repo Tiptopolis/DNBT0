@@ -12,8 +12,20 @@ public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunct
 	// needs to be a token you drop into aValue to automatically clamp its value
 	// put constraint in Value's data-map
 	// constraint.apply(val) on every get/set
-	protected _Constraint() {
-
+	public iFunctor doFn;
+	
+	protected _Constraint(iFunctor Fn) {
+		this.doFn = Fn;
+	}
+	
+	public aValue<T> apply(aValue<T> t)
+	{
+		return null;
+	}
+	
+	public T apply(T t)
+	{
+		
 	}
 
 	public static _Constraint Min(aValue<Number> v, Number min) {
@@ -28,5 +40,7 @@ public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunct
 	public static _Constraint Range(aValue<Number> v, Number min, Number max) {
 		return null;
 	}
+	
+	
 
 }
