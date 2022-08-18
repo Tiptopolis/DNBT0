@@ -74,6 +74,18 @@ public class _Model extends aMap<_Map.Entry<String, Class>, Object> {
 		return out;
 	}
 
+	public String valSig_SQL() {
+		String s = "VALUES(";
+		int S = this.getKeys().size();
+		for (int i = 0; i < S; i++) {
+			s += "?";
+			if (i != S - 1)
+				s += ",";
+		}
+		
+		return s;
+	}
+
 	@Override
 	public String toString() {
 

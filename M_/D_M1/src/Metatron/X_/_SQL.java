@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.Struct.aList;
 
 public class _SQL {
@@ -141,4 +142,17 @@ public class _SQL {
 
 		return columns;
 	}
+	
+	
+	
+	public static void setValue(Connection connection, String tableName, aValue v)
+	{
+		
+	}
+	
+	public static void insertColumn(Connection connection, String tableName, aValue v)
+	{
+		
+	}
+	
 }
