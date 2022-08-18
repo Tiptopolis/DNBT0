@@ -98,6 +98,9 @@ public class uChumpEngine extends uApp {
 		// T3_BF();
 		// T4();
 		T5();
+		
+		Log(M_Data.DataPath);
+		
 		M_Console.input(":TERMINATE");
 
 		Log(CMD.toLog());
