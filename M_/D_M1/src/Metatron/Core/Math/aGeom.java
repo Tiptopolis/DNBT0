@@ -16,7 +16,6 @@ import Metatron.Core.Primitive.Struct.aList;
 import Metatron.Core.Primitive.Struct.aSet;
 import Metatron.Core.Utils.StringUtils;
 
-
 public abstract class aGeom {
 
 	public static boolean contains(aVector[] verts, aVector point) {
@@ -84,8 +83,6 @@ public abstract class aGeom {
 		return interpolate(a, b, ((int) (1f / freq)));
 	}
 
-	
-	
 	public static aVector[] interpolate(aVector a, aVector b, int div) {
 
 		if (div < 1)
@@ -439,7 +436,7 @@ public abstract class aGeom {
 	public static Comparator<aTransform> distanceComparator(aTransform point, boolean local) {
 		final aTransform finalP = point.cpy();
 		aVector fp = new aVector(point.position(local));
-		
+
 		return new Comparator<aTransform>() {
 			@Override
 			public int compare(aTransform a, aTransform b) {
@@ -526,7 +523,6 @@ public abstract class aGeom {
 		}
 		return points;
 	}
-
 
 	public static aTransform[] bindPoly(aTransform t, int n, float unit) {
 		aVector pos = t.getLocalPosition();

@@ -6,6 +6,12 @@ import Metatron.Core.Primitive.iFunctor;
 
 public class _Maths {
 
+	private static void __CONSTRAINTS__() {
+
+	}
+
+
+	
 	public static iFunctor.Effect<aValue<Number>> Max(Number max) {
 		iFunctor.Effect<aValue<Number>> f = (a) -> {
 			a.set(N_Operator.max(a.getValue(), max));
@@ -28,6 +34,10 @@ public class _Maths {
 			return a;
 		};
 		return f;
+	}
+
+	private static void __OPERATORS() {
+
 	}
 
 }

@@ -90,7 +90,9 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable {
 	}
 
 	public aValue<T> apply(_Constraint C) {
-
+		if (this.constraints == null)
+			this.constraints = new aSet<_Constraint>();
+		this.constraints.append(C);
 		return (aValue<T>) C.apply(this);
 	}
 
@@ -100,6 +102,7 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable {
 	}
 
 	public T get(int i) {
+		this.evaluate();
 		if (this.get() instanceof iCollection<?>)
 			return ((iCollection<T>) this.get()).get(i);
 		else if (this.get() instanceof iMap)
@@ -109,8 +112,17 @@ public class aValue<T> extends _Map.Entry<String, T> implements Serializable {
 			return null;
 	}
 
+	@Override
+	public void set(T to) {
+		super.set(to);
+		
+	}
+
 	public aValue evaluate() {
 		// Override me lol
+		for (_Constraint C : this.constraints) {
+			C.apply(this);
+		}
 		return this;
 	}
 
