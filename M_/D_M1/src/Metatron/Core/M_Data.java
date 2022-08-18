@@ -18,10 +18,14 @@ public class M_Data {
 
 	public static Path DataPath;
 	public static Path Resources;
+	public static Path Assets;
+	public static Path Temp;
 	
 	static {
 		DataPath = Path.of(defaultDataPath, "");
 		Resources = Path.of(defaultResourcePath, "");
+		Assets = Path.of(defaultAssetsePath, "");
+		Temp = Path.of(defaultTempPath, "");
 	}
 	
 	
@@ -32,7 +36,7 @@ public class M_Data {
 		log += FS+"\n";
 		log += DataPath+"\n";
 		log += Resources+"\n";
-		
+		log += Temp+"\n";
 		
 		return log;
 	}
