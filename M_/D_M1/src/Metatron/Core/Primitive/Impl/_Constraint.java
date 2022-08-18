@@ -7,7 +7,7 @@ import Metatron.Core.Primitive.aToken;
 import Metatron.Core.Primitive.aValue;
 import Metatron.Core.Primitive.iFunctor;
 
-public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunctor.Effect<aValue<T>> {
+public abstract class _Constraint<T> extends aToken<Object> implements iFunctor.Effect<aValue<T>> {
 
 	// needs to be a token you drop into aValue to automatically clamp its value
 	// put constraint in Value's data-map
@@ -23,10 +23,7 @@ public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunct
 		return null;
 	}
 	
-	public T apply(T t)
-	{
-		
-	}
+
 
 	public static _Constraint Min(aValue<Number> v, Number min) {
 		return null;
