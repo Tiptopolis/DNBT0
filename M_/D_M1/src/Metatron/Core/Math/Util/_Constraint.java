@@ -10,17 +10,15 @@ public class _Constraint<T> extends aToken<Object> implements iFunctor.Effect<aV
 
 	// needs to be a token you drop into aValue to automatically clamp its value
 	// put constraint in Value's data-map
-	// constraint.apply(val) on every get/set 
+	// constraint.apply(val) on every get/set
 	public iFunctor<aValue<T>> doFn;
 
-	
-	
 	protected _Constraint(iFunctor<aValue<T>> Fn) {
 		this.type = _Constraint.class;
 		this.value = "aConstraintFn";
 		this.doFn = Fn;
 	}
-	
+
 	public _Constraint(String n, iFunctor<aValue<T>> Fn) {
 		this.type = _Constraint.class;
 		this.value = n;
@@ -32,21 +30,23 @@ public class _Constraint<T> extends aToken<Object> implements iFunctor.Effect<aV
 		return t;
 	}
 
-	public static _Constraint<Number> Min(aValue<Number> v, Number min) {
+	public static _Constraint<Number> MIN(aValue<Number> v, Number min) {
 		iFunctor.Effect<aValue<Number>> f = _Maths.Min(min);
-		
-		return null;
+
+		return new _Constraint("MIN", f);
 	}
 
-	public static _Constraint Max(aValue<Number> v, Number min) {
-		return null;
+	public static _Constraint MAX(aValue<Number> v, Number max) {
+		iFunctor.Effect<aValue<Number>> f = _Maths.Max(max);
+
+		return new _Constraint("MAX", f);
 
 	}
 
-	public static _Constraint Range(aValue<Number> v, Number min, Number max) {
-		return null;
+	public static _Constraint RANGE(aValue<Number> v, Number min, Number max) {
+		iFunctor.Effect<aValue<Number>> f = _Maths.Range(min, max);
+
+		return new _Constraint("RANGE", f);
 	}
-	
-	
 
 }
