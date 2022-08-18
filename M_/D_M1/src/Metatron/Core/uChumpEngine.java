@@ -383,7 +383,7 @@ public class uChumpEngine extends uApp {
 		Log();
 		
 		aValue<Number> tN = new aValue<Number>("",1000);
-		tN.apply(new _Constraint.Max(tN, 666));
+		//tN.apply(new _Constraint.Max(tN, 666));
 		Log(tN.get());
 
 	}
