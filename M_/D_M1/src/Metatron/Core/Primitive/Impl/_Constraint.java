@@ -9,5 +9,9 @@ import Metatron.Core.Primitive.iFunctor;
 
 public abstract class _Constraint<T> extends aToken<aValue<T>> implements iFunctor.Effect<aValue<T>> {
 
-
+	
+	
+	
+	
+	
 }
