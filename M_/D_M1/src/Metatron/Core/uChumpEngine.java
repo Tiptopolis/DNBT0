@@ -99,7 +99,7 @@ public class uChumpEngine extends uApp {
 		// T4();
 		T5();
 		
-		Log(M_Data.toLog());
+		Log(M_Sys.toLog());
 		
 		M_Console.input(":TERMINATE");
 

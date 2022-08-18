@@ -3,7 +3,6 @@ package Metatron.Core.Primitive.Struct;
 
 import static Metatron.Core.M_Utils.*;
 
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -11,8 +10,6 @@ import java.util.function.Supplier;
 
 import Metatron.Core.Primitive.A_I.iCollection;
 import Metatron.Core.Primitive.A_I.iGroup;
-
-
 
 public class _Array<T> extends _Object implements iCollection<T> {
 
@@ -45,16 +42,16 @@ public class _Array<T> extends _Object implements iCollection<T> {
 	}
 
 	@Override
-	public  Class<T> getComponentType() {
+	public Class<T> getComponentType() {
 		Class C = this.type;
-		for(T o : this)		
-			if(instanceOf(C).test(o))
+		for (T o : this)
+			if (instanceOf(C).test(o))
 				C = o.getClass();
-		
+
 		this.type = C;
 		return this.type;
 	}
-	
+
 	@Override
 	public iGroup join(iGroup other) {
 
@@ -115,27 +112,28 @@ public class _Array<T> extends _Object implements iCollection<T> {
 	public T[] getComponentData() {
 		return this.data;
 	}
-	//@AT , #OF
-	//@2#10->2
-	//@12#10->2
-	//@-2#10->8
-	//@-12#10->8
-	//@-15#10->5
+
+	// @AT , #OF
+	// @2#10->2
+	// @12#10->2
+	// @-2#10->8
+	// @-12#10->8
+	// @-15#10->5
 	@Override
 	public void setAt(int at, T to) {
-		
-		if(at<0)
-			at = (Math.abs(this.size()-at))%this.size();
+
+		if (at < 0)
+			at = (Math.abs(this.size() - at)) % this.size();
 		if (at < this.size()) {
-			//this.modCount++;
+			// this.modCount++;
 			this.data[at] = to;
 		} else
 			this.append(to);
 	}
 
 	@Override
-	public T get(Integer index) {		
-		if(data==null||data.length==0)
+	public T get(Integer index) {
+		if (data == null || data.length == 0)
 			return null;
 		T out = (T) data[this.resolveIndex(index)];
 		return out;
@@ -143,11 +141,10 @@ public class _Array<T> extends _Object implements iCollection<T> {
 
 	@Override
 	public void set(Integer i, T o) {
-		/*if (i < this.size()) {
-			this.modCount++;
-			this.data[i] = o;
-		} else
-			this.append(o);*/
+		/*
+		 * if (i < this.size()) { this.modCount++; this.data[i] = o; } else
+		 * this.append(o);
+		 */
 		this.modCount++;
 		this.data[this.resolveIndex(i)] = o;
 	}
@@ -237,10 +234,10 @@ public class _Array<T> extends _Object implements iCollection<T> {
 	public Iterator<T> iterator() {
 		return new ArrayIterator<T>(this);
 	}
-	
+
 	@Override
 	public Integer getIndexType() {
-		
+
 		return 0;
 	}
 
@@ -266,7 +263,7 @@ public class _Array<T> extends _Object implements iCollection<T> {
 	}
 
 	public String toLog() {
-		String log = "<"+this.getClass().getSimpleName() + ">{" + this.size() + "}\n";
+		String log = "<" + this.getClass().getSimpleName() + ">{" + this.size() + "}\n";
 		if (this.data != null)
 			for (int i = 0; i < this.data.length; i++) {
 				log += "[" + i + "]" + this.data[i] + "\n";
@@ -330,16 +327,15 @@ public class _Array<T> extends _Object implements iCollection<T> {
 	@Override
 	public aMap<Integer, T> toMap() {
 		aMap<Integer, T> M = new aMap<Integer, T>();
-		for(int i =0; i < this.size();i++)
-			M.put(i,data[i]);
+		for (int i = 0; i < this.size(); i++)
+			M.put(i, data[i]);
 		return M;
 	}
 
-	
 	public aMultiMap<Integer, T> toMultiMap() {
 		aMultiMap<Integer, T> M = new aMultiMap<Integer, T>();
-		for(int i =0; i < this.size();i++)
-			M.put(i,data[i]);
+		for (int i = 0; i < this.size(); i++)
+			M.put(i, data[i]);
 		return M;
 	}
 

@@ -11,8 +11,7 @@ public class M_Input {
 	
 	
 	
-	public aMap<iDevice, iState> devices;
-	
+	public aMap<iDevice, iState> devices;	
 	public aMultiMap<iDevice, iEventHandler> listeners;
 	
 	public void update(float deltaTime)
