@@ -30,20 +30,20 @@ public class _Constraint<T> extends aToken<Object> implements iFunctor.Effect<aV
 		return t;
 	}
 
-	public static _Constraint<Number> MIN(aValue<Number> v, Number min) {
+	public static _Constraint<Number> MIN(Number min) {
 		iFunctor.Effect<aValue<Number>> f = _Maths.Min(min);
 
 		return new _Constraint("MIN", f);
 	}
 
-	public static _Constraint MAX(aValue<Number> v, Number max) {
+	public static _Constraint MAX(Number max) {
 		iFunctor.Effect<aValue<Number>> f = _Maths.Max(max);
 
 		return new _Constraint("MAX", f);
 
 	}
 
-	public static _Constraint RANGE(aValue<Number> v, Number min, Number max) {
+	public static _Constraint RANGE( Number min, Number max) {
 		iFunctor.Effect<aValue<Number>> f = _Maths.Range(min, max);
 
 		return new _Constraint("RANGE", f);

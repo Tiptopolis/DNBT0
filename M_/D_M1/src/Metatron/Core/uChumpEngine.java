@@ -382,9 +382,9 @@ public class uChumpEngine extends uApp {
 		aValue V = new aValue("DIM", new aVector(0, 0, 0));
 		Log(V.toEVA());
 		Log();
-		
-		aValue<Number> tN = new aValue<Number>("",1000);
-		tN.apply(_Constraint.MIN(tN, 666));
+
+		aValue<Number> tN = new aValue<Number>("", 1000);
+		tN.apply(_Constraint.MIN(666));
 		Log(tN.get());
 
 	}
