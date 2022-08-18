@@ -2,7 +2,6 @@ package Metatron.Core.System.NET;
 
 import static Metatron.Core._M.M_Utils.*;
 
-
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import Metatron.Core.System.Event.iHandler;
 import Metatron.Core._M.M_Utils;
 
 @ServerEndpoint(value = "/")
-public class _SocketServer extends ServerSocket implements iHandler<HttpExchange>, iCycle{
+public class _SocketServer extends ServerSocket implements iHandler<HttpExchange>, iCycle {
 
 	ServerSocket Socket;// technically works lol
 	protected Thread ServerThread;
@@ -65,18 +64,17 @@ public class _SocketServer extends ServerSocket implements iHandler<HttpExchange
 			synchronized (this) {
 				try (Socket socket = this.Socket.accept()) {
 					DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-					
+
 					Date today = new Date();
 					String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + today;
 					aList L = new aList(socket.getInputStream().read());
-						Log(L);
-					Log((char)in.read());		
-						
-						
+					Log(L);
+					Log((char) in.read());
+
 					socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
-					Log("> "+httpResponse);
+					Log("> " + httpResponse);
 				} catch (IOException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		}
@@ -84,28 +82,28 @@ public class _SocketServer extends ServerSocket implements iHandler<HttpExchange
 
 	@Override
 	public boolean handle(HttpExchange o) {
-		
+
 		Log(o);
-		Log("<>  "+o.getRequestMethod());
+		Log("<>  " + o.getRequestMethod());
 		Log("___________________________________>");
 		return false;
 	}
 
 	public void close() throws IOException {
 		this.running = false;
-		this.Socket.close();
-		
+		if (!this.Socket.isClosed())
+			this.Socket.close();
+
 	}
 
 	public boolean isActive() {
 		return this.running;
-		//return !this.Socket.isClosed() && this.Socket.isBound() && this.running;
+		// return !this.Socket.isClosed() && this.Socket.isBound() && this.running;
 	}
 
 	@Override
-	public String toString()
-	{
-		String s = M_Utils.toIdString(this) +" : "+ this.Socket;
+	public String toString() {
+		String s = M_Utils.toIdString(this) + " : " + this.Socket;
 		return s;
 	}
 }
