@@ -62,20 +62,21 @@ public class _SocketServer extends ServerSocket implements iHandler<HttpExchange
 	public void next() {
 		while (_SocketServer.this.isActive()) {
 			synchronized (this) {
-				try (Socket socket = this.Socket.accept()) {
-					DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+				if (this.running)
+					try (Socket socket = this.Socket.accept()) {
+						DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
-					Date today = new Date();
-					String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + today;
-					aList L = new aList(socket.getInputStream().read());
-					Log(L);
-					Log((char) in.read());
+						Date today = new Date();
+						String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + today;
+						aList L = new aList(socket.getInputStream().read());
+						Log(L);
+						Log((char) in.read());
 
-					socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
-					Log("> " + httpResponse);
-				} catch (IOException e) {
-					//e.printStackTrace();
-				}
+						socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+						Log("> " + httpResponse);
+					} catch (IOException e) {
+						// e.printStackTrace(); //
+					}
 			}
 		}
 	}
