@@ -11,6 +11,8 @@ import javax.swing.WindowConstants;
 
 import Metatron.Core.Math.Primitive.aVector;
 import Metatron.Core.Math.Primitive.fromGdx.Gfx.Color;
+import Metatron.Core.Math.Util._Constraint;
+import Metatron.Core.Math.Util._Maths;
 import Metatron.Core.Math.Util.aVectorUtils;
 import Metatron.Core.Primitive.aNode;
 import Metatron.Core.Primitive.aType;
@@ -20,7 +22,6 @@ import Metatron.Core.Primitive.Data._Model;
 import Metatron.Core.Primitive.Data.aTable;
 import Metatron.Core.Primitive.Data.BAK.XaModel;
 import Metatron.Core.Primitive.Impl._Chord;
-import Metatron.Core.Primitive.Impl._Constraint;
 import Metatron.Core.Primitive.Util._Types;
 import Metatron.Core.Primitive.Struct.aDictionary;
 import Metatron.Core.Primitive.Struct.aList;
@@ -384,6 +385,7 @@ public class uChumpEngine extends uApp {
 		
 		aValue<Number> tN = new aValue<Number>("",1000);
 		//tN.apply(new _Constraint.Max(tN, 666));
+		Log(_Maths.Max(6660).apply(tN).value + "  <<  <");
 		Log(tN.get());
 
 	}
