@@ -6,6 +6,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.WindowConstants;
 
@@ -36,6 +37,7 @@ import Metatron.Core.System.UI.Utils.SwingUtils;
 import Metatron.Core.Utils.StringUtils;
 import Metatron.Core.Utils.iCypher;
 import Metatron.Core._M.M_Gfx;
+import Metatron.Core._M.M_Net;
 import Metatron.Core._M.M_Sys;
 import Metatron.W_CMD.WindowsConsoleAdapter;
 import Metatron.X_._BF.aBF;
@@ -81,6 +83,7 @@ public class uChumpEngine extends uApp {
 
 	@Override
 	public void create() {
+		M_Net mn = new M_Net();
 		CMD = WindowsConsoleAdapter.WIN;
 		initMainRenderFrame();
 
@@ -100,10 +103,10 @@ public class uChumpEngine extends uApp {
 		// T3_BF();
 		// T4();
 		T5();
-		
+
 		Log(M_Sys.toLog());
-		
-		M_Console.input(":TERMINATE");
+
+		// M_Console.input(":TERMINATE");
 
 		Log(CMD.toLog());
 		D = new aDictionary<String>();
@@ -155,12 +158,10 @@ public class uChumpEngine extends uApp {
 				O = h;
 			}
 			ellapsed = 0f;
-			Log(SwingUtils.mousePos());
-			Log(S1.toLog());
-			Log(S2.toLog());
-			// Log("!" + CMD);
-			// M_Console.input(":LOG");
-			Log(M_Gfx.ScreenSize);
+			// Log(SwingUtils.mousePos());
+			// Log(S1.toLog());
+			// Log(S2.toLog());
+			// Log(M_Gfx.ScreenSize);
 
 		}
 
@@ -176,6 +177,12 @@ public class uChumpEngine extends uApp {
 	public void dispose() {
 		super.dispose();
 		Log("X_X");
+		if (M_Net.Root!= null && M_Net.Root.isActive())
+			try {
+				M_Net.Root.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		System.exit(0);
 	}
 

@@ -27,7 +27,7 @@ public class _SocketServer extends ServerSocket implements iHandler<HttpExchange
 	protected boolean running = false;
 
 	public _SocketServer() throws IOException {
-		this(8080);
+		this(8081);
 	}
 
 	public _SocketServer(int port) throws IOException {
@@ -61,7 +61,7 @@ public class _SocketServer extends ServerSocket implements iHandler<HttpExchange
 
 	@Override
 	public void next() {
-		while (this.isActive()) {
+		while (_SocketServer.this.isActive()) {
 			synchronized (this) {
 				try (Socket socket = this.Socket.accept()) {
 					DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -92,12 +92,14 @@ public class _SocketServer extends ServerSocket implements iHandler<HttpExchange
 	}
 
 	public void close() throws IOException {
-		this.Socket.close();
 		this.running = false;
+		this.Socket.close();
+		
 	}
 
 	public boolean isActive() {
-		return !this.Socket.isClosed() && this.Socket.isBound() && this.running;
+		return this.running;
+		//return !this.Socket.isClosed() && this.Socket.isBound() && this.running;
 	}
 
 	@Override
